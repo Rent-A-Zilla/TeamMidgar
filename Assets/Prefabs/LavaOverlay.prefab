@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 39648303992809256}
   - component: {fileID: 7913410544080432452}
   - component: {fileID: 2272991958595037082}
-  m_Layer: 5
+  m_Layer: 1
   m_Name: LavaOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
