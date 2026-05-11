@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class playerController : MonoBehaviour
+public class playerController : MonoBehaviour, IDamage
 {
     [SerializeField] CharacterController controller;
     [SerializeField] LayerMask ignoreLayer;
@@ -67,5 +67,10 @@ public class playerController : MonoBehaviour
             jumpCount++;
             playerVel.y = jumpSpeed;
         }
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        HP -= damageAmount;
     }
 }
