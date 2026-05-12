@@ -8,6 +8,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    [SerializeField] GameObject lavaOverlayUI;
 
     public bool isPaused;
     public GameObject player;
@@ -47,6 +48,8 @@ public class gameManager : MonoBehaviour
 
     public void statePause()
     {
+        
+
         isPaused = true;
         Time.timeScale = 0;
         Cursor.visible = true;
@@ -56,6 +59,7 @@ public class gameManager : MonoBehaviour
 
     public void stateUnpause()
     {
+        
         isPaused = false;
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
@@ -78,6 +82,8 @@ public class gameManager : MonoBehaviour
 
     public void youLose()
     {
+        lavaOverlayUI.SetActive(false);
+
         statePause();
         menuActive = menuLose;
         menuActive.SetActive(true);
