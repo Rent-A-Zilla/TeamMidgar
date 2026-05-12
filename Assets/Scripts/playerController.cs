@@ -18,6 +18,10 @@ public class playerController : MonoBehaviour, IDamage
     Vector3 moveDir;
     Vector3 playerVel;
 
+    public int getHP()
+    {
+        return HP;
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -75,7 +79,7 @@ public class playerController : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
-            
+            gameManager.instance.youLose();
         }
     }
 

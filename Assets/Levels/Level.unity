@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &176818332 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6551090112745760864, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+  m_PrefabInstance: {fileID: 746794507}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &314685263
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,6 +363,11 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &425824717 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8876425483081982378, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+  m_PrefabInstance: {fileID: 746794507}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &496842489 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7746673637881567084, guid: db138fa810a64384d9fdb862b7e14768, type: 3}
@@ -483,6 +493,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5770671261135331556, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: menuWin
+      value: 
+      objectReference: {fileID: 176818332}
+    - target: {fileID: 5770671261135331556, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: menuLose
+      value: 
+      objectReference: {fileID: 425824717}
     - target: {fileID: 8143139085766427377, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_Name
       value: UI
@@ -1093,6 +1111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::lavaRise
   lavaSpeed: 1
   lavaTimer: 10
+  player: {fileID: 1913384110}
 --- !u!114 &1878674998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1147,6 +1166,17 @@ Transform:
   - {fileID: 1641984453}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1913384110 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
+  m_PrefabInstance: {fileID: 8407782869829254892}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd469f1fb188f8a4f86370a87c6ed8e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::playerController
 --- !u!4 &1983374943 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1159743664628634646, guid: 52940a9f554c5f043b38ec807294161c, type: 3}
@@ -1592,6 +1622,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LavaOverlay
       objectReference: {fileID: 0}
+    - target: {fileID: 7746673637881567084, guid: db138fa810a64384d9fdb862b7e14768, type: 3}
+      propertyPath: m_Layer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1723,6 +1757,6 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 8407782869829254892}
   - {fileID: 1900770128}
+  - {fileID: 746794507}
   - {fileID: 3044593737484620469}
   - {fileID: 5433791452300940282}
-  - {fileID: 746794507}
