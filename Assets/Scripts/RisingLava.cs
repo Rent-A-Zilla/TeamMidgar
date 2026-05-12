@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RisingLava : MonoBehaviour
+public class risingLava : MonoBehaviour
 {
     public float riseSpeed = 0.5f;
     public float maxHeight = 30f;
