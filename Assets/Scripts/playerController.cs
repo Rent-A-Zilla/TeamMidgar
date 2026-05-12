@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class playerController : MonoBehaviour, IDamage
 {
@@ -6,17 +7,30 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] LayerMask ignoreLayer;
 
     [SerializeField] int HP;
-    [SerializeField] int speed;
-    [SerializeField] int springMod;
     [SerializeField] int jumpSpeed;
     [SerializeField] int jumpMax;
     [SerializeField] int gravity;
 
+    [SerializeField] float speed;
+    [SerializeField] float springMod;
+
+    [SerializeField] int sprintMod;
+    [SerializeField] int maxStamina;
+    [SerializeField] float staminaDrainRate;
+    [SerializeField] float staminaRegenRate;
+    [SerializeField] float staminaRegenDelay;
+
+    float currentStamina;
+
     int jumpCount;
     int HPOrig;
 
+    bool isSprinting;
+
     Vector3 moveDir;
     Vector3 playerVel;
+
+    Coroutine staminaRegenCoroutine;
 
     public int getHP()
     {
@@ -25,7 +39,8 @@ public class playerController : MonoBehaviour, IDamage
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        HPOrig = HP;
+        updatePlayerHPUI();
     }
 
     // Update is called once per frame
@@ -33,6 +48,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         movement();
         sprint();
+        handleSprintUI();
     }
 
     void movement()
@@ -54,14 +70,47 @@ public class playerController : MonoBehaviour, IDamage
 
     void sprint()
     {
-        if (Input.GetButtonDown("Sprint"))
+        bool sprintButtonHeld = Input.GetButton("Sprint");
+
+        if (sprintButtonHeld && currentStamina > 0)
         {
-            speed *= springMod;
+            if (!isSprinting)
+            {
+                isSprinting = true;
+                speed *= sprintMod;
+            }
+
+            currentStamina -= staminaDrainRate * Time.deltaTime;
+            currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
+
+            if (staminaRegenCoroutine != null)
+            {
+                StopCoroutine(staminaRegenCoroutine);
+                staminaRegenCoroutine = null;
+            }
+
+            if (currentStamina <= 0)
+            {
+                isSprinting = false;
+                speed /= sprintMod;
+                staminaRegenCoroutine = StartCoroutine(RechargeStaminaAfterDelay(staminaRegenDelay));
+            }
         }
-        else if (Input.GetButtonUp("Sprint"))
+        else
         {
-            speed /= springMod;
+            if (isSprinting)
+            {
+                isSprinting = false;
+                speed /= sprintMod;
+            }
+
+            if (currentStamina < maxStamina && staminaRegenCoroutine == null)
+            {
+                staminaRegenCoroutine = StartCoroutine(RechargeStaminaAfterDelay(staminaRegenDelay));
+            }
         }
+
+        updatePlayerSprintUI();
     }
 
     void jump()
@@ -76,11 +125,47 @@ public class playerController : MonoBehaviour, IDamage
     public void takeDamage(int amount)
     {
         HP -= amount;
+        updatePlayerHPUI();
 
         if (HP <= 0)
         {
+            HP = 0;
             gameManager.instance.youLose();
         }
     }
 
+    public void updatePlayerHPUI()
+    {
+        gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
+    }
+
+    private IEnumerator RechargeStaminaAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        while (currentStamina < maxStamina)
+        {
+            currentStamina += staminaRegenRate * Time.deltaTime;
+            currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
+            updatePlayerSprintUI();
+            yield return null;
+        }
+        staminaRegenCoroutine = null;
+    }
+
+    public void updatePlayerSprintUI()
+    {
+        gameManager.instance.playerSprintBar.fillAmount = (float)currentStamina / maxStamina;
+    }
+
+    void handleSprintUI()
+    {
+        if (isSprinting || currentStamina < maxStamina)
+        {
+            gameManager.instance.playerSprintUI.SetActive(true);
+        }
+        else
+        {
+            gameManager.instance.playerSprintUI.SetActive(false);
+        }
+    }
 }
