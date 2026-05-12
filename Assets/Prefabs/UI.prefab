@@ -1386,8 +1386,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::gameManager
   menuActive: {fileID: 0}
   menuPause: {fileID: 325876105365990383}
-  menuWin: {fileID: 0}
-  menuLose: {fileID: 0}
+  menuWin: {fileID: 6551090112745760864}
+  menuLose: {fileID: 8876425483081982378}
+  lavaOverlayUI: {fileID: 7746673637881567084, guid: db138fa810a64384d9fdb862b7e14768, type: 3}
   isPaused: 0
   player: {fileID: 0}
   playerScript: {fileID: 0}
