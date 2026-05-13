@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 314685267}
   - component: {fileID: 314685266}
   - component: {fileID: 314685265}
+  - component: {fileID: 314685268}
   m_Layer: 0
   m_Name: Platform (8)
   m_TagString: Untagged
@@ -231,6 +232,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 314685263}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &314685268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314685263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf857e1af1f2d647a51aaade1e7519b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::movingPlatform
+  moveDistance: 2
+  moveSpeed: 2
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,6 +390,9 @@ GameObject:
   - component: {fileID: 577887087}
   - component: {fileID: 577887086}
   - component: {fileID: 577887085}
+  - component: {fileID: 577887089}
+  - component: {fileID: 577887090}
+  - component: {fileID: 577887091}
   m_Layer: 0
   m_Name: Platform (1)
   m_TagString: Untagged
@@ -475,6 +493,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1900770128}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &577887089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577887084}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf857e1af1f2d647a51aaade1e7519b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::movingPlatform
+  moveDistance: 1.5
+  moveSpeed: 1.2
+--- !u!114 &577887090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577887084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce862ed1877c2754cabc166f0e6e5a4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::verticalMovingPlatform
+  moveDistance: 2
+  moveSpeed: 1
+--- !u!114 &577887091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577887084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20afcdc5c0ca7d442af95145e01dc218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::platformCarryPlayer
 --- !u!1001 &746794507
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -633,6 +691,7 @@ GameObject:
   - component: {fileID: 1490158443}
   - component: {fileID: 1490158442}
   - component: {fileID: 1490158441}
+  - component: {fileID: 1490158444}
   m_Layer: 0
   m_Name: Platform (5)
   m_TagString: Untagged
@@ -733,6 +792,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1490158439}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1490158444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490158439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf857e1af1f2d647a51aaade1e7519b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::movingPlatform
+  moveDistance: 2
+  moveSpeed: 0.8
 --- !u!1 &1535267715
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,6 +818,7 @@ GameObject:
   - component: {fileID: 1535267719}
   - component: {fileID: 1535267718}
   - component: {fileID: 1535267717}
+  - component: {fileID: 1535267720}
   m_Layer: 0
   m_Name: Platform (6)
   m_TagString: Untagged
@@ -845,6 +919,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1535267715}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1535267720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535267715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf857e1af1f2d647a51aaade1e7519b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::movingPlatform
+  moveDistance: 1
+  moveSpeed: 1
 --- !u!1 &1604669475
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,6 +945,7 @@ GameObject:
   - component: {fileID: 1604669479}
   - component: {fileID: 1604669478}
   - component: {fileID: 1604669477}
+  - component: {fileID: 1604669480}
   m_Layer: 0
   m_Name: Platform (7)
   m_TagString: Untagged
@@ -957,6 +1046,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1604669475}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1604669480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604669475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf857e1af1f2d647a51aaade1e7519b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::movingPlatform
+  moveDistance: 1.5
+  moveSpeed: 1.2
 --- !u!1 &1605817118
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,6 +1072,7 @@ GameObject:
   - component: {fileID: 1605817121}
   - component: {fileID: 1605817120}
   - component: {fileID: 1605817119}
+  - component: {fileID: 1605817123}
   m_Layer: 0
   m_Name: Platform (3)
   m_TagString: Untagged
@@ -1069,10 +1173,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1900770128}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1605817123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605817118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf857e1af1f2d647a51aaade1e7519b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::movingPlatform
+  moveDistance: 1
+  moveSpeed: 1
 --- !u!4 &1641984453 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6606984512935528825, guid: 2e6d762b0ccd22147aa09216969926fd, type: 3}
   m_PrefabInstance: {fileID: 9108763028031374706}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1795527598 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4930056744942374210, guid: 52940a9f554c5f043b38ec807294161c, type: 3}
+  m_PrefabInstance: {fileID: 1069120796030247387}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1878674991 stripped
 GameObject:
@@ -1093,6 +1216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::lavaRise
   lavaSpeed: 1
   lavaTimer: 10
+  player: {fileID: 0}
 --- !u!114 &1878674998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1152,6 +1276,32 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1159743664628634646, guid: 52940a9f554c5f043b38ec807294161c, type: 3}
   m_PrefabInstance: {fileID: 1069120796030247387}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1983374944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795527598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf857e1af1f2d647a51aaade1e7519b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::movingPlatform
+  moveDistance: 1
+  moveSpeed: 1
+--- !u!114 &1983374948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795527598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20afcdc5c0ca7d442af95145e01dc218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::platformCarryPlayer
 --- !u!1 &2098870571
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,6 +1314,7 @@ GameObject:
   - component: {fileID: 2098870574}
   - component: {fileID: 2098870573}
   - component: {fileID: 2098870572}
+  - component: {fileID: 2098870576}
   m_Layer: 0
   m_Name: Platform (2)
   m_TagString: Untagged
@@ -1264,6 +1415,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1900770128}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2098870576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098870571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf857e1af1f2d647a51aaade1e7519b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::movingPlatform
+  moveDistance: 2
+  moveSpeed: 0.8
 --- !u!1 &2100077591
 GameObject:
   m_ObjectHideFlags: 0
@@ -1276,6 +1441,7 @@ GameObject:
   - component: {fileID: 2100077595}
   - component: {fileID: 2100077594}
   - component: {fileID: 2100077593}
+  - component: {fileID: 2100077596}
   m_Layer: 0
   m_Name: Platform (4)
   m_TagString: Untagged
@@ -1376,6 +1542,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2100077591}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2100077596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100077591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf857e1af1f2d647a51aaade1e7519b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::movingPlatform
+  moveDistance: 1.5
+  moveSpeed: 1.2
 --- !u!1001 &1069120796030247387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1431,7 +1611,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4930056744942374210, guid: 52940a9f554c5f043b38ec807294161c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1983374944}
+    - targetCorrespondingSourceObject: {fileID: 4930056744942374210, guid: 52940a9f554c5f043b38ec807294161c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1983374948}
   m_SourcePrefab: {fileID: 100100000, guid: 52940a9f554c5f043b38ec807294161c, type: 3}
 --- !u!1001 &3044593737484620469
 PrefabInstance:
