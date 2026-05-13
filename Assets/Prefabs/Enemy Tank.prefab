@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 3987736882953899324}
   - component: {fileID: 6664575173829678706}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemy Tank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,7 +175,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9139511254613482254}
@@ -195,10 +195,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::enemyAI
   rend: {fileID: 2694261877803861786}
-  HP: 3
-  faceTargetSpeed: 3
+  HP: 10
+  faceTargetSpeed: 2
   bullet: {fileID: 7934693662290421481, guid: 7eb49c96be3810441b3b7e3152012318, type: 3}
-  shootRate: 0.5
+  shootRate: 0.2
   gunPivot: {fileID: 9161950664994837967}
   shootPos: {fileID: 4309218399566667653}
   gunRotateSpeed: 1
@@ -301,7 +301,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 10
+  m_Radius: 7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5314800233652508894
 GameObject:
