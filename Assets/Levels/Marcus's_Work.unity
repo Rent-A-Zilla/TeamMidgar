@@ -127,13 +127,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1508394529644489157, guid: 756eb3766e972364d893456075faee36, type: 3}
+      propertyPath: shootRate
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 4504688955519777136, guid: 756eb3766e972364d893456075faee36, type: 3}
       propertyPath: m_Name
       value: Enemy Tank
       objectReference: {fileID: 0}
     - target: {fileID: 6156985249912318954, guid: 756eb3766e972364d893456075faee36, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -20.5
       objectReference: {fileID: 0}
     - target: {fileID: 6156985249912318954, guid: 756eb3766e972364d893456075faee36, type: 3}
       propertyPath: m_LocalPosition.y
@@ -190,7 +194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6156985249912318954, guid: 85cb70123cc22a84eabe0fa402c4f8f3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: 26.25
       objectReference: {fileID: 0}
     - target: {fileID: 6156985249912318954, guid: 85cb70123cc22a84eabe0fa402c4f8f3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -400,6 +404,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1508394529644489157, guid: 83e07d127c4bb9b4ba8cd265d931835c, type: 3}
+      propertyPath: shootRate
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 4504688955519777136, guid: 83e07d127c4bb9b4ba8cd265d931835c, type: 3}
       propertyPath: m_Name
       value: Enemy Brute
@@ -596,7 +604,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7504374039852997019, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 7504374039852997019, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
       propertyPath: m_LocalRotation.w
