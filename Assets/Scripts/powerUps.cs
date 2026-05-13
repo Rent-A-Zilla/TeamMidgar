@@ -3,7 +3,6 @@ using UnityEngine;
 public class powerUps : MonoBehaviour
 {
 
-    [SerializeField] int faceTargetSpeed;
     [SerializeField] Transform textPivot;
     [SerializeField] int textRotateSpeed;
 
@@ -22,10 +21,9 @@ public class powerUps : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            playerDir = gameManager.instance.player.transform.position - transform.position;
+        playerDir = gameManager.instance.player.transform.position - transform.position;
 
-            rotateText();
-            rotateToTarget();
+        rotateText();
 
         if (playerInTrigger)
         {
@@ -54,11 +52,5 @@ public class powerUps : MonoBehaviour
     {
         Quaternion rot = Quaternion.LookRotation(playerDir);
         textPivot.rotation = Quaternion.Lerp(textPivot.rotation, rot, Time.deltaTime * textRotateSpeed);
-    }
-
-    void rotateToTarget()
-    {
-        Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
     }
 }
