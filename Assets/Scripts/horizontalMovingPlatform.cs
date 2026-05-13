@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class VerticalMovingPlatform : MonoBehaviour
+public class horizontalMovingPlatform : MonoBehaviour
 {
-    [Header("Vertical Movement Settings")]
+    [Header("Horizontal Movement Settings")]
 
-    // How far the platform moves up and down from its starting position
+    // How far the platform moves left and right from its starting position
     public float moveDistance = 2f;
 
-    // How fast the platform moves up and down
-    public float moveSpeed = 1f;
+    // How fast the platform moves left and right
+    public float moveSpeed = 2f;
 
     // Stores the platform's original position when the game starts
     private Vector3 startPosition;
@@ -21,11 +21,11 @@ public class VerticalMovingPlatform : MonoBehaviour
 
     void Update()
     {
-        // Creates smooth up-and-down movement over time
+        // Creates smooth back-and-forth movement over time
         float movement = Mathf.Sin(Time.time * moveSpeed) * moveDistance;
 
-        // Move the platform up and down on the Y axis
+        // Move the platform left and right on the X axis
         // X = left/right, Y = up/down, Z = forward/backward
-        transform.position = startPosition + new Vector3(0f, movement, 0f);
+        transform.position = startPosition + new Vector3(movement, 0f, 0f);
     }
 }

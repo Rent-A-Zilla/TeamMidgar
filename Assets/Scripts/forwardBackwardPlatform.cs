@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ForwardBackwardPlatform : MonoBehaviour
 {
-    [Header("Platform Movement Settings")]
+    [Header("Back-and-forth Movement Settings")]
 
     // How far the platform moves forward and backward from its starting position
     public float moveDistance = 2f;
