@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class gameManager : MonoBehaviour
 {
@@ -9,6 +11,10 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject lavaOverlayUI;
+
+    public Image playerHPBar;
+    public Image playerSprintBar;
+    public GameObject playerSprintUI;
 
     public bool isPaused;
     public GameObject player;
