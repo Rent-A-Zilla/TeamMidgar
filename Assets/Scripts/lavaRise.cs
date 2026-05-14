@@ -8,6 +8,7 @@ public class lavaRise : MonoBehaviour
 
     Vector3 lavaDepth;
 
+    bool lavaExpand;
   
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,7 +22,12 @@ public class lavaRise : MonoBehaviour
     {
        if(player.getHP() <= 0)
         {
-            enabled = false;
+            lavaExpand = false;
+        }
+
+       if(lavaExpand)
+        {
+            return;
         }
 
         if (lavaTimer > 0)
