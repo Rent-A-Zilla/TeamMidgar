@@ -1,9 +1,11 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class enemyAI : MonoBehaviour, IDamage
 {
     [SerializeField] Renderer rend;
+    [SerializeField] NavMeshAgent agent;
 
     [SerializeField] int HP;
     [SerializeField] int faceTargetSpeed;
@@ -35,6 +37,8 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         if (playerInTrigger)
         {
+            agent.SetDestination(gameManager.instance.player.transform.position);
+
             playerDir = gameManager.instance.player.transform.position - transform.position;
 
             rotateGun();

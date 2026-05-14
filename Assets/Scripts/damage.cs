@@ -4,7 +4,6 @@ using UnityEngine;
 public class damage : MonoBehaviour
 {   
     enum damageType { bullet, stationary, DOT}
-
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
 
