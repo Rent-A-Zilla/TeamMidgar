@@ -17,6 +17,7 @@ public class gameManager : MonoBehaviour
     public GameObject playerSprintUI;
     public GameObject playerDamageScreen;
     public TMP_Text gameGoalCountText;
+    public TMP_Text lavaTimerText;
 
     public bool isPaused;
     public GameObject player;
@@ -98,5 +99,10 @@ public class gameManager : MonoBehaviour
 
         menuActive = menuWin;
         menuActive.SetActive(true);
+    }
+
+    public void updateLavaTimer(float time)
+    {
+        lavaTimerText.text = time.ToString("F0");
     }
 }
