@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 2694261877803861786}
   - component: {fileID: 3987736882953899324}
   - component: {fileID: 6664575173829678706}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy Sentry (Base)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 0
   m_Acceleration: 32
   avoidancePriority: 50
   m_AngularSpeed: 600

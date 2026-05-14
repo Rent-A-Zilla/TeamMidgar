@@ -49,4 +49,5 @@ public class horizontalMovingPlatform : MonoBehaviour
             playerController = null;
         }
     }
+
 }
