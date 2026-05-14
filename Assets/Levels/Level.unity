@@ -562,6 +562,10 @@ PrefabInstance:
       propertyPath: lavaOverlayUI
       value: 
       objectReference: {fileID: 496842489}
+    - target: {fileID: 5770671261135331556, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: playerSprintUI
+      value: 
+      objectReference: {fileID: 2141966356}
     - target: {fileID: 8143139085766427377, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_Name
       value: UI
@@ -1872,6 +1876,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2100077591}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2141966356 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1675442213620158990, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+  m_PrefabInstance: {fileID: 746794507}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1069120796030247387
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int gravity;
 
     [SerializeField] float speed;
-    [SerializeField] float springMod;
+    
 
     [SerializeField] int sprintMod;
     [SerializeField] int maxStamina;
@@ -39,6 +39,9 @@ public class playerController : MonoBehaviour, IDamage
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        currentStamina = maxStamina;
+        updatePlayerSprintUI();
+
         HPOrig = HP;
         updatePlayerHPUI();
     }
@@ -46,7 +49,10 @@ public class playerController : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        movement();
+        if (!gameManager.instance.isPaused)
+        {
+            movement();
+        }
         sprint();
         handleSprintUI();
     }
@@ -161,6 +167,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         if (isSprinting || currentStamina < maxStamina)
         {
+
             gameManager.instance.playerSprintUI.SetActive(true);
         }
         else
