@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 
 public class gameManager : MonoBehaviour
 {
@@ -15,6 +15,8 @@ public class gameManager : MonoBehaviour
     public Image playerHPBar;
     public Image playerSprintBar;
     public GameObject playerSprintUI;
+    public GameObject playerDamageScreen;
+    public TMP_Text gameGoalCountText;
 
     public bool isPaused;
     public GameObject player;
@@ -77,6 +79,7 @@ public class gameManager : MonoBehaviour
     public void updateGameGoal(int amount)
     {
         gameGoalCount += amount;
+        gameGoalCountText.text = gameGoalCount.ToString("F0");
 
         if (gameGoalCount <= 0)
         {

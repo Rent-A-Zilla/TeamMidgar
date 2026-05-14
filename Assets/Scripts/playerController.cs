@@ -7,12 +7,16 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] LayerMask ignoreLayer;
 
     [SerializeField] int HP;
+
     [SerializeField] int jumpSpeed;
     [SerializeField] int jumpMax;
     [SerializeField] int gravity;
-
     [SerializeField] float speed;
     
+
+    [SerializeField] int shootDamage;
+    [SerializeField] int shootDist;
+    [SerializeField] float shootRate;
 
     [SerializeField] int sprintMod;
     [SerializeField] int maxStamina;
@@ -24,6 +28,8 @@ public class playerController : MonoBehaviour, IDamage
 
     int jumpCount;
     int HPOrig;
+
+    float shootTimer;
 
     bool isSprinting;
 
@@ -58,8 +64,15 @@ public class playerController : MonoBehaviour, IDamage
     }
 
     void movement()
-    {   
-        if(controller.isGrounded)
+    {
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
+
+        shootTimer += Time.deltaTime;
+
+        if (Input.GetButton("Fire1") && shootTimer > shootRate)
+            shoot();
+
+        if (controller.isGrounded)
         {
             jumpCount = 0;
             playerVel.y = 0;
@@ -128,10 +141,29 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
+    void shoot()
+    {
+        shootTimer = 0;
+
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+        {
+            Debug.Log(hit.collider.name);
+
+            IDamage dmg = hit.collider.GetComponent<IDamage>();
+            if (dmg != null)
+            {
+                dmg.takeDamage(shootDamage);
+            }
+
+        }
+    }
+
     public void takeDamage(int amount)
     {
         HP -= amount;
         updatePlayerHPUI();
+        StartCoroutine(flashDamageScreen());
 
         if (HP <= 0)
         {
@@ -143,6 +175,13 @@ public class playerController : MonoBehaviour, IDamage
     public void updatePlayerHPUI()
     {
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
+    }
+
+    IEnumerator flashDamageScreen()
+    {
+        gameManager.instance.playerDamageScreen.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        gameManager.instance.playerDamageScreen.SetActive(false);
     }
 
     private IEnumerator RechargeStaminaAfterDelay(float delay)
