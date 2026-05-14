@@ -58,6 +58,9 @@ MonoBehaviour:
   gravity: 35
   speed: 5
   springMod: 3
+  shootDamage: 1
+  shootDist: 15
+  shootRate: 0.5
   sprintMod: 3
   maxStamina: 15
   staminaDrainRate: 5
