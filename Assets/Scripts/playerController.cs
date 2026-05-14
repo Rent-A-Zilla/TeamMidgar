@@ -42,6 +42,9 @@ public class playerController : MonoBehaviour, IDamage
     {
         return HP;
     }
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -213,5 +216,11 @@ public class playerController : MonoBehaviour, IDamage
         {
             gameManager.instance.playerSprintUI.SetActive(false);
         }
+    }
+    public int healthUP(int amount)
+    {
+        HP = HP + amount;
+        updatePlayerHPUI();
+        return HP;
     }
 }

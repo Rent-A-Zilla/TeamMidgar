@@ -1345,7 +1345,7 @@ MonoBehaviour:
   menuPause: {fileID: 325876105365990383}
   menuWin: {fileID: 6551090112745760864}
   menuLose: {fileID: 8876425483081982378}
-  lavaOverlayUI: {fileID: 0}
+  lavaOverlayUI: {fileID: 7746673637881567084, guid: db138fa810a64384d9fdb862b7e14768, type: 3}
   playerHPBar: {fileID: 7373156406939513841}
   playerSprintBar: {fileID: 7118537476915764107}
   playerSprintUI: {fileID: 1675442213620158990}
