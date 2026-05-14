@@ -51,18 +51,17 @@ MonoBehaviour:
   controller: {fileID: 6725278688864565504}
   ignoreLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   HP: 10
   jumpSpeed: 12
   jumpMax: 2
   gravity: 35
   speed: 5
-  springMod: 3
   shootDamage: 1
-  shootDist: 15
-  shootRate: 0.5
+  shootDist: 100
+  shootRate: 0.2
   sprintMod: 3
-  maxStamina: 15
+  maxStamina: 25
   staminaDrainRate: 5
   staminaRegenRate: 4
   staminaRegenDelay: 1.25
