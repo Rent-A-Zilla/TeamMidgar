@@ -2,30 +2,51 @@ using UnityEngine;
 
 public class horizontalMovingPlatform : MonoBehaviour
 {
-    [Header("Horizontal Movement Settings")]
+    [SerializeField] float moveDistance;
+    [SerializeField] float moveSpeed;
 
-    // How far the platform moves left and right from its starting position
-    public float moveDistance = 2f;
+    private float movement;
 
-    // How fast the platform moves left and right
-    public float moveSpeed = 2f;
+    Vector3 startPos;
+    Vector3 lastPos;
+    Vector3 platformMove;
 
-    // Stores the platform's original position when the game starts
-    private Vector3 startPosition;
+    CharacterController playerController;
 
     void Start()
     {
-        // Save the starting position so the platform moves around this point
-        startPosition = transform.position;
+        startPos = transform.position;
+        lastPos = transform.position;
     }
 
-    void Update()
+    private void Update()
     {
-        // Creates smooth back-and-forth movement over time
-        float movement = Mathf.Sin(Time.time * moveSpeed) * moveDistance;
+        movement = Mathf.Sin(Time.time * moveSpeed) * moveDistance;
 
-        // Move the platform left and right on the X axis
-        // X = left/right, Y = up/down, Z = forward/backward
-        transform.position = startPosition + new Vector3(movement, 0f, 0f);
+        transform.position = startPos + new Vector3(movement, 0f, 0f);
+
+        platformMove = transform.position - lastPos;
+        lastPos = transform.position;
+
+        if (playerController != null )
+        {
+            playerController.Move(platformMove);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerController = other.GetComponent<CharacterController>();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            playerController = null;
+        }
     }
 }
