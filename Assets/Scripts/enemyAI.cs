@@ -72,6 +72,7 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         HP -= amount;
 
+        agent.SetDestination(gameManager.instance.player.transform.position);
         if (HP <= 0)
         {
             gameManager.instance.updateGameGoal(-1);
