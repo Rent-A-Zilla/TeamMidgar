@@ -3,12 +3,12 @@ using UnityEngine;
 public class powerUps : MonoBehaviour
 {
 
-    enum powerUpTypeType { healthUP, jumpPlus, speedUP }
+    enum powerUpType { healthUP, jumpPlus, speedUP }
     [SerializeField] int healAmount;
     [SerializeField] int jumpAmount;
     [SerializeField] float speedUp;
     [SerializeField] float duration;
-    [SerializeField] powerUpTypeType type;
+    [SerializeField] powerUpType type;
     [SerializeField] Transform textPivot;
     [SerializeField] int textRotateSpeed;
 
@@ -34,11 +34,11 @@ public class powerUps : MonoBehaviour
         if (playerInTrigger)
         {
             //Power Up Code here
-            if (type == powerUpTypeType.healthUP)
+            if (type == powerUpType.healthUP)
             {
-                player.healthUP(healAmount);
+                gameManager.instance.playerScript.healthUP(healAmount);
             }
-            if(type == powerUpTypeType.jumpPlus)
+            if(type == powerUpType.jumpPlus)
             {
                 //jumpUP();
             }
