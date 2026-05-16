@@ -3,18 +3,12 @@ using UnityEngine;
 public class powerUps : MonoBehaviour
 {
 
-    enum powerUpTypeType { healthUP, jumpPlus, speedUP }
-    [SerializeField] int healAmount;
-    [SerializeField] int jumpAmount;
-    [SerializeField] float speedUp;
-    [SerializeField] float duration;
-    [SerializeField] powerUpTypeType type;
     [SerializeField] Transform textPivot;
     [SerializeField] int textRotateSpeed;
 
-    bool playerInTrigger;
+    float angleToPlayer;
 
-    [SerializeField] playerController player;
+    bool playerInTrigger;
 
     Vector3 playerDir;
 
@@ -48,11 +42,9 @@ public class powerUps : MonoBehaviour
             }
 
             Destroy(gameObject);
-
         }
 
     }
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -74,5 +66,4 @@ public class powerUps : MonoBehaviour
         Quaternion rot = Quaternion.LookRotation(playerDir);
         textPivot.rotation = Quaternion.Lerp(textPivot.rotation, rot, Time.deltaTime * textRotateSpeed);
     }
-
 }
