@@ -33,6 +33,8 @@ public class lavaRise : MonoBehaviour
         if (lavaTimer > 0)
         {
             lavaTimer -= Time.deltaTime;
+
+            gameManager.instance.updateLavaTimer(lavaTimer);
         }
         else
         {

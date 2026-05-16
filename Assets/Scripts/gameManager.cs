@@ -17,6 +17,7 @@ public class gameManager : MonoBehaviour
     public GameObject playerSprintUI;
     public GameObject playerDamageScreen;
     public TMP_Text gameGoalCountText;
+    public TMP_Text lavaTimerText;
 
     public bool isPaused;
     public GameObject player;
@@ -81,12 +82,6 @@ public class gameManager : MonoBehaviour
         gameGoalCount += amount;
         gameGoalCountText.text = gameGoalCount.ToString("F0");
 
-        if (gameGoalCount <= 0)
-        {
-            statePause();
-            menuActive = menuWin;
-            menuActive.SetActive(true);
-        }
     }
 
     public void youLose()
@@ -96,5 +91,18 @@ public class gameManager : MonoBehaviour
         statePause();
         menuActive = menuLose;
         menuActive.SetActive(true);
+    }
+
+    public void youWin()
+    {
+        statePause();
+
+        menuActive = menuWin;
+        menuActive.SetActive(true);
+    }
+
+    public void updateLavaTimer(float time)
+    {
+        lavaTimerText.text = time.ToString("F0");
     }
 }
