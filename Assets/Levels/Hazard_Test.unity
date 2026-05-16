@@ -5391,6 +5391,10 @@ PrefabInstance:
       value: FallingPlatform
       objectReference: {fileID: 0}
     - target: {fileID: 5332289008823447839, guid: 9adf850d2b09e4e4083b03ae90a8724b, type: 3}
+      propertyPath: respawnPlatform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5332289008823447839, guid: 9adf850d2b09e4e4083b03ae90a8724b, type: 3}
       propertyPath: timerNumberText
       value: 
       objectReference: {fileID: 1067703759}
