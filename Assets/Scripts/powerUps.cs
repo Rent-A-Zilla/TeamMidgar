@@ -12,9 +12,9 @@ public class powerUps : MonoBehaviour
     [SerializeField] Transform textPivot;
     [SerializeField] int textRotateSpeed;
 
-    bool playerInTrigger;
+    float angleToPlayer;
 
-    [SerializeField] playerController player;
+    bool playerInTrigger;
 
     Vector3 playerDir;
 
@@ -48,11 +48,9 @@ public class powerUps : MonoBehaviour
             }
 
             Destroy(gameObject);
-
         }
 
     }
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -74,5 +72,4 @@ public class powerUps : MonoBehaviour
         Quaternion rot = Quaternion.LookRotation(playerDir);
         textPivot.rotation = Quaternion.Lerp(textPivot.rotation, rot, Time.deltaTime * textRotateSpeed);
     }
-
 }
