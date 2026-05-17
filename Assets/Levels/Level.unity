@@ -1605,6 +1605,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6156985249912318954, guid: 83e07d127c4bb9b4ba8cd265d931835c, type: 3}
   m_PrefabInstance: {fileID: 245543947}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &732532411 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4309218399566667653, guid: 85cb70123cc22a84eabe0fa402c4f8f3, type: 3}
+  m_PrefabInstance: {fileID: 1224867928}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &734136539 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6156985249912318954, guid: 756eb3766e972364d893456075faee36, type: 3}
@@ -2855,6 +2860,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1612844650}
     m_Modifications:
+    - target: {fileID: 1508394529644489157, guid: 85cb70123cc22a84eabe0fa402c4f8f3, type: 3}
+      propertyPath: shootPos
+      value: 
+      objectReference: {fileID: 732532411}
     - target: {fileID: 4504688955519777136, guid: 85cb70123cc22a84eabe0fa402c4f8f3, type: 3}
       propertyPath: m_Name
       value: Enemy Sentry (Base)
