@@ -530,6 +530,71 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9adf850d2b09e4e4083b03ae90a8724b, type: 3}
+--- !u!1001 &1129842971
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1661838051704327983, guid: 44ca8ee17e622f64694f0610b62ef639, type: 3}
+      propertyPath: fallDelay
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661838051704327983, guid: 44ca8ee17e622f64694f0610b62ef639, type: 3}
+      propertyPath: respawnTile
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2445773953378591998, guid: 44ca8ee17e622f64694f0610b62ef639, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -15.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2445773953378591998, guid: 44ca8ee17e622f64694f0610b62ef639, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 2445773953378591998, guid: 44ca8ee17e622f64694f0610b62ef639, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 54.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2445773953378591998, guid: 44ca8ee17e622f64694f0610b62ef639, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2445773953378591998, guid: 44ca8ee17e622f64694f0610b62ef639, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2445773953378591998, guid: 44ca8ee17e622f64694f0610b62ef639, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2445773953378591998, guid: 44ca8ee17e622f64694f0610b62ef639, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2445773953378591998, guid: 44ca8ee17e622f64694f0610b62ef639, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 2445773953378591998, guid: 44ca8ee17e622f64694f0610b62ef639, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2445773953378591998, guid: 44ca8ee17e622f64694f0610b62ef639, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3079040336307748420, guid: 44ca8ee17e622f64694f0610b62ef639, type: 3}
+      propertyPath: m_Name
+      value: Falling Floor Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 44ca8ee17e622f64694f0610b62ef639, type: 3}
 --- !u!1001 &1588312402
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -597,3 +662,4 @@ SceneRoots:
   - {fileID: 263812360}
   - {fileID: 691628863}
   - {fileID: 579775328}
+  - {fileID: 1129842971}
