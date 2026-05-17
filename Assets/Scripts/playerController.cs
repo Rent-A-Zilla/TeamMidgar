@@ -220,6 +220,10 @@ public class playerController : MonoBehaviour, IDamage
     public int healthUP(int amount)
     {
         HP = HP + amount;
+        if(HP > HPOrig)
+        {
+            HP = HPOrig;
+        }
         updatePlayerHPUI();
         return HP;
     }
