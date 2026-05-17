@@ -11,20 +11,26 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject lavaOverlayUI;
+    [SerializeField] GameObject menuShop;
 
+
+    public shopManager shop;
     public Image playerHPBar;
     public Image playerSprintBar;
     public GameObject playerSprintUI;
     public GameObject playerDamageScreen;
     public TMP_Text gameGoalCountText;
     public TMP_Text lavaTimerText;
+    public TMP_Text currencyText;
+    public TMP_Text shopCurrencyText;
+  
 
     public bool isPaused;
     public GameObject player;
     public playerController playerScript;
 
     int gameGoalCount;
-
+    int currency;
     float timeScaleOrig;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -104,5 +110,59 @@ public class gameManager : MonoBehaviour
     public void updateLavaTimer(float time)
     {
         lavaTimerText.text = time.ToString("F0");
+    }
+
+    public void showLavaOverlay()
+    {
+        lavaOverlayUI.SetActive(true);
+    }
+
+    public void hideLavaOverlay()
+    {
+        lavaOverlayUI.SetActive(false);
+    }
+    public void addCurrency(int amount)
+    {
+        currency += amount;
+        updateCurrencyUI();
+    }
+
+    void updateCurrencyUI()
+    {
+        currencyText.text = currency.ToString("F0");
+
+        if (shopCurrencyText != null)
+        {
+            shopCurrencyText.text = currency.ToString("F0");
+        }
+    }
+
+    public bool spendCurrency(int amount)
+    {
+        if (currency >= amount)
+        {
+            currency -= amount;
+            updateCurrencyUI();
+            return true;
+        }
+        return false;
+    }
+
+    public void openShop()
+    {
+        menuActive.SetActive(false);
+
+        menuActive = menuShop;
+        menuActive.SetActive(true);
+
+        shop.updateShopUI();
+    }
+
+    public void closeShop()
+    {
+        menuActive.SetActive(false);
+
+        menuActive = menuWin;
+        menuActive.SetActive(true);
     }
 }

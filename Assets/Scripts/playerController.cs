@@ -227,4 +227,39 @@ public class playerController : MonoBehaviour, IDamage
         updatePlayerHPUI();
         return HP;
     }
+    public void upgradeMaxHealth(int amount)
+    {
+        HPOrig += amount;
+        HP = HPOrig;
+
+        updatePlayerHPUI();
+    }
+
+    public void upgradeMaxStamina(int amount)
+    {
+        maxStamina += amount;
+        currentStamina = maxStamina;
+
+        updatePlayerSprintUI();
+    }
+
+    public void upgradeJumpMax(int amount)
+    {
+        jumpMax += amount;
+    }
+
+    public int getMaxHealth()
+    {
+        return HPOrig;
+    }
+
+    public int getMaxStamina()
+    {
+        return maxStamina;
+    }
+
+    public int getMaxJumps()
+    {
+        return jumpMax;
+    }
 }
