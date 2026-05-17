@@ -7,7 +7,7 @@ public class fallingPlatform : MonoBehaviour
     public float fallDelay = 1f;
 
     [Tooltip("If true, the platform will return after falling.")]
-    public bool respawnPlatform = true;
+    public bool respawnPlatform = false;
 
     public float respawnDelay = 3f;
 
@@ -19,8 +19,6 @@ public class fallingPlatform : MonoBehaviour
     private Quaternion startRotation;
     private Rigidbody rb;
     private bool isFalling = false;
-
-    private fallingPlatformTimerUI timerUI;
 
     void Awake()
     {
@@ -39,17 +37,6 @@ public class fallingPlatform : MonoBehaviour
     {
         startPosition = transform.position;
         startRotation = transform.rotation;
-
-        timerUI = FindFirstObjectByType<fallingPlatformTimerUI>();
-
-        if (timerUI != null)
-        {
-            timerUI.HideTimer();
-        }
-        else
-        {
-            Debug.LogWarning("No FallingPlatformTimerUI found in the scene.");
-        }
     }
 
     public void StartFalling()
@@ -70,9 +57,10 @@ public class fallingPlatform : MonoBehaviour
         {
             float timeLeft = fallDelay - timer;
 
-            if (timerUI != null)
+            if (gameManager.instance != null)
             {
-                timerUI.ShowTimer(timeLeft);
+                gameManager.instance.showFallingPlatformTimer();
+                gameManager.instance.updateFallingPlatformTimer(timeLeft);
             }
 
             float shakeX = Mathf.Sin(Time.time * shakeSpeed) * shakeAmount;
@@ -84,9 +72,9 @@ public class fallingPlatform : MonoBehaviour
             yield return null;
         }
 
-        if (timerUI != null)
+        if (gameManager.instance != null)
         {
-            timerUI.HideTimer();
+            gameManager.instance.hideFallingPlatformTimer();
         }
 
         transform.position = startPosition;

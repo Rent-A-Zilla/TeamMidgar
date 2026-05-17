@@ -23,7 +23,10 @@ public class gameManager : MonoBehaviour
     public TMP_Text lavaTimerText;
     public TMP_Text currencyText;
     public TMP_Text shopCurrencyText;
-  
+
+    public GameObject fallingPlatformTimerUI;
+    public TMP_Text fallingPlatformTimerText;
+
 
     public bool isPaused;
     public GameObject player;
@@ -164,5 +167,45 @@ public class gameManager : MonoBehaviour
 
         menuActive = menuWin;
         menuActive.SetActive(true);
+    }
+
+    public void updateFallingPlatformTimer(float time)
+    {
+        if (fallingPlatformTimerText != null)
+        {
+            fallingPlatformTimerText.text = time.ToString("F1");
+        }
+    }
+
+    public void showFallingPlatformTimer()
+    {
+        if (fallingPlatformTimerUI != null)
+        {
+            fallingPlatformTimerUI.SetActive(true);
+
+            CanvasGroup canvasGroup = fallingPlatformTimerUI.GetComponent<CanvasGroup>();
+
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = 1f;
+            }
+        }
+    }
+
+    public void hideFallingPlatformTimer()
+    {
+        if (fallingPlatformTimerUI != null)
+        {
+            CanvasGroup canvasGroup = fallingPlatformTimerUI.GetComponent<CanvasGroup>();
+
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = 0f;
+            }
+            else
+            {
+                fallingPlatformTimerUI.SetActive(false);
+            }
+        }
     }
 }

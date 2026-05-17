@@ -337,7 +337,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4893754793558624620
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2067,6 +2067,8 @@ MonoBehaviour:
   lavaTimerText: {fileID: 6166678797457176434}
   currencyText: {fileID: 2949551258854648701}
   shopCurrencyText: {fileID: 6936845031280464193}
+  fallingPlatformTimerUI: {fileID: 310035645918705829}
+  fallingPlatformTimerText: {fileID: 4618066679037663085}
   isPaused: 0
   player: {fileID: 0}
   playerScript: {fileID: 0}
