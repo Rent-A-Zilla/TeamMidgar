@@ -4913,8 +4913,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::shopManager
   maxHealthValue: {fileID: 4235133535077039562}
-  maxStaminaValue: {fileID: 0}
-  maxJumpValue: {fileID: 0}
+  maxStaminaValue: {fileID: 859666365719193019}
+  maxJumpValue: {fileID: 4313470051185859072}
 --- !u!1 &6463967675229685460
 GameObject:
   m_ObjectHideFlags: 0
