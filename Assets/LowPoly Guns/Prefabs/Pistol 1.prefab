@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3263699454365990613}
-  - component: {fileID: 5056781656100159375}
   - component: {fileID: 1937997863159198064}
   - component: {fileID: 4396025059160950202}
   - component: {fileID: 9195615305045848528}
@@ -35,19 +34,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5056781656100159375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2738520558268228719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6452ab5eeddc944b81389f9f192d993, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::weaponPickup
-  weaponPrefab: {fileID: 2738520558268228719}
 --- !u!33 &1937997863159198064
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -120,10 +106,10 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3727299226792910341, guid: e6efe674338ad4a49866fd7e5c2ba6b4, type: 3}
