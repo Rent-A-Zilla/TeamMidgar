@@ -21,17 +21,14 @@ public class gameManager : MonoBehaviour
     public GameObject playerDamageScreen;
     public TMP_Text gameGoalCountText;
     public TMP_Text lavaTimerText;
-<<<<<<< HEAD
-    public Image jumpMaxUpTimer;
-    public GameObject jumpMaxTimerUI;
-=======
     public TMP_Text currencyText;
     public TMP_Text shopCurrencyText;
+    public Image jumpMaxUpTimer;
+    public GameObject jumpMaxTimerUI;
 
     public GameObject fallingPlatformTimerUI;
     public TMP_Text fallingPlatformTimerText;
 
->>>>>>> main
 
     public bool isPaused;
     public GameObject player;
