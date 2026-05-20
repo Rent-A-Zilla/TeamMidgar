@@ -25,6 +25,8 @@ public class gameManager : MonoBehaviour
     public TMP_Text shopCurrencyText;
     public Image jumpMaxUpTimer;
     public GameObject jumpMaxTimerUI;
+    public Image speedUpTimer;
+    public GameObject speedUpTimerUI;
 
     public GameObject fallingPlatformTimerUI;
     public TMP_Text fallingPlatformTimerText;

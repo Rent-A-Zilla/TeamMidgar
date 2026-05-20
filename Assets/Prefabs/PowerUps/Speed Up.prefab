@@ -106,7 +106,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Power Up
+  m_text: Speed +
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 8262467771030333280}
   - component: {fileID: 5912935536468583320}
   m_Layer: 1
-  m_Name: Power Up (Base)
+  m_Name: Speed Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -250,7 +250,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: aa54487326e41cc40b4ca7d084d21cfc, type: 2}
+  - {fileID: 2100000, guid: 557ad58ecd272244c8599006cfe06440, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -307,6 +307,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b65566f866884a143841cd3f95921959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::powerUps
+  healAmount: 0
+  jumpAmount: 0
+  speedUp: 2.5
+  duration: 10
+  type: 2
   textPivot: {fileID: 2234313456621101723}
   textRotateSpeed: 1000
 --- !u!1 &8431513145861136943

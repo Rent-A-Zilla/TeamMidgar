@@ -29,6 +29,7 @@ public class playerController : MonoBehaviour, IDamage
     int jumpMaxOrig;
     int jumpCount;
     int HPOrig;
+    float speedOrig;
 
     float shootTimer;
 
@@ -66,10 +67,12 @@ public class playerController : MonoBehaviour, IDamage
         HPOrig = HP;
         currentStamina = maxStamina;
         jumpMaxOrig = jumpMax;
+        speedOrig = speed;
         updatePlayerHPUI();
         updatePlayerSprintUI();
 
         gameManager.instance.jumpMaxTimerUI.SetActive(false);
+        gameManager.instance.speedUpTimerUI.SetActive(false);
 
     }
 
@@ -270,6 +273,28 @@ public class playerController : MonoBehaviour, IDamage
         jumpMax = jumpMaxOrig;
 
         gameManager.instance.jumpMaxTimerUI.SetActive(false);
+    }
+    public void speedUp(float amount, float duration)
+    {
+        StartCoroutine(speedUPRoutine(amount, duration));
+    }
+    private IEnumerator speedUPRoutine(float amount, float duration)
+    {
+
+        gameManager.instance.speedUpTimerUI.SetActive(true);
+        speed += amount;
+        float timer = duration;
+        while (timer > 0)
+        {
+            timer -= Time.deltaTime;
+
+            gameManager.instance.speedUpTimer.fillAmount = timer / duration;
+
+            yield return null;
+        }
+        speed = speedOrig;
+
+        gameManager.instance.speedUpTimerUI.SetActive(false);
     }
 
     //Player Upgrades (Permanent)

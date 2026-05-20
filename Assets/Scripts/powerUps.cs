@@ -45,7 +45,7 @@ public class powerUps : MonoBehaviour
             }
             else
             {
-                //speedUP();
+                gameManager.instance.playerScript.speedUp(speedUp, duration);
             }
 
             Destroy(gameObject);
