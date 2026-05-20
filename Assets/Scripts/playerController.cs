@@ -39,12 +39,26 @@ public class playerController : MonoBehaviour, IDamage
 
     Coroutine staminaRegenCoroutine;
 
+    //Getters
     public int getHP()
     {
         return HP;
     }
 
+    public int getMaxHealth()
+    {
+        return HPOrig;
+    }
 
+    public int getMaxStamina()
+    {
+        return maxStamina;
+    }
+
+    public int getMaxJumps()
+    {
+        return jumpMax;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -67,6 +81,7 @@ public class playerController : MonoBehaviour, IDamage
         handleSprintUI();
     }
 
+    //Player functions
     void movement()
     {
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
@@ -163,6 +178,7 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
+    //Player handling
     public void takeDamage(int amount)
     {
         HP -= amount;
@@ -218,26 +234,29 @@ public class playerController : MonoBehaviour, IDamage
             gameManager.instance.playerSprintUI.SetActive(false);
         }
     }
+
+    //Power Ups (Temporary)
     public void healthUP(int amount)
     {
         HP = HP + amount;
-        if(HP > HPOrig)
-        {
-            HP = HPOrig;
-        }
         updatePlayerHPUI();
     }
     public void jumpMaxUP(int amount, float duration)
     {
+
+        gameManager.instance.jumpMaxTimerUI.SetActive(false);
         while (duration > 0)
         {
+            gameManager.instance.jumpMaxTimerUI.SetActive(true);
             jumpMax += amount;
             duration -= Time.deltaTime;
+            gameManager.instance.jumpMaxUpTimer.fillAmount = (float) duration;
         }
         jumpMax = jumpMaxOrig;
 
     }
 
+    //Player Upgrades (Permanent)
     public void upgradeMaxHealth(int amount)
     {
         HPOrig += amount;
@@ -259,18 +278,5 @@ public class playerController : MonoBehaviour, IDamage
         jumpMaxOrig += amount;
     }
 
-    public int getMaxHealth()
-    {
-        return HPOrig;
-    }
 
-    public int getMaxStamina()
-    {
-        return maxStamina;
-    }
-
-    public int getMaxJumps()
-    {
-        return jumpMax;
-    }
 }

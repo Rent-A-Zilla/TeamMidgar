@@ -18,6 +18,8 @@ public class gameManager : MonoBehaviour
     public GameObject playerDamageScreen;
     public TMP_Text gameGoalCountText;
     public TMP_Text lavaTimerText;
+    public Image jumpMaxUpTimer;
+    public GameObject jumpMaxTimerUI;
 
     public bool isPaused;
     public GameObject player;
