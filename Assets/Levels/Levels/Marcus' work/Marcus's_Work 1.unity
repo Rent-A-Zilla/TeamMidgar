@@ -525,6 +525,66 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1001 &1206801097
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1802279047470464687, guid: aafc2d5c4b018a840bb1acc56352f3df, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.46870995
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802279047470464687, guid: aafc2d5c4b018a840bb1acc56352f3df, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802279047470464687, guid: aafc2d5c4b018a840bb1acc56352f3df, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.3325
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802279047470464687, guid: aafc2d5c4b018a840bb1acc56352f3df, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802279047470464687, guid: aafc2d5c4b018a840bb1acc56352f3df, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802279047470464687, guid: aafc2d5c4b018a840bb1acc56352f3df, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802279047470464687, guid: aafc2d5c4b018a840bb1acc56352f3df, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802279047470464687, guid: aafc2d5c4b018a840bb1acc56352f3df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802279047470464687, guid: aafc2d5c4b018a840bb1acc56352f3df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802279047470464687, guid: aafc2d5c4b018a840bb1acc56352f3df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915555189158123127, guid: aafc2d5c4b018a840bb1acc56352f3df, type: 3}
+      propertyPath: m_Name
+      value: Power Up Jump Max Up
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6423016851905291610, guid: aafc2d5c4b018a840bb1acc56352f3df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: aafc2d5c4b018a840bb1acc56352f3df, type: 3}
 --- !u!1001 &1390544293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1152,3 +1212,4 @@ SceneRoots:
   - {fileID: 840929064}
   - {fileID: 1572518366}
   - {fileID: 2111776003}
+  - {fileID: 1206801097}

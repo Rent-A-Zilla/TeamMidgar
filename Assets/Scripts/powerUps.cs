@@ -40,7 +40,7 @@ public class powerUps : MonoBehaviour
             }
             else if(type == powerUpType.jumpPlus)
             {
-                gameManager.instance.playerScript.jumpMaxUP(jumpAmount, duration);
+                gameManager.instance.playerScript.jumpMaxUp(jumpAmount, duration);
 
             }
             else

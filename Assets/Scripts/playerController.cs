@@ -68,6 +68,9 @@ public class playerController : MonoBehaviour, IDamage
         jumpMaxOrig = jumpMax;
         updatePlayerHPUI();
         updatePlayerSprintUI();
+
+        gameManager.instance.jumpMaxTimerUI.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -245,7 +248,12 @@ public class playerController : MonoBehaviour, IDamage
         }
         updatePlayerHPUI();
     }
-    public IEnumerator jumpMaxUP(int amount, float duration)
+
+    public void jumpMaxUp(int amount, float duration)
+    {
+        StartCoroutine(jumpMaxUPRoutine(amount, duration));
+    }
+    private IEnumerator jumpMaxUPRoutine(int amount, float duration)
     {
 
         gameManager.instance.jumpMaxTimerUI.SetActive(true);
