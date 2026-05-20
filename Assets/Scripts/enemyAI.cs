@@ -72,9 +72,13 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         HP -= amount;
 
+        gameManager.instance.addCurrency(10);
+
         agent.SetDestination(gameManager.instance.player.transform.position);
         if (HP <= 0)
         {
+            gameManager.instance.addCurrency(100);
+
             gameManager.instance.updateGameGoal(-1);
             Destroy(gameObject);
         }

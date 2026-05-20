@@ -9,7 +9,7 @@ public class lavaScreen : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            lavaOverlay.SetActive(true);
+            gameManager.instance.showLavaOverlay();
         }
     }
 
@@ -17,7 +17,7 @@ public class lavaScreen : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            lavaOverlay.SetActive(false);
+            gameManager.instance.hideLavaOverlay();
         }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
