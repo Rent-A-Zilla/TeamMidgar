@@ -239,21 +239,29 @@ public class playerController : MonoBehaviour, IDamage
     public void healthUP(int amount)
     {
         HP = HP + amount;
+        if (HP > HPOrig)
+        {
+            HP = HPOrig;
+        }
         updatePlayerHPUI();
     }
-    public void jumpMaxUP(int amount, float duration)
+    public IEnumerator jumpMaxUP(int amount, float duration)
     {
 
-        gameManager.instance.jumpMaxTimerUI.SetActive(false);
-        while (duration > 0)
+        gameManager.instance.jumpMaxTimerUI.SetActive(true);
+        jumpMax += amount;
+        float timer = duration;
+        while (timer > 0)
         {
-            gameManager.instance.jumpMaxTimerUI.SetActive(true);
-            jumpMax += amount;
-            duration -= Time.deltaTime;
-            gameManager.instance.jumpMaxUpTimer.fillAmount = (float) duration;
+            timer -= Time.deltaTime;
+
+            gameManager.instance.jumpMaxUpTimer.fillAmount = timer / duration;
+
+            yield return null;
         }
         jumpMax = jumpMaxOrig;
 
+        gameManager.instance.jumpMaxTimerUI.SetActive(false);
     }
 
     //Player Upgrades (Permanent)

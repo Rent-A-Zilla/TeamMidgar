@@ -38,9 +38,9 @@ public class powerUps : MonoBehaviour
             {
                 gameManager.instance.playerScript.healthUP(healAmount);
             }
-            if(type == powerUpType.jumpPlus)
+            else if(type == powerUpType.jumpPlus)
             {
-                //jumpUP();
+                gameManager.instance.playerScript.jumpMaxUP(jumpAmount, duration);
 
             }
             else
