@@ -41,6 +41,7 @@ public class powerUps : MonoBehaviour
             if(type == powerUpType.jumpPlus)
             {
                 //jumpUP();
+
             }
             else
             {

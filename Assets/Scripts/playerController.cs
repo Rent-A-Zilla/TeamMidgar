@@ -26,6 +26,7 @@ public class playerController : MonoBehaviour, IDamage
 
     float currentStamina;
 
+    int jumpMaxOrig;
     int jumpCount;
     int HPOrig;
 
@@ -48,11 +49,11 @@ public class playerController : MonoBehaviour, IDamage
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentStamina = maxStamina;
-        updatePlayerSprintUI();
-
         HPOrig = HP;
+        currentStamina = maxStamina;
+        jumpMaxOrig = jumpMax;
         updatePlayerHPUI();
+        updatePlayerSprintUI();
     }
 
     // Update is called once per frame
@@ -217,10 +218,59 @@ public class playerController : MonoBehaviour, IDamage
             gameManager.instance.playerSprintUI.SetActive(false);
         }
     }
-    public int healthUP(int amount)
+    public void healthUP(int amount)
     {
         HP = HP + amount;
+        if(HP > HPOrig)
+        {
+            HP = HPOrig;
+        }
         updatePlayerHPUI();
-        return HP;
+    }
+    public void jumpMaxUP(int amount, float duration)
+    {
+        while (duration > 0)
+        {
+            jumpMax += amount;
+            duration -= Time.deltaTime;
+        }
+        jumpMax = jumpMaxOrig;
+
+    }
+
+    public void upgradeMaxHealth(int amount)
+    {
+        HPOrig += amount;
+        HP = HPOrig;
+
+        updatePlayerHPUI();
+    }
+
+    public void upgradeMaxStamina(int amount)
+    {
+        maxStamina += amount;
+        currentStamina = maxStamina;
+
+        updatePlayerSprintUI();
+    }
+
+    public void upgradeJumpMax(int amount)
+    {
+        jumpMaxOrig += amount;
+    }
+
+    public int getMaxHealth()
+    {
+        return HPOrig;
+    }
+
+    public int getMaxStamina()
+    {
+        return maxStamina;
+    }
+
+    public int getMaxJumps()
+    {
+        return jumpMax;
     }
 }
