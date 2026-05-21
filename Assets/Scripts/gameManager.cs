@@ -10,9 +10,12 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    [SerializeField] GameObject menuOptions;
     [SerializeField] GameObject lavaOverlayUI;
     [SerializeField] GameObject menuShop;
 
+    [SerializeField] GameObject firstPersonCam;
+    [SerializeField] GameObject thirdPersonCam;
 
     public shopManager shop;
     public Image playerHPBar;
@@ -39,6 +42,8 @@ public class gameManager : MonoBehaviour
     int gameGoalCount;
     int currency;
     float timeScaleOrig;
+
+    bool isFirstPerson;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -112,6 +117,33 @@ public class gameManager : MonoBehaviour
 
         menuActive = menuWin;
         menuActive.SetActive(true);
+    }
+
+    public void openOptionsMenu()
+    {
+        statePause();
+
+        menuPause.SetActive(false);
+        menuOptions.SetActive(true);
+    }
+
+    public void backToPauseMenu()
+    {
+        statePause();
+
+        menuOptions.SetActive(false);
+        menuPause.SetActive(true);
+    }
+
+    public void ToggleCameraView()
+    {
+        isFirstPerson = !isFirstPerson;
+
+        firstPersonCam.SetActive(isFirstPerson);
+        thirdPersonCam.SetActive(!isFirstPerson);
+
+        menuOptions.SetActive(false);
+        stateUnpause();
     }
 
     public void updateLavaTimer(float time)

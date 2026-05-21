@@ -4,7 +4,8 @@ using UnityEngine;
 public class cameraController : MonoBehaviour
 {
     [SerializeField] int sens;
-    [SerializeField] int lockVertMin, lockVertMax;
+    [Range(-60, 0)][SerializeField] int lockVertMin;
+    [Range(0, 90)][SerializeField] int lockVertMax;
     [SerializeField] Transform player;
 
     float camRotx;

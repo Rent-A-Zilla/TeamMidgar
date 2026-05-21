@@ -23,6 +23,21 @@ public class buttonFunctions : MonoBehaviour
 #endif
     }
 
+    public void openOptions()
+    {
+        gameManager.instance.openOptionsMenu();
+    }
+
+    public void closeOptions()
+    {
+        gameManager.instance.backToPauseMenu();
+    }
+
+    public void CameraViewButton()
+    {
+        gameManager.instance.ToggleCameraView();
+    }
+
     public void openShop()
     {
         gameManager.instance.openShop();
