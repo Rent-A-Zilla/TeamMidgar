@@ -137,15 +137,11 @@ public class enemyAI : MonoBehaviour, IDamage
     public void takeDamage(int amount)
     {
         HP -= amount;
-
         gameManager.instance.addCurrency(10);
-
         agent.SetDestination(gameManager.instance.player.transform.position);
-
         if (HP <= 0)
         {
             gameManager.instance.addCurrency(100);
-
             gameManager.instance.updateGameGoal(-1);
             Destroy(gameObject);
         }
@@ -164,8 +160,6 @@ public class enemyAI : MonoBehaviour, IDamage
 
     void rotateGun()
     {
-
-
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
         gunPivot.rotation = Quaternion.Lerp(gunPivot.rotation, rot, Time.deltaTime * gunRotateSpeed);
     }
@@ -181,5 +175,4 @@ public class enemyAI : MonoBehaviour, IDamage
         shootTimer = 0;
         Instantiate(bullet, shootPos.position, gunPivot.rotation);
     }
-
 }
