@@ -9,7 +9,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] NavMeshAgent agent;
 
     [Header("----- Stats -----")]
-    [Range(1, 10)][SerializeField] int HP;
+    [Range(1, 100)][SerializeField] int HP;
     [Range(1, 10)][SerializeField] int faceTargetSpeed;
     [Range(5, 180)][SerializeField] int FOV;
 
@@ -139,6 +139,11 @@ public class enemyAI : MonoBehaviour, IDamage
 
     public void takeDamage(int amount)
     {
+        if (HP <= 0)
+        {
+            return;
+        }
+
         HP -= amount;
         gameManager.instance.addCurrency(10);
         agent.SetDestination(gameManager.instance.player.transform.position);

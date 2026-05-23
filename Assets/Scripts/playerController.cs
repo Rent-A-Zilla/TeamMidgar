@@ -95,9 +95,17 @@ public class playerController : MonoBehaviour, IDamage, IPickup
 
         shootTimer += Time.deltaTime;
 
-        if (Input.GetButton("Fire1") && gunList.Count > 0 && gunList[gunListPos].ammoCur > 0 && shootTimer > gunList[gunListPos].shootRate)
-            shoot();
-
+        if (gunList.Count > 0 && gunList[gunListPos].ammoCur > 0 && shootTimer > gunList[gunListPos].shootRate)
+        {
+            if (gunList[gunListPos].gunFireType == gunStats.fireType.FullAuto && Input.GetButton("Fire1"))
+            {
+                shoot();
+            }
+            else if (gunList[gunListPos].gunFireType == gunStats.fireType.SemiAuto && Input.GetButtonDown("Fire1"))
+            {
+                shoot();
+            }
+        }
 
         if (controller.isGrounded)
         {
@@ -112,6 +120,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         controller.Move(playerVel * Time.deltaTime);
 
         playerVel.y -= gravity * Time.deltaTime;
+
         selectGun();
         reload();
     }
@@ -184,17 +193,28 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         shootTimer = 0;
         gunList[gunListPos].ammoCur--;
 
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, gunList[gunListPos].shootDist, ~ignoreLayer))
+        for (int i = 0; i < gunList[gunListPos].pellets; i++)
         {
-            Debug.Log(hit.collider.name);
+            Vector3 direction = Camera.main.transform.forward;
 
-            IDamage dmg = hit.collider.GetComponent<IDamage>();
-            if (dmg != null)
+            direction += Camera.main.transform.right * Random.Range(-gunList[gunListPos].spreadAmount, gunList[gunListPos].spreadAmount);
+            direction += Camera.main.transform.up * Random.Range(-gunList[gunListPos].spreadAmount, gunList[gunListPos].spreadAmount);
+
+            Debug.DrawRay(Camera.main.transform.position, direction * gunList[gunListPos].shootDist, Color.red, 1f);
+
+            RaycastHit hit;
+
+            if (Physics.Raycast(Camera.main.transform.position, direction, out hit, gunList[gunListPos].shootDist, ~ignoreLayer))
             {
-                dmg.takeDamage(gunList[gunListPos].shootDamage);
-            }
+                Debug.Log(hit.collider.name);
 
+                IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                if (dmg != null)
+                {
+                    dmg.takeDamage(gunList[gunListPos].shootDamage);
+                }
+            }
         }
     }
 
@@ -361,6 +381,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     public void upgradeJumpMax(int amount)
     {
         jumpMaxOrig += amount;
+        jumpMax = jumpMaxOrig;
     }
 
 
