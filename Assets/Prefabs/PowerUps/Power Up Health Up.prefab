@@ -106,7 +106,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Jump +
+  m_text: Health Up
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -191,11 +191,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1802279047470464687}
   - component: {fileID: 3647249004635212591}
+  - component: {fileID: 5912935536468583320}
   - component: {fileID: 6807209593654293033}
   - component: {fileID: 8262467771030333280}
-  - component: {fileID: 5912935536468583320}
   m_Layer: 1
-  m_Name: Jump Max Up
+  m_Name: Power Up Health Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,6 +225,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6915555189158123127}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &5912935536468583320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6915555189158123127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b65566f866884a143841cd3f95921959, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::powerUps
+  healAmount: 5
+  jumpAmount: 0
+  speedUp: 0
+  duration: 0
+  type: 0
+  textPivot: {fileID: 2234313456621101723}
+  textRotateSpeed: 1000
 --- !u!23 &6807209593654293033
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -250,7 +269,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: aa54487326e41cc40b4ca7d084d21cfc, type: 2}
+  - {fileID: 2100000, guid: bb84b11ff9a997644ab50121397f8ae8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -295,25 +314,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5912935536468583320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6915555189158123127}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b65566f866884a143841cd3f95921959, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::powerUps
-  healAmount: 0
-  jumpAmount: 1
-  speedUp: 0
-  duration: 10
-  type: 1
-  textPivot: {fileID: 2234313456621101723}
-  textRotateSpeed: 1000
 --- !u!1 &8431513145861136943
 GameObject:
   m_ObjectHideFlags: 0
