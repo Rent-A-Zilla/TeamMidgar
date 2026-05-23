@@ -17,8 +17,14 @@ public class fallingWall : MonoBehaviour
     public int damageAmount = 20;
     public bool damageOnlyOnce = true;
 
+    [Header("Audio Settings")]
+    public AudioSource audioSource;
+    public AudioClip fallingSound;
+    public bool playSoundOnlyOnce = true;
+
     private bool isFalling;
     private bool hasDamaged;
+    private bool hasPlayedSound;
 
     private Quaternion startRotation;
     private Quaternion targetRotation;
@@ -34,6 +40,11 @@ public class fallingWall : MonoBehaviour
     void Start()
     {
         startRotation = transform.rotation;
+
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
     }
 
     public void StartFalling()
@@ -49,6 +60,8 @@ public class fallingWall : MonoBehaviour
         isFalling = true;
 
         yield return new WaitForSeconds(fallDelay);
+
+        PlayFallingSound();
 
         Vector3 rotationAxis = GetFallAxis();
 
@@ -66,6 +79,18 @@ public class fallingWall : MonoBehaviour
         }
 
         transform.rotation = targetRotation;
+    }
+
+    private void PlayFallingSound()
+    {
+        if (audioSource == null || fallingSound == null)
+            return;
+
+        if (playSoundOnlyOnce && hasPlayedSound)
+            return;
+
+        audioSource.PlayOneShot(fallingSound);
+        hasPlayedSound = true;
     }
 
     private Vector3 GetFallAxis()
