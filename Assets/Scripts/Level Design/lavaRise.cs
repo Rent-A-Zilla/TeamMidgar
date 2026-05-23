@@ -14,7 +14,10 @@ public class lavaRise : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       
+       if (player == null)
+        {
+            player = gameManager.instance.player.GetComponent<playerController>();
+        }
     }
 
     // Update is called once per frame
