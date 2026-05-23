@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1253470226677985211}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.06443342, y: -1.3333334, z: -0.31873322}
+  m_LocalPosition: {x: -0.367, y: -1.3333334, z: 0.452}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -279,7 +279,7 @@ Transform:
   m_GameObject: {fileID: 7134096538196483895}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalPosition: {x: 0.032, y: 0, z: -0.068}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -316,7 +316,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8645371758993913359}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.79, y: 1, z: 14.36}
   m_LocalScale: {x: 1.5, y: 0.75, z: 1.5}
   m_ConstrainProportionsScale: 0
@@ -344,11 +344,11 @@ MonoBehaviour:
   FOV: 45
   roamDist: 5
   roamPauseTimer: 0
-  bullet: {fileID: 7934693662290421481, guid: 7eb49c96be3810441b3b7e3152012318, type: 3}
+  bullet: {fileID: 7934693662290421481, guid: fb00ea6c93a572e4e8833d96d3687f53, type: 3}
   shootRate: 2
   gunPivot: {fileID: 2474090312750102998}
   shootPos: {fileID: 9075539551298871646}
-  gunRotateSpeed: 10
+  gunRotateSpeed: 18
 --- !u!33 &4893787020943002242
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -371,7 +371,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 1
+  m_StoppingDistance: 3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
