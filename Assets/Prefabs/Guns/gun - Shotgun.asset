@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: gun - Shotgun
   m_EditorClassIdentifier: Assembly-CSharp::gunStats
   gunModel: {fileID: 5855586643228379229, guid: c9841888fa5041d499ada59f73087c6a, type: 3}
-  shootDamage: 10
-  shootDist: 26
-  shootRate: 1
-  ammoCur: 40
-  ammoMax: 40
+  gunFireType: 0
+  shootDamage: 5
+  shootDist: 25
+  shootRate: 0.79
+  ammoCur: 7
+  ammoMax: 10
+  pellets: 10
+  spreadAmount: 0.08
   hiteffect: {fileID: 0}
   shootSound: []
   shootSoundVol: 0

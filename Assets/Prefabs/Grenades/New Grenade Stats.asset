@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b957b8905b8762547bc671fed0df8a1d, type: 3}
   m_Name: New Grenade Stats
   m_EditorClassIdentifier: Assembly-CSharp::grenadeStats
-  type: 0
-  grenadePrefab: {fileID: 0}
-  throwForce: 15
-  upwardForce: 3
+  type: 1
+  grenadePrefab: {fileID: 1175645998766829750, guid: 1f8e334aa307ef248845931a2d538aba, type: 3}
+  throwForce: 35
+  upwardForce: 4
   fuseTime: 3
   radius: 6
   damage: 50
