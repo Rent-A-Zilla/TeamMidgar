@@ -50,13 +50,16 @@ public class enemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        if (playerInTrigger && !canSeePlayer())
+        if (HP > 0)
         {
-            checkRoam();
-        }
-        else if (!playerInTrigger)
-        {
-            checkRoam();
+            if (playerInTrigger && !canSeePlayer())
+            {
+                checkRoam();
+            }
+            else if (!playerInTrigger)
+            {
+                checkRoam();
+            }
         }
     }
 
