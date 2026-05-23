@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerController : MonoBehaviour, IDamage, IPickup
+public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 {
     [SerializeField] CharacterController controller;
     [SerializeField] LayerMask ignoreLayer;
@@ -23,10 +23,13 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     [SerializeField] float staminaDrainRate;
     [SerializeField] float staminaRegenRate;
     [SerializeField] float staminaRegenDelay;
+    [SerializeField] List<grenadeStats> grenadeList = new List<grenadeStats>();
+    [SerializeField] Transform grenadeThrowPoint;
 
     float currentStamina;
 
     int gunListPos;
+    int grenadeListPos;
     int jumpMaxOrig;
     int jumpCount;
     int HPOrig;
@@ -106,6 +109,11 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             {
                 shoot();
             }
+        }
+
+        if (Input.GetButtonDown("Throw"))
+        {
+            throwGrenade();
         }
 
         if (controller.isGrounded)
@@ -216,6 +224,36 @@ public class playerController : MonoBehaviour, IDamage, IPickup
                     dmg.takeDamage(gunList[gunListPos].shootDamage);
                 }
             }
+        }
+    }
+
+    void throwGrenade()
+    {
+        if (grenadeList.Count <= 0)
+        {
+            return;
+        }
+
+        grenadeStats grenade = grenadeList[grenadeListPos];
+
+        GameObject grenadeObj = Instantiate(grenade.grenadePrefab, grenadeThrowPoint.position, Camera.main.transform.rotation);
+
+        Rigidbody rb = grenadeObj.GetComponent<Rigidbody>();
+
+        rb.isKinematic = false;
+        rb.useGravity = true;
+
+        if (rb != null)
+        {
+            rb.AddForce(Camera.main.transform.forward * grenade.throwForce, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * grenade.upwardForce, ForceMode.Impulse);
+        }
+
+        grenadeProjectile projectile = grenadeObj.GetComponent<grenadeProjectile>();
+
+        if (projectile != null)
+        {
+            projectile.setStats(grenade);
         }
     }
 
@@ -388,5 +426,14 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         jumpMax = jumpMaxOrig;
     }
 
+    public void applyGrenadeEffects(grenadeStats grenade, Vector3 explosionPoint)
+    {
+        
+    }
 
+    public void getGrenadeStats(grenadeStats grenade)
+    {
+        grenadeList.Add(grenade);
+        grenadeListPos = grenadeList.Count - 1;
+    }
 }
