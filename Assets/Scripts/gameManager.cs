@@ -16,6 +16,7 @@ public class gameManager : MonoBehaviour
 
     [SerializeField] GameObject firstPersonCam;
     [SerializeField] GameObject thirdPersonCam;
+    [SerializeField] GameObject weaponHolderTPS;
 
     public shopManager shop;
     public Image playerHPBar;
@@ -38,12 +39,11 @@ public class gameManager : MonoBehaviour
     public bool isPaused;
     public GameObject player;
     public playerController playerScript;
+    public bool isFirstPerson;
 
     int gameGoalCount;
     int currency;
     float timeScaleOrig;
-
-    bool isFirstPerson;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -141,6 +141,8 @@ public class gameManager : MonoBehaviour
 
         firstPersonCam.SetActive(isFirstPerson);
         thirdPersonCam.SetActive(!isFirstPerson);
+
+        weaponHolderTPS.SetActive(!isFirstPerson);
 
         menuOptions.SetActive(false);
         stateUnpause();

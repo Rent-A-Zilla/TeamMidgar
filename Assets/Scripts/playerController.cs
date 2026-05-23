@@ -15,7 +15,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     [SerializeField] float speed;
 
     [SerializeField] List<gunStats> gunList = new List<gunStats>();
-    [SerializeField] GameObject gunModel;
+    [SerializeField] GameObject gunModelFPS;
+    [SerializeField] GameObject gunModelTPS;
 
     [SerializeField] int sprintMod;
     [SerializeField] int maxStamina;
@@ -268,8 +269,11 @@ public class playerController : MonoBehaviour, IDamage, IPickup
 
     void changeGun()
     {
-        gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[gunListPos].gunModel.GetComponent<MeshFilter>().sharedMesh;
-        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[gunListPos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
+        gunModelFPS.GetComponent<MeshFilter>().sharedMesh = gunList[gunListPos].gunModel.GetComponent<MeshFilter>().sharedMesh;
+        gunModelFPS.GetComponent<MeshRenderer>().sharedMaterial = gunList[gunListPos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
+
+        gunModelTPS.GetComponent<MeshFilter>().sharedMesh = gunList[gunListPos].gunModel.GetComponent<MeshFilter>().sharedMesh;
+        gunModelTPS.GetComponent<MeshRenderer>().sharedMaterial = gunList[gunListPos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
 
     void selectGun()
