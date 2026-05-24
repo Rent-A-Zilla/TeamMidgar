@@ -236,7 +236,9 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
         grenadeStats grenade = grenadeList[grenadeListPos];
 
-        GameObject grenadeObj = Instantiate(grenade.grenadePrefab, grenadeThrowPoint.position, Camera.main.transform.rotation);
+        Vector3 spawnPos = transform.position + transform.forward * 1.5f + Vector3.up * 1.0f;
+
+        GameObject grenadeObj = Instantiate(grenade.grenadePrefab, spawnPos, Camera.main.transform.rotation);
 
         Rigidbody rb = grenadeObj.GetComponent<Rigidbody>();
 
@@ -428,7 +430,16 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     public void applyGrenadeEffects(grenadeStats grenade, Vector3 explosionPoint)
     {
-        
+        if (grenade.type == grenadeStats.grenadeType.Explosive)
+        {
+            takeDamage(grenade.damage);
+        }
+        else if (grenade.type == grenadeStats.grenadeType.AntiGravity)
+        {
+            playerVel.y = grenade.effectForce;
+
+            controller.Move(Vector3.up * 0.2f);
+        }
     }
 
     public void getGrenadeStats(grenadeStats grenade)
