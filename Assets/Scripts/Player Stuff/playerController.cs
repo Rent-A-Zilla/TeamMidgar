@@ -141,6 +141,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         if (Input.GetButtonDown("Reload") && gunList.Count > 0)
         {
             gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
+
+            updateAmmoUI();
         }
     }
 
@@ -203,6 +205,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     {
         shootTimer = 0;
         gunList[gunListPos].ammoCur--;
+
+        updateAmmoUI();
 
         for (int i = 0; i < gunList[gunListPos].pellets; i++)
         {
@@ -334,6 +338,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
         gunModelTPS.GetComponent<MeshFilter>().sharedMesh = gunList[gunListPos].gunModel.GetComponent<MeshFilter>().sharedMesh;
         gunModelTPS.GetComponent<MeshRenderer>().sharedMaterial = gunList[gunListPos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
+
+        updateAmmoUI();
     }
 
     void selectGun()
@@ -477,5 +483,10 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
             grenadeListPos = grenadeList.Count - 1;
         }
+    }
+
+    void updateAmmoUI()
+    {
+        gameManager.instance.updateAmmoUI(gunList[gunListPos].ammoCur, gunList[gunListPos].ammoMax);
     }
 }

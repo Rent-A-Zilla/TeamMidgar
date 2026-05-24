@@ -32,6 +32,9 @@ public class gameManager : MonoBehaviour
     public Image speedUpTimer;
     public GameObject speedUpTimerUI;
 
+    [Header("Ammo UI")]
+    public TMP_Text ammoText;
+
     public GameObject fallingPlatformTimerUI;
     public TMP_Text fallingPlatformTimerText;
 
@@ -248,5 +251,10 @@ public class gameManager : MonoBehaviour
                 fallingPlatformTimerUI.SetActive(false);
             }
         }
+    }
+
+    public void updateAmmoUI(int currentAmmo, int maxAmmo)
+    {
+        ammoText.text = currentAmmo + " / " + maxAmmo;
     }
 }
