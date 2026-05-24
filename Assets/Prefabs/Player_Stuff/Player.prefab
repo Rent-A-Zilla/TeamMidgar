@@ -540,7 +540,7 @@ MonoBehaviour:
     m_Bits: 8
   HP: 10
   jumpSpeed: 12
-  jumpMax: 1
+  jumpMax: 2
   gravity: 35
   speed: 5
   gunList: []
@@ -552,6 +552,7 @@ MonoBehaviour:
   staminaRegenRate: 4
   staminaRegenDelay: 1.25
   grenadeList: []
+  grenadeCounts: 
   grenadeThrowPoint: {fileID: 7089980809905547372}
 --- !u!33 &2004266959534834126
 MeshFilter:

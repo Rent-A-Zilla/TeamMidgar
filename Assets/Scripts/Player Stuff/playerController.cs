@@ -23,7 +23,9 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     [SerializeField] float staminaDrainRate;
     [SerializeField] float staminaRegenRate;
     [SerializeField] float staminaRegenDelay;
+
     [SerializeField] List<grenadeStats> grenadeList = new List<grenadeStats>();
+    [SerializeField] List<int> grenadeCounts = new List<int>();
     [SerializeField] Transform grenadeThrowPoint;
 
     float currentStamina;
@@ -236,6 +238,11 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
         grenadeStats grenade = grenadeList[grenadeListPos];
 
+        if (grenadeCounts[grenadeListPos] <= 0)
+        {
+            return;
+        }
+
         Vector3 spawnPos = transform.position + transform.forward * 1.5f + Vector3.up * 1.0f;
 
         GameObject grenadeObj = Instantiate(grenade.grenadePrefab, spawnPos, Camera.main.transform.rotation);
@@ -256,6 +263,19 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         if (projectile != null)
         {
             projectile.setStats(grenade);
+        }
+
+        grenadeCounts[grenadeListPos]--;
+
+        if (grenadeCounts[grenadeListPos] <= 0)
+        {
+            grenadeList.RemoveAt(grenadeListPos);
+            grenadeCounts.RemoveAt(grenadeListPos);
+
+            if (grenadeListPos > 0)
+            {
+                grenadeListPos--;
+            }
         }
     }
 
@@ -444,7 +464,18 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     public void getGrenadeStats(grenadeStats grenade)
     {
-        grenadeList.Add(grenade);
-        grenadeListPos = grenadeList.Count - 1;
+        int existingGrenade = grenadeList.IndexOf(grenade);
+
+        if (existingGrenade >= 0)
+        {
+            grenadeCounts[existingGrenade]++;
+        }
+        else
+        {
+            grenadeList.Add(grenade);
+            grenadeCounts.Add(1);
+
+            grenadeListPos = grenadeList.Count - 1;
+        }
     }
 }
