@@ -53,6 +53,9 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
 
+        firstPersonCam = player.transform.Find("FirstPersonView").gameObject;
+        thirdPersonCam = player.transform.Find("ThirdPersonView").gameObject;
+        weaponHolderTPS = player.transform.Find("Gun Holder TPS").gameObject;
     }
 
     // Update is called once per frame
