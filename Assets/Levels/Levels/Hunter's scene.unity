@@ -7815,6 +7815,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7089980809905547372, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7504374039852997019, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -10443,6 +10447,10 @@ PrefabInstance:
     - target: {fileID: 1175645998766829750, guid: 1f8e334aa307ef248845931a2d538aba, type: 3}
       propertyPath: m_Name
       value: Grenade
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175645998766829750, guid: 1f8e334aa307ef248845931a2d538aba, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6412802230219565021, guid: 1f8e334aa307ef248845931a2d538aba, type: 3}
       propertyPath: m_LocalPosition.x
