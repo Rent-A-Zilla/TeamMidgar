@@ -16,7 +16,7 @@ MonoBehaviour:
   grenadePrefab: {fileID: 1175645998766829750, guid: 1f8e334aa307ef248845931a2d538aba, type: 3}
   throwForce: 20
   upwardForce: 4
-  fuseTime: 1
-  radius: 5.05
+  fuseTime: 2
+  radius: 5
   damage: 2
   effectForce: 20
