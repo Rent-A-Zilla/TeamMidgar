@@ -266,6 +266,9 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
             {
                 Debug.Log(hit.collider.name);
 
+                if (gunList[gunListPos].hiteffect != null)
+                    Instantiate(gunList[gunListPos].hiteffect, hit.point, Quaternion.identity);
+
                 IDamage dmg = hit.collider.GetComponent<IDamage>();
 
                 if (dmg != null)
