@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2754132550701715942}
   - component: {fileID: 5089610075907642961}
   - component: {fileID: 595953736791655819}
+  - component: {fileID: 1290669677953161723}
   m_Layer: 0
   m_Name: Gun Pickup - Pistol
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4752001546767124718}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.18421976, y: 1.38, z: -18.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -126,3 +127,16 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.787886
   m_Center: {x: 0.15778351, y: -0.04859481, z: -0.00007174071}
+--- !u!114 &1290669677953161723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4752001546767124718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2dc59e3e499c014dbfdc0d94a20ec7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::pickupSpin
+  rotationSpeed: {x: 0, y: 180, z: 0}
