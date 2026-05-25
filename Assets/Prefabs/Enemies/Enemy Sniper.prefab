@@ -415,7 +415,7 @@ Transform:
   m_GameObject: {fileID: 6042268498976124212}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -58.27, y: 1, z: -0.25}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -441,11 +441,11 @@ MonoBehaviour:
   agent: {fileID: 3298279829395023915}
   HP: 1
   faceTargetSpeed: 10
-  FOV: 45
+  FOV: 90
   roamDist: 58
   roamPauseTimer: 6
   bullet: {fileID: 7934693662290421481, guid: 64e0b3134bc676c43a22b871d3e6c376, type: 3}
-  shootRate: 2
+  shootRate: 0.93
   gunPivot: {fileID: 4566363643032712928}
   shootPos: {fileID: 4566398973855668426}
   gunRotateSpeed: 10

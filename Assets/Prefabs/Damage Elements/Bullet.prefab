@@ -53,7 +53,7 @@ MonoBehaviour:
   damageRate: 0
   bulletSpeed: 25
   bulletDestroyTime: 3
-  hitEffect: {fileID: 0}
+  hitEffect: {fileID: 5204688178410551838, guid: c33735bcd614dcc409fe8286a314139c, type: 3}
 --- !u!135 &773048849757008790
 SphereCollider:
   m_ObjectHideFlags: 0
