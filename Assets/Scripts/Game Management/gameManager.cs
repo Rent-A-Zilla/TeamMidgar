@@ -6,6 +6,7 @@ public class gameManager : MonoBehaviour
 {
     public static gameManager instance;
 
+    [Header("----- Menus -----")]
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
@@ -14,11 +15,17 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject lavaOverlayUI;
     [SerializeField] GameObject menuShop;
 
+
+    [Header("----- Cams -----")]
     [SerializeField] GameObject firstPersonCam;
     [SerializeField] GameObject thirdPersonCam;
     [SerializeField] GameObject weaponHolderTPS;
 
+
+    [Header("----- Shop -----")]
     public shopManager shop;
+
+    [Header("----- HUD UI -----")]
     public Image playerHPBar;
     public Image playerSprintBar;
     public GameObject playerSprintUI;
@@ -32,13 +39,15 @@ public class gameManager : MonoBehaviour
     public Image speedUpTimer;
     public GameObject speedUpTimerUI;
 
-    [Header("Ammo UI")]
+    [Header("----- Ammo UI -----")]
     public TMP_Text ammoText;
 
+    [Header("----- Falling Platform UI -----")]
     public GameObject fallingPlatformTimerUI;
     public TMP_Text fallingPlatformTimerText;
 
 
+    [Header("----- Player -----")]
     public bool isPaused;
     public GameObject player;
     public playerController playerScript;

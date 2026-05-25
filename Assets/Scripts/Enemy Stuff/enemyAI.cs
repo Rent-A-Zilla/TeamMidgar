@@ -24,6 +24,11 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Transform shootPos;
     [Range(1, 25)][SerializeField] int gunRotateSpeed;
 
+    [Header("----- Audio -----")]
+    [SerializeField] AudioSource audPlayer;
+    [SerializeField] AudioClip[] audHurt;
+    [SerializeField] float audHurtVol;
+
     Color colorOrig;
 
     float shootTimer;
@@ -144,9 +149,13 @@ public class enemyAI : MonoBehaviour, IDamage
             return;
         }
 
+        audPlayer.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
+
         HP -= amount;
         gameManager.instance.addCurrency(10);
         agent.SetDestination(gameManager.instance.player.transform.position);
+
+
         if (HP <= 0)
         {
             gameManager.instance.addCurrency(100);
