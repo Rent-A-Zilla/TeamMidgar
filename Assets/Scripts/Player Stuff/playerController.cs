@@ -247,6 +247,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         shootTimer = 0;
         gunList[gunListPos].ammoCur--;
 
+        audPlayer.PlayOneShot(gunList[gunListPos].shootSound[Random.Range(0, gunList[gunListPos].shootSound.Length)], gunList[gunListPos].shootSoundVol);
+
         updateAmmoUI();
 
         for (int i = 0; i < gunList[gunListPos].pellets; i++)
