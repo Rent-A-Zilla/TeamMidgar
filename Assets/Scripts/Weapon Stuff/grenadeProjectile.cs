@@ -56,6 +56,16 @@ public class grenadeProjectile : MonoBehaviour
 
         hasExploded = true;
 
+        if (stats.explosionSound.Length > 0)
+        {
+            AudioSource.PlayClipAtPoint(stats.explosionSound[Random.Range(0, stats.explosionSound.Length)], transform.position, stats.explosionSoundVol );
+        }
+
+        if (stats.explosionEffect != null)
+        {
+            Instantiate(stats.explosionEffect, transform.position, Quaternion.identity);
+        }
+
         Collider[] hits = Physics.OverlapSphere(transform.position, stats.radius);
 
         foreach (Collider hit in hits)

@@ -28,6 +28,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     [SerializeField] List<int> grenadeCounts = new List<int>();
     [SerializeField] Transform grenadeThrowPoint;
 
+    [SerializeField] AudioSource audPlayer;
+
     float currentStamina;
 
     int gunListPos;

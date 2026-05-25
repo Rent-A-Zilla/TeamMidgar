@@ -22,4 +22,9 @@ public class grenadeStats : ScriptableObject
     public float radius = 6f;
     public int damage = 50;
     public float effectForce = 10f;
+
+    [Header("-----Effects-----")]
+    public ParticleSystem explosionEffect;
+    public AudioClip[] explosionSound;
+    public float explosionSoundVol;
 }

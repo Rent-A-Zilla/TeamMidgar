@@ -20,3 +20,7 @@ MonoBehaviour:
   radius: 5
   damage: 0
   effectForce: 20
+  explosionEffect: {fileID: 0}
+  explosionSound:
+  - {fileID: 8300000, guid: 2a69a05be730ea940a33b196dfcbf04b, type: 3}
+  explosionSoundVol: 0.5
