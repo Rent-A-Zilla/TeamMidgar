@@ -17,8 +17,10 @@ MonoBehaviour:
   shootDamage: 2
   shootDist: 160
   shootRate: 0.35
-  ammoCur: 59
-  ammoMax: 60
+  ammoCur: 16
+  ammoMax: 16
+  ammoReserve: 80
+  ammoReserveMax: 80
   pellets: 1
   spreadAmount: 0
   hiteffect: {fileID: 0}

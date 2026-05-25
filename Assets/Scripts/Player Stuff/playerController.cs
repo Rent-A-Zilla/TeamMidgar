@@ -76,7 +76,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         speedOrig = speed;
         updatePlayerHPUI();
         updatePlayerSprintUI();
-
+        
         gameManager.instance.jumpMaxTimerUI.SetActive(false);
         gameManager.instance.speedUpTimerUI.SetActive(false);
 
@@ -140,7 +140,17 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     {
         if (Input.GetButtonDown("Reload") && gunList.Count > 0)
         {
-            gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
+            gunStats gun = gunList[gunListPos];
+
+            int ammoNeeded = gun.ammoMax - gun.ammoCur;
+
+            if (gun.ammoReserve <= 0 || ammoNeeded <= 0)
+                return;
+
+            int ammoToReload = Mathf.Min(ammoNeeded, gun.ammoReserve);
+
+            gun.ammoCur += ammoToReload;
+            gun.ammoReserve -= ammoToReload;
 
             updateAmmoUI();
         }
@@ -324,11 +334,23 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     public void getGunStats(gunStats gun)
     {
-        gunList.Add(gun);
-        gunListPos = gunList.Count - 1;
+        int existingGun = gunList.IndexOf(gun);
+
+        if (existingGun >= 0)
+        {
+            gun.ammoReserve = gun.ammoReserveMax;
+            gunListPos = existingGun;
+        }
+        else
+        {
+            gun.ammoCur = gun.ammoMax;
+            gun.ammoReserve = gun.ammoReserveMax;
+
+            gunList.Add(gun);
+            gunListPos = gunList.Count - 1;
+        }
 
         changeGun();
-
     }
 
     void changeGun()
@@ -487,6 +509,9 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     void updateAmmoUI()
     {
-        gameManager.instance.updateAmmoUI(gunList[gunListPos].ammoCur, gunList[gunListPos].ammoMax);
+        if (gunList.Count <= 0)
+            return;
+
+        gameManager.instance.updateAmmoUI(gunList[gunListPos].ammoCur, gunList[gunListPos].ammoReserve);
     }
 }

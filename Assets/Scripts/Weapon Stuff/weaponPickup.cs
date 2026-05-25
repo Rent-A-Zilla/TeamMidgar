@@ -11,8 +11,6 @@ public class weaponPickup : MonoBehaviour
 
         if (pik != null)
         {
-            gun.ammoCur = gun.ammoMax;
-
             pik.getGunStats(gun);
             Destroy(gameObject);
         }

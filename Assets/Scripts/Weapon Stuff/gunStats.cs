@@ -21,6 +21,8 @@ public class gunStats : ScriptableObject
     [Header("-----Ammo-----")]
     public int ammoCur;
     [Range(0, 100)] public int ammoMax;
+    public int ammoReserve;
+    public int ammoReserveMax;
 
     [Header("-----Pellets / Spread-----")]
     public int pellets = 1;
