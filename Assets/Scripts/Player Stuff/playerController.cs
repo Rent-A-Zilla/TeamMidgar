@@ -29,6 +29,12 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     [SerializeField] Transform grenadeThrowPoint;
 
     [SerializeField] AudioSource audPlayer;
+    [SerializeField] AudioClip[] audHurt;
+    [SerializeField] float audHurtVol;
+    [SerializeField] AudioClip[] audJump;
+    [SerializeField] float audJumpVol;
+    [SerializeField] AudioClip[] audSteps;
+    [SerializeField] float audStepsVol;
 
     float currentStamina;
 
@@ -45,6 +51,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     Vector3 moveDir;
     Vector3 playerVel;
+
+    bool isplayingStep;
 
     Coroutine staminaRegenCoroutine;
 
@@ -124,6 +132,9 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         {
             jumpCount = 0;
             playerVel.y = 0;
+
+            if (moveDir.magnitude > 0.3f && !isplayingStep)
+                StartCoroutine(playStep());
         }
 
         moveDir = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
@@ -136,6 +147,23 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
         selectGun();
         reload();
+    }
+
+    IEnumerator playStep()
+    {
+        isplayingStep = true;
+        audPlayer.PlayOneShot(audSteps[Random.Range(0, audSteps.Length)], audStepsVol);
+
+        if (isSprinting)
+        {
+            yield return new WaitForSeconds(0.3f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        isplayingStep = false;
     }
 
     void reload()
@@ -210,6 +238,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         {
             jumpCount++;
             playerVel.y = jumpSpeed;
+            audPlayer.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
         }
     }
 
@@ -217,6 +246,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     {
         shootTimer = 0;
         gunList[gunListPos].ammoCur--;
+
+        audPlayer.PlayOneShot(gunList[gunListPos].shootSound[Random.Range(0, gunList[gunListPos].shootSound.Length)], gunList[gunListPos].shootSoundVol);
 
         updateAmmoUI();
 
@@ -234,6 +265,9 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
             if (Physics.Raycast(Camera.main.transform.position, direction, out hit, gunList[gunListPos].shootDist, ~ignoreLayer))
             {
                 Debug.Log(hit.collider.name);
+
+                if (gunList[gunListPos].hiteffect != null)
+                    Instantiate(gunList[gunListPos].hiteffect, hit.point, Quaternion.identity);
 
                 IDamage dmg = hit.collider.GetComponent<IDamage>();
 
@@ -301,6 +335,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         HP -= amount;
         updatePlayerHPUI();
         StartCoroutine(flashDamageScreen());
+
+        audPlayer.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
 
         if (HP <= 0)
         {

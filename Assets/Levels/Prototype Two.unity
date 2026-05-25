@@ -1602,6 +1602,10 @@ PrefabInstance:
       propertyPath: lavaTimer
       value: 900
       objectReference: {fileID: 0}
+    - target: {fileID: 5731448056864302798, guid: 9e670cb39ccfd084cb30921b425bb9ad, type: 3}
+      propertyPath: damageAmount
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7815344860753623679, guid: 9e670cb39ccfd084cb30921b425bb9ad, type: 3}
       propertyPath: m_LocalScale.x
       value: 400

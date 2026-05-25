@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2674373959900664660}
   - component: {fileID: 857689209590588605}
   - component: {fileID: 8521005924498401682}
+  - component: {fileID: 1764700158068012669}
   - component: {fileID: 5265728587565307155}
   - component: {fileID: 3048245190089053051}
   - component: {fileID: 5424780822313103005}
@@ -31,13 +32,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5982828494251734979}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: 1.5744537, y: 1.68, z: -22.08}
   m_LocalScale: {x: 25, y: 25, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 0}
 --- !u!33 &2115642232023655073
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -122,6 +123,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d30b5657a3dff942ac9aa8e28a7b1c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::grenadeProjectile
+--- !u!114 &1764700158068012669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5982828494251734979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2dc59e3e499c014dbfdc0d94a20ec7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::pickupSpin
+  rotationSpeed: {x: 180, y: 180, z: 0}
 --- !u!135 &5265728587565307155
 SphereCollider:
   m_ObjectHideFlags: 0

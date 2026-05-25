@@ -17,12 +17,13 @@ MonoBehaviour:
   shootDamage: 2
   shootDist: 160
   shootRate: 0.35
-  ammoCur: 16
+  ammoCur: 5
   ammoMax: 16
   ammoReserve: 80
   ammoReserveMax: 80
   pellets: 1
   spreadAmount: 0
-  hiteffect: {fileID: 0}
-  shootSound: []
-  shootSoundVol: 0
+  hiteffect: {fileID: 5204688178410551838, guid: a346d7ed367e9b843beb59d0b335d7aa, type: 3}
+  shootSound:
+  - {fileID: 8300000, guid: 40ccb77d5eedf2549a7e5e21d92cf5ff, type: 3}
+  shootSoundVol: 0.5
