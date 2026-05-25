@@ -24,7 +24,7 @@ public class grenadeStats : ScriptableObject
     public float effectForce = 10f;
 
     [Header("-----Effects-----")]
-    public ParticleSystem explosionEffect;
+    public GameObject explosionEffect;
     public AudioClip[] explosionSound;
     public float explosionSoundVol;
 }
