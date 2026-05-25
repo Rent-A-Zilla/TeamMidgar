@@ -41,7 +41,7 @@ public class enemyAI : MonoBehaviour, IDamage
     {
 
         colorOrig = rend.material.color;
-        gameManager.instance.updateGameGoal(1);
+        //gameManager.instance.updateGameGoal(1);
 
         stoppingDistOrig = agent.stoppingDistance;
         startingPos = transform.position;
