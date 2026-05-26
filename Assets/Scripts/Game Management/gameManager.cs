@@ -39,6 +39,10 @@ public class gameManager : MonoBehaviour
     public Image speedUpTimer;
     public GameObject speedUpTimerUI;
 
+    [Header("Player Check Point Componnents")]
+    public GameObject checkpointPopup;
+    public GameObject playerStartPos;
+
     [Header("----- Ammo UI -----")]
     public TMP_Text ammoText;
 
@@ -68,6 +72,8 @@ public class gameManager : MonoBehaviour
         firstPersonCam = player.transform.Find("FirstPersonView").gameObject;
         thirdPersonCam = player.transform.Find("ThirdPersonView").gameObject;
         weaponHolderTPS = player.transform.Find("Gun Holder TPS").gameObject;
+
+        playerStartPos = GameObject.FindWithTag("Player Start Pos");
     }
 
     // Update is called once per frame

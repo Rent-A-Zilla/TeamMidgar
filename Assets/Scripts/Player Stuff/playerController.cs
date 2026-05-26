@@ -84,7 +84,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         currentStamina = maxStamina;
         jumpMaxOrig = jumpMax;
         speedOrig = speed;
-        updatePlayerHPUI();
+        changPlayerPosition();
         updatePlayerSprintUI();
         
         gameManager.instance.jumpMaxTimerUI.SetActive(false);
@@ -350,6 +350,14 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
     }
 
+    public void changPlayerPosition()
+    {
+        controller.transform.position = gameManager.instance.playerStartPos.transform.position;
+        Physics.SyncTransforms();
+        HP = HPOrig;
+        updatePlayerHPUI();
+    }
+
     IEnumerator flashDamageScreen()
     {
         gameManager.instance.playerDamageScreen.SetActive(true);
@@ -415,7 +423,6 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
             changeGun();
         }
     }
-
 
     public void updatePlayerSprintUI()
     {
