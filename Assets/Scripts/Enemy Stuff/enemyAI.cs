@@ -1,12 +1,15 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class enemyAI : MonoBehaviour, IDamage
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer rend;
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] GameObject healthBarCanvas;
+    [SerializeField] Image enemyHPBarFill;
 
     [Header("----- Stats -----")]
     [Range(1, 100)][SerializeField] int HP;
@@ -26,6 +29,8 @@ public class enemyAI : MonoBehaviour, IDamage
 
     Color colorOrig;
 
+    int HPOrig;
+
     float shootTimer;
     float angleToPlayer;
     float stoppingDistOrig;
@@ -39,6 +44,11 @@ public class enemyAI : MonoBehaviour, IDamage
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        HPOrig = HP;
+
+        healthBarCanvas = transform.Find("EnemyHpBarCanvas").gameObject;
+        enemyHPBarFill = transform.Find("EnemyHpBarCanvas/EnemyHpBar/HpBarFill").GetComponent<UnityEngine.UI.Image>();
+        healthBarCanvas.SetActive(false);
 
         colorOrig = rend.material.color;
         //gameManager.instance.updateGameGoal(1);
@@ -60,6 +70,11 @@ public class enemyAI : MonoBehaviour, IDamage
             {
                 checkRoam();
             }
+        }
+        if (healthBarCanvas != null && healthBarCanvas.activeSelf)
+        {
+            healthBarCanvas.transform.LookAt(Camera.main.transform);
+            healthBarCanvas.transform.Rotate(0, 180, 0);
         }
     }
 
@@ -145,6 +160,9 @@ public class enemyAI : MonoBehaviour, IDamage
         }
 
         HP -= amount;
+
+        updateHealthBar();
+
         gameManager.instance.addCurrency(10);
         agent.SetDestination(gameManager.instance.player.transform.position);
         if (HP <= 0)
@@ -182,5 +200,14 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         shootTimer = 0;
         Instantiate(bullet, shootPos.position, gunPivot.rotation);
+    }
+
+    void updateHealthBar()
+    {
+        if (healthBarCanvas != null)
+            healthBarCanvas.SetActive(true);
+
+        if (enemyHPBarFill != null)
+            enemyHPBarFill.fillAmount = (float)HP / HPOrig;
     }
 }
