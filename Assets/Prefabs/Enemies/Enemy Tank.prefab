@@ -180,7 +180,7 @@ MonoBehaviour:
   agent: {fileID: 7108440799113527292}
   healthBarCanvas: {fileID: 0}
   enemyHPBarFill: {fileID: 0}
-  HP: 15
+  HP: 50
   faceTargetSpeed: 4
   FOV: 50
   roamDist: 17
