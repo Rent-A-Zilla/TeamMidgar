@@ -6,7 +6,8 @@ public class grenadeStats : ScriptableObject
     public enum grenadeType
     {
         Explosive,
-        AntiGravity
+        AntiGravity,
+        Knockback
     }
 
     public grenadeType type;
@@ -22,6 +23,8 @@ public class grenadeStats : ScriptableObject
     public float radius = 6f;
     public int damage = 50;
     public float effectForce = 10f;
+    public float horizontalForceMult = 2f;
+    public float upwardBonus = 0.35f;
 
     [Header("-----Effects-----")]
     public GameObject explosionEffect;
