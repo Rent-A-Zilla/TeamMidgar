@@ -200,7 +200,7 @@ MonoBehaviour:
   agent: {fileID: -5396863775240713184}
   healthBarCanvas: {fileID: 0}
   enemyHPBarFill: {fileID: 0}
-  HP: 100
+  HP: 22
   faceTargetSpeed: 2
   FOV: 62
   roamDist: 5
@@ -210,6 +210,9 @@ MonoBehaviour:
   gunPivot: {fileID: 9161950664994837967}
   shootPos: {fileID: 4309218399566667653}
   gunRotateSpeed: 1
+  audPlayer: {fileID: 0}
+  audHurt: []
+  audHurtVol: 0
 --- !u!33 &1441633339619357739
 MeshFilter:
   m_ObjectHideFlags: 0
