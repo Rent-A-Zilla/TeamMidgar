@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13aacca47d9d1924fb137c6f49366d9b, type: 3}
+  m_Name: gun - AR
+  m_EditorClassIdentifier: Assembly-CSharp::gunStats
+  gunModel: {fileID: 5313856188506331232, guid: 7444562fe5798e846a4045a93e123308, type: 3}
+  gunFireType: 1
+  shootDamage: 2
+  shootDist: 304
+  shootRate: 0.1
+  ammoCur: 0
+  ammoMax: 30
+  ammoReserve: 300
+  ammoReserveMax: 300
+  pellets: 1
+  spreadAmount: 0
+  hiteffect: {fileID: 5204688178410551838, guid: c33735bcd614dcc409fe8286a314139c, type: 3}
+  shootSound:
+  - {fileID: 8300000, guid: 33379a66565f7374ea3edac7fada9ea6, type: 3}
+  shootSoundVol: 0.5
