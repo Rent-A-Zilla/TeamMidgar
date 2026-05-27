@@ -472,7 +472,7 @@ MonoBehaviour:
   agent: {fileID: 6415152778880528982}
   healthBarCanvas: {fileID: 0}
   enemyHPBarFill: {fileID: 0}
-  HP: 4
+  HP: 30
   faceTargetSpeed: 10
   FOV: 45
   roamDist: 5
@@ -511,6 +511,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c63f35c55e22d4b2a81f9dbc0eba64e8, type: 3}
   - {fileID: 8300000, guid: 1dc904b120aea44b58e588234674f5d7, type: 3}
   audHurtVol: 1
+  hurtSoundCooldown: 0.2
 --- !u!33 &4893787020943002242
 MeshFilter:
   m_ObjectHideFlags: 0

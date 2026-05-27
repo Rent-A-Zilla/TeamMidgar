@@ -12,7 +12,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Image enemyHPBarFill;
 
     [Header("----- Stats -----")]
-    [Range(1, 100)][SerializeField] int HP;
+    [Range(1, 1000)][SerializeField] int HP;
     [Range(1, 10)][SerializeField] int faceTargetSpeed;
     [Range(5, 180)][SerializeField] int FOV;
 
@@ -41,6 +41,8 @@ public class enemyAI : MonoBehaviour, IDamage
     float stoppingDistOrig;
     float roamTimer;
 
+    private float lastHurtSoundTime = 0f;
+    public float hurtSoundCooldown = 0.2f;
     bool playerInTrigger;
 
     Vector3 playerDir;
@@ -164,7 +166,11 @@ public class enemyAI : MonoBehaviour, IDamage
             return;
         }
 
-        audPlayer.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
+        if (Time.time >= lastHurtSoundTime + hurtSoundCooldown)
+        {
+            audPlayer.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
+            lastHurtSoundTime = Time.time;
+        }
 
         HP -= amount;
 
