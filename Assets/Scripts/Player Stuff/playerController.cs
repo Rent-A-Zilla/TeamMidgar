@@ -26,7 +26,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     [SerializeField] List<grenadeStats> grenadeList = new List<grenadeStats>();
     [SerializeField] List<int> grenadeCounts = new List<int>();
-    [SerializeField] Transform grenadeThrowPoint;
+    
 
     [SerializeField] AudioSource audPlayer;
     [SerializeField] AudioClip[] audHurt;
@@ -143,6 +143,10 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         jump();
         controller.Move(playerVel * Time.deltaTime);
 
+        // Prevents player from sliding forever after propulsion
+        playerVel.x = Mathf.Lerp(playerVel.x, 0, Time.deltaTime * 5f);
+        playerVel.z = Mathf.Lerp(playerVel.z, 0, Time.deltaTime * 5f);
+
         playerVel.y -= gravity * Time.deltaTime;
 
         selectGun();
@@ -251,10 +255,12 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
         updateAmmoUI();
 
+        // Loop through pellets... Normal guns are 1, shotguns can be multiple
         for (int i = 0; i < gunList[gunListPos].pellets; i++)
         {
             Vector3 direction = Camera.main.transform.forward;
 
+            // Add random spread left/right and up/down
             direction += Camera.main.transform.right * Random.Range(-gunList[gunListPos].spreadAmount, gunList[gunListPos].spreadAmount);
             direction += Camera.main.transform.up * Random.Range(-gunList[gunListPos].spreadAmount, gunList[gunListPos].spreadAmount);
 
@@ -293,23 +299,30 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
             return;
         }
 
+        // Spawn grenade in front of player and slightly upward
         Vector3 spawnPos = transform.position + transform.forward * 1.5f + Vector3.up * 1.0f;
 
+        // Create grenade prefab at spawn position
         GameObject grenadeObj = Instantiate(grenade.grenadePrefab, spawnPos, Camera.main.transform.rotation);
 
+        // Get grenade Rigidbody for physics movement
         Rigidbody rb = grenadeObj.GetComponent<Rigidbody>();
 
+        // Make sure physics and gravity are enabled
         rb.isKinematic = false;
         rb.useGravity = true;
 
+        // Throw grenade forward and upward
         if (rb != null)
         {
             rb.AddForce(Camera.main.transform.forward * grenade.throwForce, ForceMode.Impulse);
             rb.AddForce(Vector3.up * grenade.upwardForce, ForceMode.Impulse);
         }
 
+        // Get grenade projectile script
         grenadeProjectile projectile = grenadeObj.GetComponent<grenadeProjectile>();
 
+        // Pass grenade stats to projectile
         if (projectile != null)
         {
             projectile.setStats(grenade);
@@ -523,15 +536,47 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     public void applyGrenadeEffects(grenadeStats grenade, Vector3 explosionPoint)
     {
+        // Explosive grenade deals damage
         if (grenade.type == grenadeStats.grenadeType.Explosive)
         {
             takeDamage(grenade.damage);
         }
+        // Anti-gravity grenade launches player upward
         else if (grenade.type == grenadeStats.grenadeType.AntiGravity)
         {
             playerVel.y = grenade.effectForce;
 
             controller.Move(Vector3.up * 0.2f);
+        }
+        // Knockback grenade applies directional propulsion
+        else if (grenade.type == grenadeStats.grenadeType.Knockback)
+        {
+            // Get direction away from explosion
+            Vector3 direction = transform.position - explosionPoint;
+
+            // Scale force based on distance from explosion
+            float distance = direction.magnitude;
+            float forcePercent = 1 - (distance / grenade.radius);
+            forcePercent = Mathf.Clamp01(forcePercent);
+
+            // Normalize direction before modifying it
+            direction.Normalize();
+
+            // Increase horizontal propulsion for walls
+            direction.x *= grenade.horizontalForceMult;
+            direction.z *= grenade.horizontalForceMult;
+
+            // Add upward boost and prevent downward launches
+            direction.y = Mathf.Abs(direction.y) + grenade.upwardBonus;
+
+            // Normalize again after changing values
+            direction.Normalize();
+
+            // Add propulsion force to current velocity
+            playerVel += direction * grenade.effectForce * forcePercent;
+
+            // Small movement push to prevent sticking
+            controller.Move(direction * 0.2f);
         }
     }
 

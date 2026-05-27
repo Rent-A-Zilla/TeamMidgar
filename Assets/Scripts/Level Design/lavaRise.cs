@@ -2,33 +2,37 @@ using UnityEngine;
 
 public class lavaRise : MonoBehaviour
 {
+    [Header("----- Lava Settings -----")]
     [SerializeField] int lavaSpeed;
     [SerializeField] float lavaTimer;
     [SerializeField] playerController player;
 
     Vector3 lavaDepth;
 
-    bool lavaExpand;
-  
+    bool lavaActive;
+    float lavaTimerOrig;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       if (player == null)
+        lavaTimerOrig = lavaTimer;
+        lavaActive = false;
+
+        if (player == null)
         {
             player = gameManager.instance.player.GetComponent<playerController>();
         }
+
+        gameManager.instance.updateLavaTimer(lavaTimer);
     }
 
-    // Update is called once per frame
     void Update()
     {
-       if(player.getHP() <= 0)
+        if (player.getHP() <= 0)
         {
-            lavaExpand = false;
+            stopLava();
         }
 
-       if(lavaExpand)
+        if (!lavaActive)
         {
             return;
         }
@@ -36,6 +40,11 @@ public class lavaRise : MonoBehaviour
         if (lavaTimer > 0)
         {
             lavaTimer -= Time.deltaTime;
+
+            if (lavaTimer < 0)
+            {
+                lavaTimer = 0;
+            }
 
             gameManager.instance.updateLavaTimer(lavaTimer);
         }
@@ -46,8 +55,58 @@ public class lavaRise : MonoBehaviour
             transform.localScale += lavaDepth;
             transform.position += new Vector3(0, (lavaSpeed * Time.deltaTime) / 2, 0);
         }
-
-
     }
 
+    public void startLava()
+    {
+        lavaActive = true;
+    }
+
+    public void stopLava()
+    {
+        lavaActive = false;
+    }
+
+    public void resetLavaTimer()
+    {
+        lavaTimer = lavaTimerOrig;
+        gameManager.instance.updateLavaTimer(lavaTimer);
+    }
+
+    public void restartLava()
+    {
+        resetLavaTimer();
+        startLava();
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.isTrigger)
+        {
+            weaponPickup weapon = other.GetComponent<weaponPickup>();
+
+            if (weapon != null)
+            {
+                Destroy(weapon.gameObject);
+                return;
+            }
+
+            grenadePickup grenade = other.GetComponent<grenadePickup>();
+
+            if (grenade != null)
+            {
+                Destroy(grenade.gameObject);
+                return;
+            }
+
+            return;
+        }
+
+        IDamage dmg = other.GetComponent<IDamage>();
+
+        if (dmg != null)
+        {
+            dmg.takeDamage(999);
+        }
+    }
 }

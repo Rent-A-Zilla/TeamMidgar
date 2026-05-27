@@ -35,13 +35,13 @@ public class grenadeProjectile : MonoBehaviour
         {
             return;
         }
-
+        // Prevent grenade from exploding immediately on player
         if (obj.CompareTag("Player"))
         {
             return;
         }
-
-        if (stats.type == grenadeStats.grenadeType.AntiGravity)
+        // Anti-gravity and knockback grenades explode on impact
+        if (stats.type == grenadeStats.grenadeType.AntiGravity ||stats.type == grenadeStats.grenadeType.Knockback)
         {
             explode();
         }
@@ -66,6 +66,7 @@ public class grenadeProjectile : MonoBehaviour
             Instantiate(stats.explosionEffect, transform.position, Quaternion.identity);
         }
 
+        // Find all colliders inside explosion radius
         Collider[] hits = Physics.OverlapSphere(transform.position, stats.radius);
 
         foreach (Collider hit in hits)

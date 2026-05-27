@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class enemyAI : MonoBehaviour, IDamage
+public class enemyAI : MonoBehaviour, IDamage, IGrenade
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer rend;
@@ -48,6 +48,9 @@ public class enemyAI : MonoBehaviour, IDamage
     Vector3 playerDir;
     Vector3 startingPos;
 
+    Coroutine knockbackCoroutine;
+    Vector3 knockbackVelocity;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -87,7 +90,7 @@ public class enemyAI : MonoBehaviour, IDamage
 
     void checkRoam()
     {
-        if (agent.remainingDistance < 0.01f)
+        if (agent.enabled && agent.isOnNavMesh && agent.remainingDistance < 0.01f)
         {
             roamTimer += Time.deltaTime;
 
@@ -113,6 +116,11 @@ public class enemyAI : MonoBehaviour, IDamage
 
     bool canSeePlayer()
     {
+        if (!agent.enabled || !agent.isOnNavMesh)
+        {
+            return false;
+        }
+
         playerDir = gameManager.instance.player.transform.position - transform.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
 
@@ -123,7 +131,10 @@ public class enemyAI : MonoBehaviour, IDamage
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV)
             {
-                agent.SetDestination(gameManager.instance.player.transform.position);
+                if (agent.enabled && agent.isOnNavMesh)
+                {
+                    agent.SetDestination(gameManager.instance.player.transform.position);
+                }
 
                 rotateGun();
                 rotateToTarget();
@@ -177,7 +188,11 @@ public class enemyAI : MonoBehaviour, IDamage
         updateHealthBar();
 
         gameManager.instance.addCurrency(10);
-        agent.SetDestination(gameManager.instance.player.transform.position);
+
+        if (agent.enabled && agent.isOnNavMesh)
+        {
+            agent.SetDestination(gameManager.instance.player.transform.position);
+        }
 
 
         if (HP <= 0)
@@ -225,5 +240,123 @@ public class enemyAI : MonoBehaviour, IDamage
 
         if (enemyHPBarFill != null)
             enemyHPBarFill.fillAmount = (float)HP / HPOrig;
+    }
+
+    public void applyGrenadeEffects(grenadeStats grenade, Vector3 explosionPoint)
+    {
+        // Explosive grenade damages enemy
+        if (grenade.type == grenadeStats.grenadeType.Explosive)
+        {
+            takeDamage(grenade.damage);
+        }
+
+        // Anti-gravity grenade launches enemy upward
+        else if (grenade.type == grenadeStats.grenadeType.AntiGravity)
+        {
+            if (knockbackCoroutine != null)
+                StopCoroutine(knockbackCoroutine);
+
+            knockbackCoroutine = StartCoroutine(
+                knockbackEnemy(Vector3.up * grenade.effectForce)
+            );
+        }
+
+        // Knockback grenade pushes enemy away from explosion
+        else if (grenade.type == grenadeStats.grenadeType.Knockback)
+        {
+            // Get direction away from explosion
+            Vector3 direction = transform.position - explosionPoint;
+
+            // Scale force based on distance from explosion
+            float distance = direction.magnitude;
+            float forcePercent = 1 - (distance / grenade.radius);
+            forcePercent = Mathf.Clamp01(forcePercent);
+
+            // Normalize before modifying values
+            direction.Normalize();
+
+            // Increase horizontal propulsion
+            direction.x *= grenade.horizontalForceMult;
+            direction.z *= grenade.horizontalForceMult;
+
+            // Add upward boost
+            direction.y = Mathf.Abs(direction.y) + grenade.upwardBonus;
+
+            // Normalize again after edits
+            direction.Normalize();
+
+            if (knockbackCoroutine != null)
+                StopCoroutine(knockbackCoroutine);
+
+            // Apply knockback force
+            knockbackCoroutine = StartCoroutine(
+                knockbackEnemy(direction * grenade.effectForce * forcePercent)
+            );
+        }
+    }
+    IEnumerator knockbackEnemy(Vector3 force)
+    {
+        // Disable NavMesh while enemy is being launched
+        agent.enabled = false;
+
+        knockbackVelocity = force;
+
+        float timer = 1.5f;
+
+        while (timer > 0)
+        {
+            // Calculate movement for this frame
+            Vector3 move = knockbackVelocity * Time.deltaTime;
+
+            // Check for walls before moving
+            if (Physics.SphereCast(transform.position,0.5f,move.normalized,out RaycastHit wallHit, move.magnitude))
+            {
+                // Stop horizontal movement if hitting wall
+                if (!wallHit.collider.isTrigger)
+                {
+                    knockbackVelocity.x = 0;
+                    knockbackVelocity.z = 0;
+                }
+            }
+            else
+            {
+                // Move enemy if no wall detected
+                transform.position += move;
+            }
+
+            // Smoothly reduce horizontal knockback
+            knockbackVelocity.x = Mathf.Lerp(knockbackVelocity.x, 0, Time.deltaTime * 5f);
+            knockbackVelocity.z = Mathf.Lerp(knockbackVelocity.z, 0, Time.deltaTime * 5f);
+
+            // Apply gravity
+            knockbackVelocity.y -= 30f * Time.deltaTime;
+
+            // Check for ground below enemy
+            if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit groundHit, 1.1f))
+            {
+                // Stop falling once enemy reaches ground
+                if (knockbackVelocity.y <= 0)
+                {
+                    transform.position = groundHit.point;
+                    break;
+                }
+            }
+
+            timer -= Time.deltaTime;
+
+            yield return null;
+        }
+
+        // Reposition enemy back onto NavMesh
+        if (NavMesh.SamplePosition(transform.position, out NavMeshHit navHit, 3f, NavMesh.AllAreas))
+        {
+            transform.position = navHit.position;
+
+            agent.enabled = true;
+
+            agent.Warp(navHit.position);
+        }
+
+        knockbackCoroutine = null;
     }
 }
