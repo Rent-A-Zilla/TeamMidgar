@@ -42,7 +42,7 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
     float roamTimer;
 
     private float lastHurtSoundTime = 0f;
-    public float hurtSoundCooldown = 0.2f;
+    public float hurtSoundCooldown = .2f;
     bool playerInTrigger;
 
     Vector3 playerDir;
@@ -177,7 +177,7 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
             return;
         }
 
-        if (Time.time >= lastHurtSoundTime + hurtSoundCooldown)
+        if (!audPlayer.isPlaying && Time.time >= lastHurtSoundTime + hurtSoundCooldown)
         {
             audPlayer.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
             lastHurtSoundTime = Time.time;
