@@ -554,7 +554,6 @@ MonoBehaviour:
   staminaRegenDelay: 1.25
   grenadeList: []
   grenadeCounts: 
-  grenadeThrowPoint: {fileID: 7089980809905547372}
   audPlayer: {fileID: 2798665094973254508}
   audHurt:
   - {fileID: 8300000, guid: 2b9a3b15d295f6b4a85c41a7a5d4cd3a, type: 3}
@@ -571,6 +570,15 @@ MonoBehaviour:
   audJumpVol: 0.5
   audSteps:
   - {fileID: 8300000, guid: 1baf6e336cead2641a90590dcb1bfbd1, type: 3}
+  - {fileID: 8300000, guid: 211cadf683c0f944ba696a8c6534ff31, type: 3}
+  - {fileID: 8300000, guid: cb7c54e03529c4344a758bb249175251, type: 3}
+  - {fileID: 8300000, guid: a481f5a03b574cf4e8ce675894203b0d, type: 3}
+  - {fileID: 8300000, guid: 4e8731f65c7db6648959868cc6fb50d3, type: 3}
+  - {fileID: 8300000, guid: 8f507a41039e8fd40af8bb2f0ecdf1c0, type: 3}
+  - {fileID: 8300000, guid: e236f3cb3490f884bb67f95bcc66a1f6, type: 3}
+  - {fileID: 8300000, guid: cc58197c4650d6d4e8d9aaf2ca901cd8, type: 3}
+  - {fileID: 8300000, guid: 3179c178a322d2d4fae852e849d7fb7c, type: 3}
+  - {fileID: 8300000, guid: c96bc8e790bf60b44930bdfc6dcff99c, type: 3}
   audStepsVol: 0.1
 --- !u!33 &2004266959534834126
 MeshFilter:

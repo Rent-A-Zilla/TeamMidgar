@@ -629,11 +629,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6804489913135226964}
   - component: {fileID: 3955337723370986961}
+  - component: {fileID: 8172728102694383673}
   - component: {fileID: 3298279829395023915}
   - component: {fileID: 4029352829849805941}
   - component: {fileID: 7092990947202076089}
   - component: {fileID: 5014521340882974300}
-  - component: {fileID: 8172728102694383673}
   m_Layer: 7
   m_Name: Enemy Sniper
   m_TagString: Untagged
@@ -715,6 +715,27 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1dc904b120aea44b58e588234674f5d7, type: 3}
   audHurtVol: 1
   hurtSoundCooldown: 0.2
+--- !u!135 &8172728102694383673
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6042268498976124212}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 40
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &3298279829395023915
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -816,27 +837,6 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &8172728102694383673
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6042268498976124212}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 40
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7142788437951443318
 GameObject:
