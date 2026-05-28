@@ -104,7 +104,6 @@ MonoBehaviour:
   audHurt:
   - {fileID: 8300000, guid: 991165c3fc4724f7fbbc786b3c88ba31, type: 3}
   - {fileID: 8300000, guid: 5bb12fdbf688c447daf5f178a16340f2, type: 3}
-  - {fileID: 8300000, guid: 679378a3acdac48028e5cd30dbd973b6, type: 3}
   - {fileID: 8300000, guid: 6a60492f2c279470fb9b55a7eb8c99df, type: 3}
   - {fileID: 8300000, guid: 9f0c3a7071f3c4d40872df5ec8282ecb, type: 3}
   - {fileID: 8300000, guid: 637b0002633b24cd6b12677d35104334, type: 3}
@@ -132,7 +131,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c63f35c55e22d4b2a81f9dbc0eba64e8, type: 3}
   - {fileID: 8300000, guid: 1dc904b120aea44b58e588234674f5d7, type: 3}
   audHurtVol: 1
-  hurtSoundCooldown: 0.2
+  audSearch:
+  - {fileID: 8300000, guid: 1092116e82fb54e5db6a47546c6898c6, type: 3}
+  - {fileID: 8300000, guid: 76732410c91424961b234c8110ebb6bc, type: 3}
+  - {fileID: 8300000, guid: 9f0c3a7071f3c4d40872df5ec8282ecb, type: 3}
+  - {fileID: 8300000, guid: fac2174a7dda34e878f23fc345a440b4, type: 3}
+  audSearchVol: 1
 --- !u!195 &7108440799113527292
 NavMeshAgent:
   m_ObjectHideFlags: 0

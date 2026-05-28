@@ -39,6 +39,7 @@ public class gameManager : MonoBehaviour
     public GameObject jumpMaxTimerUI;
     public Image speedUpTimer;
     public GameObject speedUpTimerUI;
+    public TMP_Text grenadeText;
 
     [Header("Player Check Point Componnents")]
     public GameObject checkpointPopup;
@@ -283,5 +284,9 @@ public class gameManager : MonoBehaviour
     public void hideLavaTimer()
     {
         lavaTimerUI.gameObject.SetActive(false);
+    }
+    public void updateGrenadeUI(string grenadeName, int grenadeCount)
+    {
+        grenadeText.text = grenadeName + " x" + grenadeCount;
     }
 }

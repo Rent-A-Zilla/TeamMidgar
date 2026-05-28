@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b957b8905b8762547bc671fed0df8a1d, type: 3}
-  m_Name: grenade - antigravity
+  m_Name: Anti-G
   m_EditorClassIdentifier: Assembly-CSharp::grenadeStats
   type: 1
   grenadePrefab: {fileID: 5982828494251734979, guid: d6d6ad8da71d4504d89a4eac8157d1fa, type: 3}

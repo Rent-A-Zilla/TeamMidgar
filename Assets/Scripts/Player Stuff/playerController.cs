@@ -150,6 +150,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         playerVel.y -= gravity * Time.deltaTime;
 
         selectGun();
+        selectGrenade();
         reload();
     }
 
@@ -340,6 +341,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
                 grenadeListPos--;
             }
         }
+        updateGrenadeUI();
     }
 
     //Player handling
@@ -595,6 +597,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
             grenadeListPos = grenadeList.Count - 1;
         }
+        updateGrenadeUI();
     }
 
     void updateAmmoUI()
@@ -603,5 +606,35 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
             return;
 
         gameManager.instance.updateAmmoUI(gunList[gunListPos].ammoCur, gunList[gunListPos].ammoReserve);
+    }
+
+    void selectGrenade()
+    {
+        if (grenadeList.Count <= 1)
+        {
+            return;
+        }
+
+        if (Input.GetButtonDown("Toggle"))
+        {
+            grenadeListPos++;
+
+            if (grenadeListPos >= grenadeList.Count)
+            {
+                grenadeListPos = 0;
+            }
+            updateGrenadeUI();
+        }
+    }
+
+    void updateGrenadeUI()
+    {
+        if (grenadeList.Count <= 0)
+        {
+            gameManager.instance.updateGrenadeUI("No Grenade", 0);
+            return;
+        }
+
+        gameManager.instance.updateGrenadeUI(grenadeList[grenadeListPos].name, grenadeCounts[grenadeListPos]);
     }
 }

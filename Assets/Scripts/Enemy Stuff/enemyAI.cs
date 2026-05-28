@@ -31,6 +31,8 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
     [SerializeField] AudioSource audPlayer;
     [SerializeField] AudioClip[] audHurt;
     [SerializeField] float audHurtVol;
+    [SerializeField] AudioClip[] audSearch;
+    [SerializeField] float audSearchVol;
 
     Color colorOrig;
 
@@ -42,11 +44,14 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
     float roamTimer;
 
     private float lastHurtSoundTime = 0f;
-    public float hurtSoundCooldown = .2f;
+    private float hurtSoundCooldown = .2f;
     bool playerInTrigger;
+    bool wasChasing;
+    bool isSearching;
 
     Vector3 playerDir;
     Vector3 startingPos;
+    Vector3 lastKnownPlayerPos;
 
     Coroutine knockbackCoroutine;
     Vector3 knockbackVelocity;
@@ -72,11 +77,26 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
     {
         if (HP > 0)
         {
-            if (playerInTrigger && !canSeePlayer())
+            bool canSee = canSeePlayer();
+            if (playerInTrigger && canSee)
             {
-                checkRoam();
+                wasChasing = true;
+
+                StopCoroutine("searchForPlayer");
+                isSearching = false;
             }
-            else if (!playerInTrigger)
+            else if (playerInTrigger && !canSee)
+            {
+                if(wasChasing && !isSearching)
+                {
+                    StartCoroutine(searchForPlayer());
+                }
+                else if (!isSearching)
+                {
+                    checkRoam();
+                }
+            }
+            else if (!playerInTrigger && !isSearching)
             {
                 checkRoam();
             }
@@ -88,6 +108,34 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
         }
     }
 
+    IEnumerator searchForPlayer()
+    {
+        isSearching = true;
+        wasChasing = false;
+
+
+        audPlayer.PlayOneShot(audSearch[Random.Range(0, audSearch.Length)], audSearchVol);
+
+        int originalRoamDist = roamDist;
+        int originalRoamTimer = roamPauseTimer;
+
+        roamDist = 5;
+        roamPauseTimer = 0;
+
+        float searchDuration = 5f;
+        float timer = 0;
+
+        while(timer < searchDuration)
+        {
+            timer += Time.deltaTime;
+            checkRoam();
+            yield return null;
+        }
+        roamDist = originalRoamDist;
+        roamPauseTimer = originalRoamTimer;
+        isSearching = false;
+
+    }
     void checkRoam()
     {
         if (agent.enabled && agent.isOnNavMesh && agent.remainingDistance < 0.01f)
@@ -106,8 +154,10 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
         roamTimer = 0;
         agent.stoppingDistance = 0;
 
+        Vector3 centerPoint = isSearching ? lastKnownPlayerPos : startingPos;
+
         Vector3 ranPos = Random.insideUnitSphere * roamDist;
-        ranPos += startingPos;
+        ranPos += centerPoint;
 
         NavMeshHit hit;
         NavMesh.SamplePosition(ranPos, out hit, roamDist, 1);
@@ -131,6 +181,8 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV)
             {
+                lastKnownPlayerPos = gameManager.instance.player.transform.position;
+
                 if (agent.enabled && agent.isOnNavMesh)
                 {
                     agent.SetDestination(gameManager.instance.player.transform.position);

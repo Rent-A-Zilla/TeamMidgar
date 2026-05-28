@@ -714,7 +714,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c63f35c55e22d4b2a81f9dbc0eba64e8, type: 3}
   - {fileID: 8300000, guid: 1dc904b120aea44b58e588234674f5d7, type: 3}
   audHurtVol: 1
-  hurtSoundCooldown: 0.2
+  audSearch:
+  - {fileID: 8300000, guid: 2ba44af58428445268fda29498c6ce58, type: 3}
+  - {fileID: 8300000, guid: b8241235222bc4dbdb75f1701aff395f, type: 3}
+  audSearchVol: 1
 --- !u!135 &8172728102694383673
 SphereCollider:
   m_ObjectHideFlags: 0
