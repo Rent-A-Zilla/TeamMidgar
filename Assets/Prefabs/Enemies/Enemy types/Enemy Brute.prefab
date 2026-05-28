@@ -511,7 +511,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c63f35c55e22d4b2a81f9dbc0eba64e8, type: 3}
   - {fileID: 8300000, guid: 1dc904b120aea44b58e588234674f5d7, type: 3}
   audHurtVol: 1
-  hurtSoundCooldown: 0.2
+  audSearch:
+  - {fileID: 8300000, guid: 9488eed86464549f3bf66952361567b1, type: 3}
+  - {fileID: 8300000, guid: 0a957321e90804893bc9351e69adc87b, type: 3}
+  - {fileID: 8300000, guid: 8814cddedb63742c8b121986f6268416, type: 3}
+  - {fileID: 8300000, guid: 1dd10317bfe8a4b62889f90c47f27914, type: 3}
+  - {fileID: 8300000, guid: ef2a40d7b368a4f6d85736e88dee9d85, type: 3}
+  audSearchVol: 1
 --- !u!33 &4893787020943002242
 MeshFilter:
   m_ObjectHideFlags: 0
