@@ -2487,6 +2487,7 @@ MonoBehaviour:
   playerSprintUI: {fileID: 1675442213620158990}
   playerDamageScreen: {fileID: 908240543092229022}
   gameGoalCountText: {fileID: 1828314472605036849}
+  lavaTimerUI: {fileID: 1349192391613808695}
   lavaTimerText: {fileID: 6166678797457176434}
   currencyText: {fileID: 2949551258854648701}
   shopCurrencyText: {fileID: 6936845031280464193}
@@ -2494,6 +2495,8 @@ MonoBehaviour:
   jumpMaxTimerUI: {fileID: 7671826959058348746}
   speedUpTimer: {fileID: 1773367660821073792}
   speedUpTimerUI: {fileID: 1144567488294463725}
+  checkpointPopup: {fileID: 0}
+  playerStartPos: {fileID: 0}
   ammoText: {fileID: 430390366630731803}
   fallingPlatformTimerUI: {fileID: 310035645918705829}
   fallingPlatformTimerText: {fileID: 4618066679037663085}
