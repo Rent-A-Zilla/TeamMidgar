@@ -26,7 +26,6 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     [SerializeField] List<grenadeStats> grenadeList = new List<grenadeStats>();
     [SerializeField] List<int> grenadeCounts = new List<int>();
-    
 
     [SerializeField] AudioSource audPlayer;
     [SerializeField] AudioClip[] audHurt;
@@ -37,13 +36,13 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     [SerializeField] float audStepsVol;
 
     float currentStamina;
+    float speedBoostAmount;
 
     int gunListPos;
     int grenadeListPos;
     int jumpMaxOrig;
     int jumpCount;
     int HPOrig;
-    float speedOrig;
 
     float shootTimer;
 
@@ -55,8 +54,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     bool isplayingStep;
 
     Coroutine staminaRegenCoroutine;
+    Coroutine speedUpCoroutine;
 
-    //Getters
     public int getHP()
     {
         return HP;
@@ -77,33 +76,29 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         return jumpMax;
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         HPOrig = HP;
         currentStamina = maxStamina;
         jumpMaxOrig = jumpMax;
-        speedOrig = speed;
+
         changPlayerPosition();
         updatePlayerSprintUI();
-        
+
         gameManager.instance.jumpMaxTimerUI.SetActive(false);
         gameManager.instance.speedUpTimerUI.SetActive(false);
-
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!gameManager.instance.isPaused)
         {
             movement();
+            sprint();
+            handleSprintUI();
         }
-        sprint();
-        handleSprintUI();
     }
 
-    //Player functions
     void movement()
     {
         if (gunList.Count > 0)
@@ -138,12 +133,19 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         }
 
         moveDir = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
-        controller.Move(moveDir.normalized * speed * Time.deltaTime);
+
+        float currentSpeed = speed + speedBoostAmount;
+
+        if (isSprinting)
+        {
+            currentSpeed *= sprintMod;
+        }
+
+        controller.Move(moveDir.normalized * currentSpeed * Time.deltaTime);
 
         jump();
         controller.Move(playerVel * Time.deltaTime);
 
-        // Prevents player from sliding forever after propulsion
         playerVel.x = Mathf.Lerp(playerVel.x, 0, Time.deltaTime * 5f);
         playerVel.z = Mathf.Lerp(playerVel.z, 0, Time.deltaTime * 5f);
 
@@ -191,18 +193,13 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         }
     }
 
-
     void sprint()
     {
         bool sprintButtonHeld = Input.GetButton("Sprint");
 
         if (sprintButtonHeld && currentStamina > 0)
         {
-            if (!isSprinting)
-            {
-                isSprinting = true;
-                speed *= sprintMod;
-            }
+            isSprinting = true;
 
             currentStamina -= staminaDrainRate * Time.deltaTime;
             currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
@@ -216,17 +213,12 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
             if (currentStamina <= 0)
             {
                 isSprinting = false;
-                speed /= sprintMod;
                 staminaRegenCoroutine = StartCoroutine(RechargeStaminaAfterDelay(staminaRegenDelay));
             }
         }
         else
         {
-            if (isSprinting)
-            {
-                isSprinting = false;
-                speed /= sprintMod;
-            }
+            isSprinting = false;
 
             if (currentStamina < maxStamina && staminaRegenCoroutine == null)
             {
@@ -239,7 +231,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     void jump()
     {
-        if(Input.GetButtonDown("Jump") && jumpCount < jumpMax)
+        if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
         {
             jumpCount++;
             playerVel.y = jumpSpeed;
@@ -256,12 +248,10 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
         updateAmmoUI();
 
-        // Loop through pellets... Normal guns are 1, shotguns can be multiple
         for (int i = 0; i < gunList[gunListPos].pellets; i++)
         {
             Vector3 direction = Camera.main.transform.forward;
 
-            // Add random spread left/right and up/down
             direction += Camera.main.transform.right * Random.Range(-gunList[gunListPos].spreadAmount, gunList[gunListPos].spreadAmount);
             direction += Camera.main.transform.up * Random.Range(-gunList[gunListPos].spreadAmount, gunList[gunListPos].spreadAmount);
 
@@ -300,30 +290,23 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
             return;
         }
 
-        // Spawn grenade in front of player and slightly upward
         Vector3 spawnPos = transform.position + transform.forward * 1.5f + Vector3.up * 1.0f;
 
-        // Create grenade prefab at spawn position
         GameObject grenadeObj = Instantiate(grenade.grenadePrefab, spawnPos, Camera.main.transform.rotation);
 
-        // Get grenade Rigidbody for physics movement
         Rigidbody rb = grenadeObj.GetComponent<Rigidbody>();
 
-        // Make sure physics and gravity are enabled
-        rb.isKinematic = false;
-        rb.useGravity = true;
-
-        // Throw grenade forward and upward
         if (rb != null)
         {
+            rb.isKinematic = false;
+            rb.useGravity = true;
+
             rb.AddForce(Camera.main.transform.forward * grenade.throwForce, ForceMode.Impulse);
             rb.AddForce(Vector3.up * grenade.upwardForce, ForceMode.Impulse);
         }
 
-        // Get grenade projectile script
         grenadeProjectile projectile = grenadeObj.GetComponent<grenadeProjectile>();
 
-        // Pass grenade stats to projectile
         if (projectile != null)
         {
             projectile.setStats(grenade);
@@ -341,10 +324,10 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
                 grenadeListPos--;
             }
         }
+
         updateGrenadeUI();
     }
 
-    //Player handling
     public void takeDamage(int amount)
     {
         HP -= amount;
@@ -383,6 +366,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     private IEnumerator RechargeStaminaAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+
         while (currentStamina < maxStamina)
         {
             currentStamina += staminaRegenRate * Time.deltaTime;
@@ -390,6 +374,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
             updatePlayerSprintUI();
             yield return null;
         }
+
         staminaRegenCoroutine = null;
     }
 
@@ -448,7 +433,6 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     {
         if (isSprinting || currentStamina < maxStamina)
         {
-
             gameManager.instance.playerSprintUI.SetActive(true);
         }
         else
@@ -457,14 +441,15 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         }
     }
 
-    //Power Ups (Temporary)
     public void healthUP(int amount)
     {
         HP = HP + amount;
+
         if (HP > HPOrig)
         {
             HP = HPOrig;
         }
+
         updatePlayerHPUI();
     }
 
@@ -472,48 +457,57 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     {
         StartCoroutine(jumpMaxUPRoutine(amount, duration));
     }
+
     private IEnumerator jumpMaxUPRoutine(int amount, float duration)
     {
-
         gameManager.instance.jumpMaxTimerUI.SetActive(true);
+
         jumpMax += amount;
+
         float timer = duration;
+
         while (timer > 0)
         {
             timer -= Time.deltaTime;
-
             gameManager.instance.jumpMaxUpTimer.fillAmount = timer / duration;
-
             yield return null;
         }
-        jumpMax = jumpMaxOrig;
 
+        jumpMax = jumpMaxOrig;
         gameManager.instance.jumpMaxTimerUI.SetActive(false);
     }
+
     public void speedUp(float amount, float duration)
     {
-        StartCoroutine(speedUPRoutine(amount, duration));
+        if (speedUpCoroutine != null)
+        {
+            StopCoroutine(speedUpCoroutine);
+        }
+
+        speedUpCoroutine = StartCoroutine(speedUPRoutine(amount, duration));
     }
+
     private IEnumerator speedUPRoutine(float amount, float duration)
     {
-
         gameManager.instance.speedUpTimerUI.SetActive(true);
-        speed += amount;
+
+        speedBoostAmount = amount;
+
         float timer = duration;
+
         while (timer > 0)
         {
             timer -= Time.deltaTime;
-
             gameManager.instance.speedUpTimer.fillAmount = timer / duration;
-
             yield return null;
         }
-        speed = speedOrig;
 
+        speedBoostAmount = 0;
         gameManager.instance.speedUpTimerUI.SetActive(false);
+
+        speedUpCoroutine = null;
     }
 
-    //Player Upgrades (Permanent)
     public void upgradeMaxHealth(int amount)
     {
         HPOrig += amount;
@@ -538,46 +532,34 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     public void applyGrenadeEffects(grenadeStats grenade, Vector3 explosionPoint)
     {
-        // Explosive grenade deals damage
         if (grenade.type == grenadeStats.grenadeType.Explosive)
         {
             takeDamage(grenade.damage);
         }
-        // Anti-gravity grenade launches player upward
         else if (grenade.type == grenadeStats.grenadeType.AntiGravity)
         {
             playerVel.y = grenade.effectForce;
-
             controller.Move(Vector3.up * 0.2f);
         }
-        // Knockback grenade applies directional propulsion
         else if (grenade.type == grenadeStats.grenadeType.Knockback)
         {
-            // Get direction away from explosion
             Vector3 direction = transform.position - explosionPoint;
 
-            // Scale force based on distance from explosion
             float distance = direction.magnitude;
             float forcePercent = 1 - (distance / grenade.radius);
             forcePercent = Mathf.Clamp01(forcePercent);
 
-            // Normalize direction before modifying it
             direction.Normalize();
 
-            // Increase horizontal propulsion for walls
             direction.x *= grenade.horizontalForceMult;
             direction.z *= grenade.horizontalForceMult;
 
-            // Add upward boost and prevent downward launches
             direction.y = Mathf.Abs(direction.y) + grenade.upwardBonus;
 
-            // Normalize again after changing values
             direction.Normalize();
 
-            // Add propulsion force to current velocity
             playerVel += direction * grenade.effectForce * forcePercent;
 
-            // Small movement push to prevent sticking
             controller.Move(direction * 0.2f);
         }
     }
@@ -597,6 +579,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
             grenadeListPos = grenadeList.Count - 1;
         }
+
         updateGrenadeUI();
     }
 
@@ -623,6 +606,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
             {
                 grenadeListPos = 0;
             }
+
             updateGrenadeUI();
         }
     }
