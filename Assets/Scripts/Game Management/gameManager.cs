@@ -75,6 +75,12 @@ public class gameManager : MonoBehaviour
         thirdPersonCam = player.transform.Find("ThirdPersonView").gameObject;
         weaponHolderTPS = player.transform.Find("Gun Holder TPS").gameObject;
 
+        isFirstPerson = true;
+
+        firstPersonCam.SetActive(true);
+        thirdPersonCam.SetActive(false);
+        weaponHolderTPS.SetActive(false);
+
         playerStartPos = GameObject.FindWithTag("Player Start Pos");
 
         lavaTimerUI.SetActive(false);
