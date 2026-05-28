@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class laser : MonoBehaviour
+public class laser : MonoBehaviour, IDamage
 {
     [Header("Laser References")]
     [SerializeField] LineRenderer laserLine;
@@ -89,5 +89,10 @@ public class laser : MonoBehaviour
 
             yield return new WaitForSeconds(laserOffTime);
         }
+    }
+
+    public void takeDamage(int amount)
+    {
+        Destroy(gameObject);
     }
 }
