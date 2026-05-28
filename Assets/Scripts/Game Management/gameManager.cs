@@ -215,7 +215,12 @@ public class gameManager : MonoBehaviour
 
     public void openShop()
     {
-        menuActive.SetActive(false);
+        statePause();
+
+        if (menuActive != null)
+        {
+            menuActive.SetActive(false);
+        }
 
         menuActive = menuShop;
         menuActive.SetActive(true);
@@ -225,10 +230,17 @@ public class gameManager : MonoBehaviour
 
     public void closeShop()
     {
-        menuActive.SetActive(false);
+        if (menuActive != null)
+        {
+            menuActive.SetActive(false);
+        }
 
-        menuActive = menuWin;
-        menuActive.SetActive(true);
+        menuActive = null;
+
+        isPaused = false;
+        Time.timeScale = timeScaleOrig;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void updateFallingPlatformTimer(float time)

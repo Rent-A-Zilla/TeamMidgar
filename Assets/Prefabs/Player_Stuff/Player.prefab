@@ -541,7 +541,7 @@ MonoBehaviour:
     m_Bits: 8
   HP: 10
   jumpSpeed: 12
-  jumpMax: 2
+  jumpMax: 1
   gravity: 35
   speed: 5
   gunList: []
