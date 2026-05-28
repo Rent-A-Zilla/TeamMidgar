@@ -6,6 +6,14 @@ public class lavaTrigger : MonoBehaviour
     [SerializeField] bool startLava;
     [SerializeField] bool stopLava;
     [SerializeField] bool resetTimer;
+    [SerializeField] bool useOnce = true;
+
+    Collider triggerCollider;
+
+    void Start()
+    {
+        triggerCollider = GetComponent<Collider>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -27,6 +35,11 @@ public class lavaTrigger : MonoBehaviour
         if (stopLava)
         {
             lava.stopLava();
+        }
+
+        if (useOnce && triggerCollider != null)
+        {
+            triggerCollider.enabled = false;
         }
     }
 }
