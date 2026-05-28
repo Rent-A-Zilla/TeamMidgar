@@ -216,12 +216,16 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
 
     void rotateGun()
     {
-        Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
+        Vector3 shootDir = gameManager.instance.player.transform.position - shootPos.position;
+        shootDir.y = 0;
+
+        Quaternion rot = Quaternion.LookRotation(shootDir);
         gunPivot.rotation = Quaternion.Lerp(gunPivot.rotation, rot, Time.deltaTime * gunRotateSpeed);
     }
 
     void rotateToTarget()
     {
+
         Quaternion rot = Quaternion.LookRotation(playerDir);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
     }
