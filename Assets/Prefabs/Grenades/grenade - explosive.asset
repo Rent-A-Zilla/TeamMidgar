@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b957b8905b8762547bc671fed0df8a1d, type: 3}
-  m_Name: grenade - Knockback
+  m_Name: grenade - explosive
   m_EditorClassIdentifier: Assembly-CSharp::grenadeStats
-  type: 2
-  grenadePrefab: {fileID: 5982828494251734979, guid: 6f46501c08fe79f4e81f0617201f446f, type: 3}
-  throwForce: 50
+  type: 0
+  grenadePrefab: {fileID: 5982828494251734979, guid: ac389fef086b6a541a3d93a20de71ec1, type: 3}
+  throwForce: 15
   upwardForce: 3
-  fuseTime: 1
+  fuseTime: 2.5
   radius: 6
-  damage: 0
-  effectForce: 35
-  horizontalForceMult: 2.5
-  upwardBonus: 0.2
+  damage: 30
+  effectForce: 800
+  horizontalForceMult: 2
+  upwardBonus: 0.35
   explosionEffect: {fileID: 0}
   explosionSound: []
   explosionSoundVol: 0
