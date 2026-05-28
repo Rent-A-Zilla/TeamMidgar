@@ -539,7 +539,7 @@ MonoBehaviour:
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 8
-  HP: 10
+  HP: 25
   jumpSpeed: 12
   jumpMax: 1
   gravity: 35
@@ -548,7 +548,7 @@ MonoBehaviour:
   gunModelFPS: {fileID: 705657086531866044}
   gunModelTPS: {fileID: 3124737540047246303}
   sprintMod: 3
-  maxStamina: 25
+  maxStamina: 50
   staminaDrainRate: 5
   staminaRegenRate: 4
   staminaRegenDelay: 1.25

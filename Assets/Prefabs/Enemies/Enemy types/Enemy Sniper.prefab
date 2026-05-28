@@ -681,7 +681,7 @@ MonoBehaviour:
   enemyHPBarFill: {fileID: 0}
   HP: 25
   faceTargetSpeed: 10
-  FOV: 90
+  FOV: 180
   roamDist: 8
   roamPauseTimer: 5
   bullet: {fileID: 7934693662290421481, guid: 64e0b3134bc676c43a22b871d3e6c376, type: 3}
