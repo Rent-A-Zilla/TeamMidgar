@@ -184,7 +184,7 @@ MonoBehaviour:
   faceTargetSpeed: 4
   FOV: 50
   roamDist: 17
-  roamPauseTimer: 3
+  roamPauseTimer: 1
   bullet: {fileID: 7934693662290421481, guid: 7eb49c96be3810441b3b7e3152012318, type: 3}
   shootRate: 0.75
   gunPivot: {fileID: 1645121617034528212}
@@ -223,7 +223,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: da82c7c873fa94772807fe2340368afc, type: 3}
   - {fileID: 8300000, guid: da82c7c873fa94772807fe2340368afc, type: 3}
   audHurtVol: 1
-  hurtSoundCooldown: 0.2
+  audSearch:
+  - {fileID: 8300000, guid: ebd346e078f8b407e86a9646d7468371, type: 3}
+  - {fileID: 8300000, guid: 4293cf3b5d25243ab88f1b856d3e8216, type: 3}
+  - {fileID: 8300000, guid: f7c812c4b62f74e54a0d70eb750f81f2, type: 3}
+  audSearchVol: 1
 --- !u!195 &7108440799113527292
 NavMeshAgent:
   m_ObjectHideFlags: 0

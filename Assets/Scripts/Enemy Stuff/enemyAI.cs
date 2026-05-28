@@ -31,6 +31,8 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
     [SerializeField] AudioSource audPlayer;
     [SerializeField] AudioClip[] audHurt;
     [SerializeField] float audHurtVol;
+    [SerializeField] AudioClip[] audSearch;
+    [SerializeField] float audSearchVol;
 
     Color colorOrig;
 
@@ -42,7 +44,7 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
     float roamTimer;
 
     private float lastHurtSoundTime = 0f;
-    public float hurtSoundCooldown = .2f;
+    private float hurtSoundCooldown = .2f;
     bool playerInTrigger;
     bool wasChasing;
     bool isSearching;
@@ -89,6 +91,10 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
                 {
                     StartCoroutine(searchForPlayer());
                 }
+                else if (!isSearching)
+                {
+                    checkRoam();
+                }
             }
             else if (!playerInTrigger && !isSearching)
             {
@@ -106,6 +112,9 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
     {
         isSearching = true;
         wasChasing = false;
+
+
+        audPlayer.PlayOneShot(audSearch[Random.Range(0, audSearch.Length)], audSearchVol);
 
         int originalRoamDist = roamDist;
         int originalRoamTimer = roamPauseTimer;
