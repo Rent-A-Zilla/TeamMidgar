@@ -3472,6 +3472,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da755f5b82cfaad45ace3297736bbe2f, type: 3}
+--- !u!1 &818001308 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1349192391613808695, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+  m_PrefabInstance: {fileID: 2102275706}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &823991970 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1884216131232496696, guid: da755f5b82cfaad45ace3297736bbe2f, type: 3}
@@ -5597,6 +5602,7 @@ MonoBehaviour:
   startLava: 1
   stopLava: 0
   resetTimer: 1
+  useOnce: 1
 --- !u!65 &1358133556
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8371,6 +8377,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1349192391613808695, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770671261135331556, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: lavaTimerUI
+      value: 
+      objectReference: {fileID: 818001308}
     - target: {fileID: 8143139085766427377, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_Name
       value: UI

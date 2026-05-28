@@ -31,6 +31,7 @@ public class gameManager : MonoBehaviour
     public GameObject playerSprintUI;
     public GameObject playerDamageScreen;
     public TMP_Text gameGoalCountText;
+    public GameObject lavaTimerUI;
     public TMP_Text lavaTimerText;
     public TMP_Text currencyText;
     public TMP_Text shopCurrencyText;
@@ -74,6 +75,8 @@ public class gameManager : MonoBehaviour
         weaponHolderTPS = player.transform.Find("Gun Holder TPS").gameObject;
 
         playerStartPos = GameObject.FindWithTag("Player Start Pos");
+
+        lavaTimerUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -270,5 +273,15 @@ public class gameManager : MonoBehaviour
     public void updateAmmoUI(int currentAmmo, int maxAmmo)
     {
         ammoText.text = currentAmmo + " / " + maxAmmo;
+    }
+
+    public void showLavaTimer()
+    {
+        lavaTimerUI.gameObject.SetActive(true);
+    }
+
+    public void hideLavaTimer()
+    {
+        lavaTimerUI.gameObject.SetActive(false);
     }
 }
