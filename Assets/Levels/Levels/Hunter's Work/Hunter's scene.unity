@@ -3980,17 +3980,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d26f88dc69011c345a560cb202f1913f, type: 3}
---- !u!114 &863067266 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-  m_PrefabInstance: {fileID: 1715291143}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd469f1fb188f8a4f86370a87c6ed8e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::playerController
 --- !u!1001 &865733377
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8078,10 +8067,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 18977366672825771, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: near clip plane
-      value: 0.03
-      objectReference: {fileID: 0}
     - target: {fileID: 275323343913589523, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 74.76143
@@ -8246,58 +8231,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 113.15199
       objectReference: {fileID: 0}
-    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: parryArms
-      value: 
-      objectReference: {fileID: 919132148839529114}
-    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: parryAnimTime
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: parryAnimator
-      value: 
-      objectReference: {fileID: 919132148839529115}
-    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: audSteps.Array.size
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: 'audSteps.Array.data[0]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 211cadf683c0f944ba696a8c6534ff31, type: 3}
-    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: 'audSteps.Array.data[1]'
-      value: 
-      objectReference: {fileID: 8300000, guid: cb7c54e03529c4344a758bb249175251, type: 3}
-    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: 'audSteps.Array.data[2]'
-      value: 
-      objectReference: {fileID: 8300000, guid: a481f5a03b574cf4e8ce675894203b0d, type: 3}
-    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: 'audSteps.Array.data[3]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 4e8731f65c7db6648959868cc6fb50d3, type: 3}
-    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: 'audSteps.Array.data[4]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 8f507a41039e8fd40af8bb2f0ecdf1c0, type: 3}
-    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: 'audSteps.Array.data[5]'
-      value: 
-      objectReference: {fileID: 8300000, guid: e236f3cb3490f884bb67f95bcc66a1f6, type: 3}
-    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: 'audSteps.Array.data[6]'
-      value: 
-      objectReference: {fileID: 8300000, guid: cc58197c4650d6d4e8d9aaf2ca901cd8, type: 3}
-    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: 'audSteps.Array.data[7]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 3179c178a322d2d4fae852e849d7fb7c, type: 3}
-    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: 'audSteps.Array.data[8]'
-      value: 
-      objectReference: {fileID: 8300000, guid: c96bc8e790bf60b44930bdfc6dcff99c, type: 3}
     - target: {fileID: 2956786920353234516, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 86.764565
@@ -8558,10 +8491,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 7.648799
       objectReference: {fileID: 0}
-    - target: {fileID: 6240930461114856136, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6262298662903759817, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 84.571465
@@ -8785,10 +8714,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7179172324600908159, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 919132148839529116}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
 --- !u!4 &1721083666 stripped
 Transform:
@@ -11441,29 +11367,6 @@ PrefabInstance:
       addedObject: {fileID: 1298535230}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d4167d8155f0944089a54999ebeb79d, type: 3}
---- !u!1 &919132148839529114 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7179172324600908159, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-  m_PrefabInstance: {fileID: 1715291143}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &919132148839529115 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1781884677592384339, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-  m_PrefabInstance: {fileID: 1715291143}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &919132148839529116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132148839529114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daa7c488c288f86469413f53e235bae8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::parryAnimationEvents
-  player: {fileID: 863067266}
 --- !u!1001 &2438040762185609299
 PrefabInstance:
   m_ObjectHideFlags: 0
