@@ -30,6 +30,21 @@ public class damage : MonoBehaviour
         if (other.isTrigger)
             return;
 
+        if (type == damageType.bullet)
+        {
+            playerController player = other.GetComponent<playerController>();
+
+            if (player != null && player.getParryIFrames())
+            {
+                Vector3 reflectDir = Camera.main.transform.forward;
+
+                rb.linearVelocity = reflectDir * bulletSpeed;
+                transform.forward = reflectDir;
+
+                return;
+            }
+        }
+
         IDamage dmg = other.GetComponent<IDamage>();
         
         if(dmg != null && type != damageType.DOT)
