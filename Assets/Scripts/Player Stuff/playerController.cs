@@ -43,6 +43,14 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     [SerializeField] AudioClip[] audSteps;
     [SerializeField] float audStepsVol;
 
+    [Header("-----Parry-----")]
+    [SerializeField] GameObject parryArms;
+    [SerializeField] Animator parryAnimator;
+    [SerializeField] float parryAnimTime = 0.25f;
+
+    bool isParrying;
+    bool parryIFrames;
+
     float currentStamina;
     float speedBoostAmount;
 
@@ -87,6 +95,10 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     {
         return jumpMax;
     }
+    public bool getParryIFrames()
+    {
+        return parryIFrames;
+    }
 
     void Start()
     {
@@ -102,6 +114,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
         gameManager.instance.jumpMaxTimerUI.SetActive(false);
         gameManager.instance.speedUpTimerUI.SetActive(false);
+
+        parryArms.SetActive(false);
     }
 
     void Update()
@@ -114,6 +128,11 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
             crouchVisual();
             standUpLerp();
             handleSprintUI();
+
+            if (Input.GetMouseButtonDown(1) && !isParrying)
+            {
+                StartCoroutine(parry());
+            }
         }
     }
 
@@ -124,7 +143,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
         shootTimer += Time.deltaTime;
 
-        if (gunList.Count > 0 && gunList[gunListPos].ammoCur > 0 && shootTimer > gunList[gunListPos].shootRate)
+        if (!isParrying && gunList.Count > 0 && gunList[gunListPos].ammoCur > 0 && shootTimer > gunList[gunListPos].shootRate)
         {
             if (gunList[gunListPos].gunFireType == gunStats.fireType.FullAuto && Input.GetButton("Fire1"))
             {
@@ -348,6 +367,11 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     public void takeDamage(int amount)
     {
+        if (parryIFrames)
+        {
+            return;
+        }
+
         HP -= amount;
         updatePlayerHPUI();
         StartCoroutine(flashDamageScreen());
@@ -638,6 +662,36 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         }
 
         gameManager.instance.updateGrenadeUI(grenadeList[grenadeListPos].name, grenadeCounts[grenadeListPos]);
+    }
+
+    public void parryIFramesOn()
+    {
+        parryIFrames = true;
+    }
+
+    public void parryIFramesOff()
+    {
+        parryIFrames = false;
+    }
+
+    IEnumerator parry()
+    {
+        isParrying = true;
+
+        gunModelFPS.SetActive(false);
+        parryArms.SetActive(true);
+
+        parryAnimator.ResetTrigger("Parry");
+        parryAnimator.SetTrigger("Parry");
+
+        yield return new WaitForSeconds(parryAnimTime);
+
+        parryIFrames = false;
+
+        parryArms.SetActive(false);
+        gunModelFPS.SetActive(true);
+
+        isParrying = false;
     }
 
     void crouch()
