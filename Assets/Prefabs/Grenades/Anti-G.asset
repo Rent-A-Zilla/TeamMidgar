@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b957b8905b8762547bc671fed0df8a1d, type: 3}
+  m_Name: Anti-G
+  m_EditorClassIdentifier: Assembly-CSharp::grenadeStats
+  type: 1
+  grenadePrefab: {fileID: 5982828494251734979, guid: d6d6ad8da71d4504d89a4eac8157d1fa, type: 3}
+  throwForce: 50
+  upwardForce: 4
+  fuseTime: 3
+  radius: 5
+  damage: 0
+  effectForce: 20
+  explosionEffect: {fileID: 8773069571475930, guid: c154518dc15e1334392e372314c81de6, type: 3}
+  explosionSound:
+  - {fileID: 8300000, guid: 2a69a05be730ea940a33b196dfcbf04b, type: 3}
+  explosionSoundVol: 1

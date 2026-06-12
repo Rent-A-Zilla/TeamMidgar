@@ -60,11 +60,13 @@ public class lavaRise : MonoBehaviour
     public void startLava()
     {
         lavaActive = true;
+        gameManager.instance.showLavaTimer();
     }
 
     public void stopLava()
     {
         lavaActive = false;
+        gameManager.instance.hideLavaTimer();
     }
 
     public void resetLavaTimer()

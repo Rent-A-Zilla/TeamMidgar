@@ -31,6 +31,7 @@ public class gameManager : MonoBehaviour
     public GameObject playerSprintUI;
     public GameObject playerDamageScreen;
     public TMP_Text gameGoalCountText;
+    public GameObject lavaTimerUI;
     public TMP_Text lavaTimerText;
     public TMP_Text currencyText;
     public TMP_Text shopCurrencyText;
@@ -38,6 +39,7 @@ public class gameManager : MonoBehaviour
     public GameObject jumpMaxTimerUI;
     public Image speedUpTimer;
     public GameObject speedUpTimerUI;
+    public TMP_Text grenadeText;
 
     [Header("Player Check Point Componnents")]
     public GameObject checkpointPopup;
@@ -73,7 +75,15 @@ public class gameManager : MonoBehaviour
         thirdPersonCam = player.transform.Find("ThirdPersonView").gameObject;
         weaponHolderTPS = player.transform.Find("Gun Holder TPS").gameObject;
 
+        isFirstPerson = true;
+
+        firstPersonCam.SetActive(true);
+        thirdPersonCam.SetActive(false);
+        weaponHolderTPS.SetActive(false);
+
         playerStartPos = GameObject.FindWithTag("Player Start Pos");
+
+        lavaTimerUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -211,7 +221,12 @@ public class gameManager : MonoBehaviour
 
     public void openShop()
     {
-        menuActive.SetActive(false);
+        statePause();
+
+        if (menuActive != null)
+        {
+            menuActive.SetActive(false);
+        }
 
         menuActive = menuShop;
         menuActive.SetActive(true);
@@ -221,10 +236,17 @@ public class gameManager : MonoBehaviour
 
     public void closeShop()
     {
-        menuActive.SetActive(false);
+        if (menuActive != null)
+        {
+            menuActive.SetActive(false);
+        }
 
-        menuActive = menuWin;
-        menuActive.SetActive(true);
+        menuActive = null;
+
+        isPaused = false;
+        Time.timeScale = timeScaleOrig;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void updateFallingPlatformTimer(float time)
@@ -270,5 +292,19 @@ public class gameManager : MonoBehaviour
     public void updateAmmoUI(int currentAmmo, int maxAmmo)
     {
         ammoText.text = currentAmmo + " / " + maxAmmo;
+    }
+
+    public void showLavaTimer()
+    {
+        lavaTimerUI.gameObject.SetActive(true);
+    }
+
+    public void hideLavaTimer()
+    {
+        lavaTimerUI.gameObject.SetActive(false);
+    }
+    public void updateGrenadeUI(string grenadeName, int grenadeCount)
+    {
+        grenadeText.text = grenadeName + " x" + grenadeCount;
     }
 }

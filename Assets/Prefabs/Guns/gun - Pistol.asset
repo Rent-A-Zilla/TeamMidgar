@@ -16,7 +16,7 @@ MonoBehaviour:
   gunFireType: 0
   shootDamage: 10
   shootDist: 160
-  shootRate: 0.35
+  shootRate: 0.1
   ammoCur: 16
   ammoMax: 16
   ammoReserve: 80

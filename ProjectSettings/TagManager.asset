@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Lava
+  - Player Start Pos
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Enemy Bullet
   - Gun
   - Grenade
-  - 
+  - Pickup
   - 
   - 
   - 

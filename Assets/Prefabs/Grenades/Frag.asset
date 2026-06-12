@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b957b8905b8762547bc671fed0df8a1d, type: 3}
+  m_Name: Frag
+  m_EditorClassIdentifier: Assembly-CSharp::grenadeStats
+  type: 0
+  grenadePrefab: {fileID: 5982828494251734979, guid: ac389fef086b6a541a3d93a20de71ec1, type: 3}
+  throwForce: 15
+  upwardForce: 3
+  fuseTime: 2.5
+  radius: 6
+  damage: 30
+  effectForce: 800
+  horizontalForceMult: 2
+  upwardBonus: 0.35
+  explosionEffect: {fileID: 2584552275734395157, guid: a2e3f52f16e7c4f4e9bfa31e24fcba50, type: 3}
+  explosionSound:
+  - {fileID: 8300000, guid: 13da4a55278565848b241a67f8cbf76e, type: 3}
+  explosionSoundVol: 1
