@@ -100,6 +100,15 @@ MonoBehaviour:
   gunPivot: {fileID: 1645121617034528212}
   shootPos: {fileID: 1851433537774689153}
   gunRotateSpeed: 1
+  objectsToDrop:
+  - {fileID: 4752001546767124718, guid: 3c64dddf2eb976b41880e79f7cbb8395, type: 3}
+  - {fileID: 4752001546767124718, guid: 3c64dddf2eb976b41880e79f7cbb8395, type: 3}
+  - {fileID: 3760437718389931877, guid: d23af2c3d26ec3745968c32e4db4f66e, type: 3}
+  amountToDrop: 1
+  dropRate: 0
+  dropDist: 1
+  cashPerHit: 5
+  cashOnDeath: 40
   audPlayer: {fileID: 6183697592447321374}
   audHurt:
   - {fileID: 8300000, guid: 991165c3fc4724f7fbbc786b3c88ba31, type: 3}

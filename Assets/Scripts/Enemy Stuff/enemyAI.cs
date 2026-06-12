@@ -27,6 +27,14 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
     [SerializeField] Transform shootPos;
     [Range(1, 25)][SerializeField] int gunRotateSpeed;
 
+    [Header("----- Loot -----")]
+    [SerializeField] GameObject[] objectsToDrop;
+    [SerializeField] int amountToDrop;
+    [SerializeField] int dropRate;
+    [SerializeField] int dropDist;
+    [SerializeField] int cashPerHit;
+    [SerializeField] int cashOnDeath;
+
     [Header("----- Audio -----")]
     [SerializeField] AudioSource audPlayer;
     [SerializeField] AudioClip[] audHurt;
@@ -48,10 +56,12 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
     bool playerInTrigger;
     bool wasChasing;
     bool isSearching;
+    bool isDead = false;
 
     Vector3 playerDir;
     Vector3 startingPos;
     Vector3 lastKnownPlayerPos;
+    Vector3 deathLocation;
 
     Coroutine knockbackCoroutine;
     Vector3 knockbackVelocity;
@@ -224,7 +234,7 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
 
     public void takeDamage(int amount)
     {
-        if (HP <= 0)
+        if (isDead)
         {
             return;
         }
@@ -239,7 +249,7 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
 
         updateHealthBar();
 
-        gameManager.instance.addCurrency(10);
+        gameManager.instance.addCurrency(cashPerHit);
 
         if (agent.enabled && agent.isOnNavMesh)
         {
@@ -247,10 +257,15 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
         }
 
 
-        if (HP <= 0)
+        if (HP <= 0 && !isDead)
         {
-            gameManager.instance.addCurrency(100);
+            isDead = true;
+            gameManager.instance.addCurrency(cashOnDeath);
             gameManager.instance.updateGameGoal(-1);
+
+            deathLocation = transform.position;
+            StartCoroutine(deathDrops(deathLocation));
+           
             Destroy(gameObject);
         }
         else
@@ -414,5 +429,30 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
         }
 
         knockbackCoroutine = null;
+    }
+    IEnumerator deathDrops(Vector3 deathLocation)
+    {
+        int dropped = 0;
+
+        while (dropped < amountToDrop)
+        {
+            Vector3 ranPos = Random.insideUnitSphere * dropDist;
+            ranPos += deathLocation;
+
+            NavMeshHit hit;
+            bool found = NavMesh.SamplePosition(ranPos,out hit, dropDist, NavMesh.AllAreas);
+            if (!found) 
+            {
+                continue;
+            }
+            NavMesh.SamplePosition(ranPos, out hit, dropDist, 1);
+            Vector3 dropPos = hit.position + Vector3.up * 0.35f;
+            Instantiate(objectsToDrop[Random.Range(0, objectsToDrop.Length)], dropPos, 
+                Quaternion.Euler(0, Random.Range(0, 360), 0));
+
+            dropped++;
+            yield return new WaitForSeconds(dropRate);
+        }
+
     }
 }
