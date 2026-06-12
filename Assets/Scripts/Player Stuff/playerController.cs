@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 {
@@ -18,6 +19,13 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     [SerializeField] GameObject gunModelFPS;
     [SerializeField] GameObject gunModelTPS;
 
+    [SerializeField] Transform playerCamera;
+    [SerializeField] int crouchMod;
+    [SerializeField] float crouchCameraOffset;
+    [SerializeField] float crouchLerpSpeed;
+    [SerializeField] float standLerpSpeed;
+    [SerializeField] float crouchHeight;
+    [SerializeField] float standHeight;
     [SerializeField] int sprintMod;
     [SerializeField] int maxStamina;
     [SerializeField] float staminaDrainRate;
@@ -55,9 +63,13 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     float shootTimer;
 
     bool isSprinting;
+    bool isCrouching;
+    bool isStandingUp;
 
     Vector3 moveDir;
     Vector3 playerVel;
+    Vector3 playerCenterOrig;
+    Vector3 cameraStartPos;
 
     bool isplayingStep;
 
@@ -93,6 +105,9 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         HPOrig = HP;
         currentStamina = maxStamina;
         jumpMaxOrig = jumpMax;
+        cameraStartPos = playerCamera.localPosition;
+        standHeight = controller.height;
+        playerCenterOrig = controller.center;
 
         changPlayerPosition();
         updatePlayerSprintUI();
@@ -109,6 +124,9 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         {
             movement();
             sprint();
+            crouch();
+            crouchVisual();
+            standUpLerp();
             handleSprintUI();
 
             if (Input.GetMouseButtonDown(1) && !isParrying)
@@ -675,4 +693,67 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
         isParrying = false;
     }
+
+    void crouch()
+    {
+        if (isStandingUp)
+        return;
+        
+
+        if (!Input.GetButtonDown("Crouch"))
+        return;
+        
+
+        bool wantToCrouch = !isCrouching; 
+
+        if(wantToCrouch)
+        {
+            isCrouching = true;
+            isStandingUp = false;
+
+            controller.height = crouchHeight;
+            controller.center = new Vector3(controller.center.x, crouchHeight / 2f, controller.center.z);
+        }
+        else
+        {
+            Vector3 rayStart = transform.position + Vector3.up * controller.height;
+            float rayDistance = standHeight - controller.height;
+
+            if (Physics.Raycast(rayStart, Vector3.up, rayDistance))
+                return;
+
+            isCrouching = false;
+            isStandingUp = true;
+        }
+    }
+
+    void crouchVisual()
+    {
+        Vector3 targetPos = cameraStartPos;
+
+        if (isCrouching)
+        {
+            targetPos.y -= crouchCameraOffset;
+        }
+
+        playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, targetPos, Time.deltaTime);
+    }
+
+    void standUpLerp()
+    {
+        if (!isStandingUp)
+            return;
+
+        controller.height = Mathf.Lerp(controller.height, standHeight, standLerpSpeed * Time.deltaTime);
+        controller.center = Vector3.Lerp(controller.center, playerCenterOrig, standLerpSpeed * Time.deltaTime);
+
+        if(Mathf.Abs(controller.height - standHeight) < 0.01f)
+        {
+            controller.height = standHeight;
+            controller.center = playerCenterOrig;
+            isStandingUp = false;
+        }
+    }
+
+
 }
