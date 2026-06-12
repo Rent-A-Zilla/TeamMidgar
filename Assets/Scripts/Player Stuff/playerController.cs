@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 {
@@ -19,13 +18,6 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     [SerializeField] GameObject gunModelFPS;
     [SerializeField] GameObject gunModelTPS;
 
-    [SerializeField] Transform playerCamera;
-    [SerializeField] int crouchMod;
-    [SerializeField] float crouchCameraOffset;
-    [SerializeField] float crouchLerpSpeed;
-    [SerializeField] float standLerpSpeed;
-    [SerializeField] float crouchHeight;
-    [SerializeField] float standHeight;
     [SerializeField] int sprintMod;
     [SerializeField] int maxStamina;
     [SerializeField] float staminaDrainRate;
@@ -43,6 +35,14 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     [SerializeField] AudioClip[] audSteps;
     [SerializeField] float audStepsVol;
 
+    [Header("-----Parry-----")]
+    [SerializeField] GameObject parryArms;
+    [SerializeField] Animator parryAnimator;
+    [SerializeField] float parryAnimTime = 0.25f;
+
+    bool isParrying;
+    bool parryIFrames;
+
     float currentStamina;
     float speedBoostAmount;
 
@@ -55,13 +55,9 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     float shootTimer;
 
     bool isSprinting;
-    bool isCrouching;
-    bool isStandingUp;
 
     Vector3 moveDir;
     Vector3 playerVel;
-    Vector3 playerCenterOrig;
-    Vector3 cameraStartPos;
 
     bool isplayingStep;
 
@@ -87,21 +83,24 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     {
         return jumpMax;
     }
+    public bool getParryIFrames()
+    {
+        return parryIFrames;
+    }
 
     void Start()
     {
         HPOrig = HP;
         currentStamina = maxStamina;
         jumpMaxOrig = jumpMax;
-        cameraStartPos = playerCamera.localPosition;
-        standHeight = controller.height;
-        playerCenterOrig = controller.center;
 
         changPlayerPosition();
         updatePlayerSprintUI();
 
         gameManager.instance.jumpMaxTimerUI.SetActive(false);
         gameManager.instance.speedUpTimerUI.SetActive(false);
+
+        parryArms.SetActive(false);
     }
 
     void Update()
@@ -110,10 +109,12 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         {
             movement();
             sprint();
-            crouch();
-            crouchVisual();
-            standUpLerp();
             handleSprintUI();
+
+            if (Input.GetMouseButtonDown(1) && !isParrying)
+            {
+                StartCoroutine(parry());
+            }
         }
     }
 
@@ -124,7 +125,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
         shootTimer += Time.deltaTime;
 
-        if (gunList.Count > 0 && gunList[gunListPos].ammoCur > 0 && shootTimer > gunList[gunListPos].shootRate)
+        if (!isParrying && gunList.Count > 0 && gunList[gunListPos].ammoCur > 0 && shootTimer > gunList[gunListPos].shootRate)
         {
             if (gunList[gunListPos].gunFireType == gunStats.fireType.FullAuto && Input.GetButton("Fire1"))
             {
@@ -348,6 +349,11 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     public void takeDamage(int amount)
     {
+        if (parryIFrames)
+        {
+            return;
+        }
+
         HP -= amount;
         updatePlayerHPUI();
         StartCoroutine(flashDamageScreen());
@@ -640,66 +646,33 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         gameManager.instance.updateGrenadeUI(grenadeList[grenadeListPos].name, grenadeCounts[grenadeListPos]);
     }
 
-    void crouch()
+    public void parryIFramesOn()
     {
-        if (isStandingUp)
-        return;
-        
-
-        if (!Input.GetButtonDown("Crouch"))
-        return;
-        
-
-        bool wantToCrouch = !isCrouching; 
-
-        if(wantToCrouch)
-        {
-            isCrouching = true;
-            isStandingUp = false;
-
-            controller.height = crouchHeight;
-            controller.center = new Vector3(controller.center.x, crouchHeight / 2f, controller.center.z);
-        }
-        else
-        {
-            Vector3 rayStart = transform.position + Vector3.up * controller.height;
-            float rayDistance = standHeight - controller.height;
-
-            if (Physics.Raycast(rayStart, Vector3.up, rayDistance))
-                return;
-
-            isCrouching = false;
-            isStandingUp = true;
-        }
+        parryIFrames = true;
     }
 
-    void crouchVisual()
+    public void parryIFramesOff()
     {
-        Vector3 targetPos = cameraStartPos;
-
-        if (isCrouching)
-        {
-            targetPos.y -= crouchCameraOffset;
-        }
-
-        playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, targetPos, Time.deltaTime);
+        parryIFrames = false;
     }
 
-    void standUpLerp()
+    IEnumerator parry()
     {
-        if (!isStandingUp)
-            return;
+        isParrying = true;
 
-        controller.height = Mathf.Lerp(controller.height, standHeight, standLerpSpeed * Time.deltaTime);
-        controller.center = Vector3.Lerp(controller.center, playerCenterOrig, standLerpSpeed * Time.deltaTime);
+        gunModelFPS.SetActive(false);
+        parryArms.SetActive(true);
 
-        if(Mathf.Abs(controller.height - standHeight) < 0.01f)
-        {
-            controller.height = standHeight;
-            controller.center = playerCenterOrig;
-            isStandingUp = false;
-        }
+        parryAnimator.ResetTrigger("Parry");
+        parryAnimator.SetTrigger("Parry");
+
+        yield return new WaitForSeconds(parryAnimTime);
+
+        parryIFrames = false;
+
+        parryArms.SetActive(false);
+        gunModelFPS.SetActive(true);
+
+        isParrying = false;
     }
-
-
 }
