@@ -32,4 +32,7 @@ public class gunStats : ScriptableObject
     public ParticleSystem hiteffect;
     public AudioClip[] shootSound;
     public float shootSoundVol;
+    public GameObject muzzleFlash;
+    public GameObject tracerBullet;
+
 }

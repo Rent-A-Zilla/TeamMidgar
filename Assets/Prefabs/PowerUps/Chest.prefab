@@ -385,7 +385,7 @@ MonoBehaviour:
   - {fileID: 5982828494251734979, guid: 6f46501c08fe79f4e81f0617201f446f, type: 3}
   - {fileID: 3826148948324743065, guid: 5852b915843c3a843b2571eae4fb883d, type: 3}
   - {fileID: 4752001546767124718, guid: 3c64dddf2eb976b41880e79f7cbb8395, type: 3}
-  - {fileID: 3760437718389931877, guid: d23af2c3d26ec3745968c32e4db4f66e, type: 3}
+  - {fileID: 2017663692349419876, guid: 2e144af2395a8d740975600c64833a64, type: 3}
   spawnPoint: {fileID: 1318985645101760368}
   throwForce: -2
   upwardForce: 0

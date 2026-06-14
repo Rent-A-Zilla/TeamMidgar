@@ -292,40 +292,56 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     void shoot()
     {
         shootTimer = 0;
-        gunList[gunListPos].ammoCur--;
+
+        gunStats gun = gunList[gunListPos];
+
+        gun.ammoCur--;
+
+        if (currentGunFPS != null)
+        {
+            Transform muzzle = currentGunFPS.transform.Find("muzzlePoint");
+
+            if (muzzle != null && gun.muzzleFlash != null)
+            {
+                GameObject flash = Instantiate(gun.muzzleFlash, muzzle.position, muzzle.rotation);
+                Destroy(flash, 0.5f);
+            }
+        }
 
         if (weaponProcedural != null)
         {
             weaponProcedural.AddRecoil();
         }
 
-        audPlayer.PlayOneShot(gunList[gunListPos].shootSound[Random.Range(0, gunList[gunListPos].shootSound.Length)], gunList[gunListPos].shootSoundVol);
+        audPlayer.PlayOneShot(
+            gun.shootSound[Random.Range(0, gun.shootSound.Length)],
+            gun.shootSoundVol);
 
         updateAmmoUI();
 
-        for (int i = 0; i < gunList[gunListPos].pellets; i++)
+        for (int i = 0; i < gun.pellets; i++)
         {
             Vector3 direction = Camera.main.transform.forward;
 
-            direction += Camera.main.transform.right * Random.Range(-gunList[gunListPos].spreadAmount, gunList[gunListPos].spreadAmount);
-            direction += Camera.main.transform.up * Random.Range(-gunList[gunListPos].spreadAmount, gunList[gunListPos].spreadAmount);
+            direction += Camera.main.transform.right * Random.Range(-gun.spreadAmount, gun.spreadAmount);
+            direction += Camera.main.transform.up * Random.Range(-gun.spreadAmount, gun.spreadAmount);
 
-            Debug.DrawRay(Camera.main.transform.position, direction * gunList[gunListPos].shootDist, Color.red, 1f);
+            Debug.DrawRay(Camera.main.transform.position, direction * gun.shootDist, Color.red, 1f);
 
             RaycastHit hit;
 
-            if (Physics.Raycast(Camera.main.transform.position, direction, out hit, gunList[gunListPos].shootDist, ~ignoreLayer))
+            if (Physics.Raycast(Camera.main.transform.position, direction, out hit, gun.shootDist, ~ignoreLayer))
             {
                 Debug.Log(hit.collider.name);
 
-                if (gunList[gunListPos].hiteffect != null)
-                    Instantiate(gunList[gunListPos].hiteffect, hit.point, Quaternion.identity);
+                if (gun.hiteffect != null)
+                    Instantiate(gun.hiteffect, hit.point, Quaternion.identity);
 
                 IDamage dmg = hit.collider.GetComponent<IDamage>();
 
                 if (dmg != null)
                 {
-                    dmg.takeDamage(gunList[gunListPos].shootDamage);
+                    dmg.takeDamage(gun.shootDamage);
                 }
             }
         }

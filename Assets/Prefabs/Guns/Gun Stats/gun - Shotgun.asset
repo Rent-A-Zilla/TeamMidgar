@@ -19,7 +19,7 @@ MonoBehaviour:
   shootRate: 0.79
   ammoCur: 7
   ammoMax: 10
-  ammoReserve: 100
+  ammoReserve: 90
   ammoReserveMax: 100
   pellets: 10
   spreadAmount: 0.08
@@ -27,3 +27,6 @@ MonoBehaviour:
   shootSound:
   - {fileID: 8300000, guid: de0ef89d690c0d14d9eb74d1a005cc86, type: 3}
   shootSoundVol: 0.5
+  muzzleFlash: {fileID: 4046163878033562411, guid: 816b3654102f2a0439993f494d8dfa33, type: 3}
+  tracerBullet: {fileID: 0}
+  hitMarker: {fileID: 0}
