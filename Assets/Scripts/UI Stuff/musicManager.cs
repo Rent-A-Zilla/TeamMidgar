@@ -33,7 +33,10 @@ public class musicManager : MonoBehaviour
     private int lastNearbyTrack = -1;
     private int lastBattleTrack = -1;
 
-
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     private void PlayRandomTrack(AudioSource source, AudioClip[] tracks, ref int lastTrack, float vol)
     {
         if (tracks.Length == 0) return;

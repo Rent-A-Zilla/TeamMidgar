@@ -103,7 +103,7 @@ MonoBehaviour:
   objectsToDrop:
   - {fileID: 4752001546767124718, guid: 3c64dddf2eb976b41880e79f7cbb8395, type: 3}
   - {fileID: 4752001546767124718, guid: 3c64dddf2eb976b41880e79f7cbb8395, type: 3}
-  - {fileID: 3760437718389931877, guid: d23af2c3d26ec3745968c32e4db4f66e, type: 3}
+  - {fileID: 2017663692349419876, guid: 2e144af2395a8d740975600c64833a64, type: 3}
   amountToDrop: 1
   dropRate: 0
   dropDist: 1
