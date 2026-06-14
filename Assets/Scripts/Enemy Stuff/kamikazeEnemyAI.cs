@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -22,10 +23,10 @@ public class kamikazeEnemyAI : MonoBehaviour, IDamage, IGrenade
 
 
     [Header("----- Explosion Settings -----")]
+    public GameObject explosionEffect;
     [SerializeField] int damage;
     [SerializeField] float tikInterval;
     [SerializeField] float duration;
-    [SerializeField] int distanceFromTarget;
     [SerializeField] float explosiveRadius;
     [SerializeField] float explodeTriggerDist;
     [SerializeField] float explodeDelay;
@@ -499,9 +500,19 @@ public class kamikazeEnemyAI : MonoBehaviour, IDamage, IGrenade
         isCharging = false;
         isExploding = false;
 
+        if (explosionEffect != null)
+        {
+            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        }
+
         Collider[] hits = Physics.OverlapSphere(transform.position, explosiveRadius);
 
-        foreach(Collider hit in hits)
+        if (audExplosion.Length > 0)
+        {
+            AudioSource.PlayClipAtPoint(audExplosion[Random.Range(0, audExplosion.Length)], transform.position, audExplosionVol);
+        }
+
+        foreach (Collider hit in hits)
         {
             if (hit.CompareTag("Player"))
             {
@@ -509,7 +520,6 @@ public class kamikazeEnemyAI : MonoBehaviour, IDamage, IGrenade
             }
         }
 
-        audPlayer.PlayOneShot(audExplosion[Random.Range(0, audExplosion.Length)], audExplosionVol);
         Destroy(gameObject);
     }
 
