@@ -4,6 +4,7 @@ using UnityEngine.AI;
 public class spawner : MonoBehaviour
 {
 
+    [Header("----- Spawner Settings -----")]
     [SerializeField] GameObject[] objectsToSpawn;
     [SerializeField] int amountToSpawn;
     [SerializeField] int spawnRate;
