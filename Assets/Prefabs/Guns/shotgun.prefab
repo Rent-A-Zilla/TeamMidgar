@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2dc59e3e499c014dbfdc0d94a20ec7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::pickupSpin
-  rotationSpeed: {x: 0, y: 90, z: 0}
+  rotationSpeed: {x: 90, y: 0, z: 0}
 --- !u!1 &4154037959587972543
 GameObject:
   m_ObjectHideFlags: 0
