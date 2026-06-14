@@ -14,7 +14,7 @@ public class kamikazeEnemyAI : MonoBehaviour, IDamage, IGrenade
 
     [Header("----- Stats -----")]
     [Range(1, 1000)][SerializeField] int HP;
-    [Range(1, 10)][SerializeField] int faceTargetSpeed;
+    [Range(1, 50)][SerializeField] int faceTargetSpeed = 10;
     [Range(5, 180)][SerializeField] int FOV;
 
     [Header("----- Roam Stats -----")]

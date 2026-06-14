@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class enemyAI : MonoBehaviour, IDamage, IGrenade
+public class swarmEnemyAI : MonoBehaviour, IDamage, IGrenade
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer rend;
@@ -19,13 +19,6 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
     [Header("----- Roam Stats -----")]
     [Range(5, 500)][SerializeField] int roamDist;
     [Range(0, 10)][SerializeField] int roamPauseTimer;
-
-    [Header("----- Weapons -----")]
-    [SerializeField] GameObject bullet;
-    [Range(0.1f, 2)][SerializeField] float shootRate;
-    [SerializeField] Transform gunPivot;
-    [SerializeField] Transform shootPos;
-    [Range(1, 25)][SerializeField] int gunRotateSpeed;
 
     [Header("----- Loot -----")]
     [SerializeField] GameObject[] objectsToDrop;
@@ -198,15 +191,8 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
                     agent.SetDestination(gameManager.instance.player.transform.position);
                 }
 
-                rotateGun();
                 rotateToTarget();
 
-                shootTimer += Time.deltaTime;
-
-                if (shootTimer > shootRate)
-                {
-                    shoot();
-                }
                 agent.stoppingDistance = stoppingDistOrig;
                 return true;
             }
@@ -281,27 +267,11 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
         rend.material.color = colorOrig;
     }
 
-    void rotateGun()
-    {
-        Vector3 shootDir = gameManager.instance.player.transform.position - shootPos.position;
-        shootDir.y = 0;
-
-        Quaternion rot = Quaternion.LookRotation(shootDir);
-        gunPivot.rotation = Quaternion.Lerp(gunPivot.rotation, rot, Time.deltaTime * gunRotateSpeed);
-    }
-
     void rotateToTarget()
     {
 
         Quaternion rot = Quaternion.LookRotation(playerDir);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
-    }
-
-    void shoot()
-    {
-        shootTimer = 0;
-
-        Instantiate(bullet, shootPos.position, gunPivot.rotation);
     }
 
     void updateHealthBar()
