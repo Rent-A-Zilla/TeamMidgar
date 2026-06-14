@@ -90,6 +90,7 @@ public class gameManager : MonoBehaviour
         playerStartPos = GameObject.FindWithTag("Player Start Pos");
 
         lavaTimerUI.SetActive(false);
+        musicManager.instance.playBackgroundMusic();
     }
 
     // Update is called once per frame

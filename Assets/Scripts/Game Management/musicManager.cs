@@ -32,9 +32,16 @@ public class musicManager : MonoBehaviour
     private int lastBackgroundTrack = -1;
     private int lastNearbyTrack = -1;
     private int lastBattleTrack = -1;
+    public static musicManager instance;
 
     private void Awake()
     {
+        if(instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
         DontDestroyOnLoad(gameObject);
     }
     private void PlayRandomTrack(AudioSource source, AudioClip[] tracks, ref int lastTrack, float vol)
