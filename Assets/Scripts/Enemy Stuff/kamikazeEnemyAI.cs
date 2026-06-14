@@ -1,9 +1,10 @@
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class enemyAI : MonoBehaviour, IDamage, IGrenade
+public class kamikazeEnemyAI : MonoBehaviour, IDamage, IGrenade
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer rend;
@@ -13,19 +14,25 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
 
     [Header("----- Stats -----")]
     [Range(1, 1000)][SerializeField] int HP;
-    [Range(1, 50)][SerializeField] int faceTargetSpeed =10;
+    [Range(1, 50)][SerializeField] int faceTargetSpeed = 10;
     [Range(5, 180)][SerializeField] int FOV;
 
     [Header("----- Roam Stats -----")]
     [Range(5, 500)][SerializeField] int roamDist;
     [Range(0, 10)][SerializeField] int roamPauseTimer;
 
-    [Header("----- Weapons -----")]
-    [SerializeField] GameObject bullet;
-    [Range(0.1f, 2)][SerializeField] float shootRate;
-    [SerializeField] Transform gunPivot;
-    [SerializeField] Transform shootPos;
-    [Range(1, 25)][SerializeField] int gunRotateSpeed;
+
+    [Header("----- Explosion Settings -----")]
+    public GameObject explosionEffect;
+    [SerializeField] int damage;
+    [SerializeField] float tikInterval;
+    [SerializeField] float duration;
+    [SerializeField] float explosiveRadius;
+    [SerializeField] float explodeTriggerDist;
+    [SerializeField] float explodeDelay;
+    [SerializeField] float chargeSpeed;
+
+
 
     [Header("----- Loot -----")]
     [SerializeField] GameObject[] objectsToDrop;
@@ -41,6 +48,10 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
     [SerializeField] float audHurtVol;
     [SerializeField] AudioClip[] audSearch;
     [SerializeField] float audSearchVol;
+    [SerializeField] AudioClip[] audExplosion;
+    [SerializeField] float audExplosionVol;
+    [SerializeField] AudioClip[] audTik;
+    [SerializeField] float audTikVol;
 
     Color colorOrig;
 
@@ -57,6 +68,9 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
     bool wasChasing;
     bool isSearching;
     bool isDead = false;
+    bool hasExploded;
+    bool isCharging;
+    bool isExploding;
 
     Vector3 playerDir;
     Vector3 startingPos;
@@ -85,6 +99,16 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
     // Update is called once per frame
     void Update()
     {
+        if (HP <= 0) return;
+        if (isCharging || isExploding) return;
+
+        float distToPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
+        if(!isCharging && distToPlayer <= explodeTriggerDist)
+        {
+            StartCoroutine(kamikazeCharge());
+            return;
+        }
+
         if (HP > 0)
         {
             bool canSee = canSeePlayer();
@@ -198,15 +222,8 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
                     agent.SetDestination(gameManager.instance.player.transform.position);
                 }
 
-                rotateGun();
                 rotateToTarget();
 
-                shootTimer += Time.deltaTime;
-
-                if (shootTimer > shootRate)
-                {
-                    shoot();
-                }
                 agent.stoppingDistance = stoppingDistOrig;
                 return true;
             }
@@ -281,27 +298,11 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
         rend.material.color = colorOrig;
     }
 
-    void rotateGun()
-    {
-        Vector3 shootDir = gameManager.instance.player.transform.position - shootPos.position;
-        shootDir.y = 0;
-
-        Quaternion rot = Quaternion.LookRotation(shootDir);
-        gunPivot.rotation = Quaternion.Lerp(gunPivot.rotation, rot, Time.deltaTime * gunRotateSpeed);
-    }
-
     void rotateToTarget()
     {
 
         Quaternion rot = Quaternion.LookRotation(playerDir);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
-    }
-
-    void shoot()
-    {
-        shootTimer = 0;
-
-        Instantiate(bullet, shootPos.position, gunPivot.rotation);
     }
 
     void updateHealthBar()
@@ -455,4 +456,71 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
         }
 
     }
+    IEnumerator kamikazeWarning(float duration, float tikInterval)
+    {
+        float timer = 0f;
+        while (timer < duration)
+        {
+
+            rend.material.color = Color.red;
+
+            if(agent.enabled && agent.isOnNavMesh)
+            {
+                agent.SetDestination(gameManager.instance.player.transform.position);
+            }
+
+            audPlayer.PlayOneShot(audTik[Random.Range(0, audTik.Length)], audTikVol);
+
+            yield return new WaitForSeconds(tikInterval * 0.5f);
+            rend.material.color = colorOrig;
+            yield return new WaitForSeconds(tikInterval * 0.5f);
+            timer += tikInterval;
+        }
+        rend.material.color = colorOrig;
+
+    }
+
+    IEnumerator kamikazeCharge()
+    {
+        isCharging = true;
+        isExploding = true;
+
+        agent.speed = chargeSpeed;
+        agent.stoppingDistance = 0;
+
+        yield return StartCoroutine(kamikazeWarning(explodeDelay, tikInterval));
+
+        explode();
+    }
+
+    void explode()
+    {
+        if (hasExploded) return;
+        hasExploded = true;
+        isCharging = false;
+        isExploding = false;
+
+        if (explosionEffect != null)
+        {
+            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        }
+
+        Collider[] hits = Physics.OverlapSphere(transform.position, explosiveRadius);
+
+        if (audExplosion.Length > 0)
+        {
+            AudioSource.PlayClipAtPoint(audExplosion[Random.Range(0, audExplosion.Length)], transform.position, audExplosionVol);
+        }
+
+        foreach (Collider hit in hits)
+        {
+            if (hit.CompareTag("Player"))
+            {
+                hit.GetComponent<IDamage>()?.takeDamage(damage);
+            }
+        }
+
+        Destroy(gameObject);
+    }
+
 }

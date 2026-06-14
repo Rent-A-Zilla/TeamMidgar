@@ -22,12 +22,14 @@ public class buttonFunctions : MonoBehaviour
 
     public void play()
     {
+       
         SceneManager.LoadScene("Final Level Proto 2");
         gameManager.instance.stateUnpause();
     }
 
     public void turtorial()
     {
+       
         SceneManager.LoadScene("Turtorial");
         gameManager.instance.stateUnpause();
     }

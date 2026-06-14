@@ -112,6 +112,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     void Start()
     {
+        
+        controller = GetComponent<CharacterController>();
         HPOrig = HP;
         currentStamina = maxStamina;
         jumpMaxOrig = jumpMax;
@@ -423,6 +425,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     {
         gameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
     }
+    
+   
 
     public void changPlayerPosition()
     {

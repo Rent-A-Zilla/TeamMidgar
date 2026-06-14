@@ -1082,7 +1082,7 @@ GameObject:
   - component: {fileID: 5109666843672709772}
   - component: {fileID: 4191492604121319797}
   m_Layer: 0
-  m_Name: Spawner Door
+  m_Name: Kamikaze x2 - Spawner Door - 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1125,11 +1125,10 @@ MonoBehaviour:
   handleAngle: -25
   handleSpeed: 6
   objectsToSpawn:
-  - {fileID: 8645371758993913359, guid: 8f7b6283c2bb3664499c05e0a0d72bc5, type: 3}
-  - {fileID: 1833544682855820077, guid: 3996e7556699114479ca26e0bcee4696, type: 3}
+  - {fileID: 8645371758993913359, guid: 0e78e0606405dae4b960160bdf65bb43, type: 3}
   amountToSpawn: 2
   spawnRate: 0
-  spawnDist: 3
+  spawnDist: 4
 --- !u!33 &3797456320107135353
 MeshFilter:
   m_ObjectHideFlags: 0
