@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13aacca47d9d1924fb137c6f49366d9b, type: 3}
-  m_Name: gun - Shotgun
+  m_Name: gun - Pistol
   m_EditorClassIdentifier: Assembly-CSharp::gunStats
-  gunModel: {fileID: 5855586643228379229, guid: c9841888fa5041d499ada59f73087c6a, type: 3}
+  gunModel: {fileID: 8200567706198448313, guid: cb96a427bed79be4a8dd165e04471057, type: 3}
   gunFireType: 0
-  shootDamage: 3
-  shootDist: 25
-  shootRate: 0.79
-  ammoCur: 10
-  ammoMax: 10
-  ammoReserve: 100
-  ammoReserveMax: 100
-  pellets: 10
-  spreadAmount: 0.08
-  hiteffect: {fileID: 5204688178410551838, guid: c33735bcd614dcc409fe8286a314139c, type: 3}
+  shootDamage: 10
+  shootDist: 160
+  shootRate: 0.1
+  ammoCur: 4
+  ammoMax: 16
+  ammoReserve: 80
+  ammoReserveMax: 80
+  pellets: 1
+  spreadAmount: 0
+  hiteffect: {fileID: 5204688178410551838, guid: a346d7ed367e9b843beb59d0b335d7aa, type: 3}
   shootSound:
-  - {fileID: 8300000, guid: de0ef89d690c0d14d9eb74d1a005cc86, type: 3}
+  - {fileID: 8300000, guid: 40ccb77d5eedf2549a7e5e21d92cf5ff, type: 3}
   shootSoundVol: 0.5
