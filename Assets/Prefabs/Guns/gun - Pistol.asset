@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13aacca47d9d1924fb137c6f49366d9b, type: 3}
   m_Name: gun - Pistol
   m_EditorClassIdentifier: Assembly-CSharp::gunStats
-  gunModel: {fileID: 2738520558268228719, guid: 748d19574625db444877ca05561b6aea, type: 3}
+  gunModel: {fileID: 8200567706198448313, guid: cb96a427bed79be4a8dd165e04471057, type: 3}
   gunFireType: 0
   shootDamage: 10
   shootDist: 160
   shootRate: 0.1
-  ammoCur: 16
+  ammoCur: 4
   ammoMax: 16
   ammoReserve: 80
   ammoReserveMax: 80

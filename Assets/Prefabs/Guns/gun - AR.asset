@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13aacca47d9d1924fb137c6f49366d9b, type: 3}
   m_Name: gun - AR
   m_EditorClassIdentifier: Assembly-CSharp::gunStats
-  gunModel: {fileID: 5313856188506331232, guid: 7444562fe5798e846a4045a93e123308, type: 3}
+  gunModel: {fileID: 4763186025513004916, guid: c92bc495e42c54a4a86ae192e47cafb8, type: 3}
   gunFireType: 1
   shootDamage: 4
   shootDist: 304
   shootRate: 0.1
-  ammoCur: 8
+  ammoCur: 24
   ammoMax: 30
   ammoReserve: 270
   ammoReserveMax: 300
