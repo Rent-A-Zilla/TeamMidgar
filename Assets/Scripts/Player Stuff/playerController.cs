@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
 public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 {
     [SerializeField] CharacterController controller;
@@ -16,8 +17,13 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     [SerializeField] float speed;
 
     [SerializeField] List<gunStats> gunList = new List<gunStats>();
-    [SerializeField] GameObject gunModelFPS;
-    [SerializeField] GameObject gunModelTPS;
+
+    [Header("-----Weapon IK-----")]
+    [SerializeField] Transform rightHandTarget;
+    [SerializeField] Transform leftHandTarget;
+    [SerializeField] Transform weaponHolderFPS;
+    GameObject currentGunFPS;
+    weaponIKPoints currentIKPoints;
 
     [SerializeField] Transform playerCamera;
     [SerializeField] int crouchMod;
@@ -34,6 +40,9 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     [SerializeField] List<grenadeStats> grenadeList = new List<grenadeStats>();
     [SerializeField] List<int> grenadeCounts = new List<int>();
+
+    [SerializeField] WeaponProceduralMovement weaponProcedural;
+    [SerializeField] GameObject weaponArms;
 
     [SerializeField] AudioSource audPlayer;
     [SerializeField] AudioClip[] audHurt;
@@ -129,7 +138,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
             standUpLerp();
             handleSprintUI();
 
-            if (Input.GetMouseButtonDown(1) && !isParrying)
+            if (Input.GetButtonDown("Parry") && !isParrying)
             {
                 StartCoroutine(parry());
             }
@@ -280,6 +289,11 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     {
         shootTimer = 0;
         gunList[gunListPos].ammoCur--;
+
+        if (weaponProcedural != null)
+        {
+            weaponProcedural.AddRecoil();
+        }
 
         audPlayer.PlayOneShot(gunList[gunListPos].shootSound[Random.Range(0, gunList[gunListPos].shootSound.Length)], gunList[gunListPos].shootSoundVol);
 
@@ -443,13 +457,46 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     void changeGun()
     {
-        gunModelFPS.GetComponent<MeshFilter>().sharedMesh = gunList[gunListPos].gunModel.GetComponent<MeshFilter>().sharedMesh;
-        gunModelFPS.GetComponent<MeshRenderer>().sharedMaterial = gunList[gunListPos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
+        Vector3 spawnPos = Vector3.zero;
 
-        gunModelTPS.GetComponent<MeshFilter>().sharedMesh = gunList[gunListPos].gunModel.GetComponent<MeshFilter>().sharedMesh;
-        gunModelTPS.GetComponent<MeshRenderer>().sharedMaterial = gunList[gunListPos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
+        if (weaponHolderFPS.childCount > 0)
+        {
+            spawnPos = weaponHolderFPS.GetChild(0).localPosition;
+        }
+
+        if (currentGunFPS != null)
+            Destroy(currentGunFPS);
+
+        currentGunFPS = Instantiate(gunList[gunListPos].gunModel, weaponHolderFPS);
+
+        currentGunFPS.transform.localPosition = spawnPos;
+
+        currentIKPoints = currentGunFPS.GetComponent<weaponIKPoints>();
+
+        if (weaponProcedural != null && currentIKPoints != null)
+        {
+            weaponProcedural.SetADSPoint(currentIKPoints.adsPoint);
+        }
 
         updateAmmoUI();
+    }
+
+    void LateUpdate()
+    {
+        if (currentIKPoints == null)
+            return;
+
+        if (rightHandTarget != null && currentIKPoints.rightHandGrip != null)
+        {
+            rightHandTarget.position = currentIKPoints.rightHandGrip.position;
+            rightHandTarget.rotation = currentIKPoints.rightHandGrip.rotation;
+        }
+
+        if (leftHandTarget != null && currentIKPoints.leftHandGrip != null)
+        {
+            leftHandTarget.position = currentIKPoints.leftHandGrip.position;
+            leftHandTarget.rotation = currentIKPoints.leftHandGrip.rotation;
+        }
     }
 
     void selectGun()
@@ -678,7 +725,12 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     {
         isParrying = true;
 
-        gunModelFPS.SetActive(false);
+        if (currentGunFPS != null)
+            currentGunFPS.SetActive(false);
+
+        if (weaponArms != null)
+            weaponArms.SetActive(false);
+
         parryArms.SetActive(true);
 
         parryAnimator.ResetTrigger("Parry");
@@ -686,10 +738,13 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
         yield return new WaitForSeconds(parryAnimTime);
 
-        parryIFrames = false;
-
         parryArms.SetActive(false);
-        gunModelFPS.SetActive(true);
+
+        if (weaponArms != null)
+            weaponArms.SetActive(true);
+
+        if (currentGunFPS != null)
+            currentGunFPS.SetActive(true);
 
         isParrying = false;
     }
