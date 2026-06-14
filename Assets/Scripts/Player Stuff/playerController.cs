@@ -22,6 +22,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     [SerializeField] Transform rightHandTarget;
     [SerializeField] Transform leftHandTarget;
     [SerializeField] Transform weaponHolderFPS;
+    [SerializeField] weaponIKPoints noWeaponPose;
     GameObject currentGunFPS;
     weaponIKPoints currentIKPoints;
 
@@ -117,6 +118,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         cameraStartPos = playerCamera.localPosition;
         standHeight = controller.height;
         playerCenterOrig = controller.center;
+        currentIKPoints = noWeaponPose;
 
         changPlayerPosition();
         updatePlayerSprintUI();
@@ -231,6 +233,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
                 return;
 
             int ammoToReload = Mathf.Min(ammoNeeded, gun.ammoReserve);
+
+            weaponProcedural.StartReload();
 
             gun.ammoCur += ammoToReload;
             gun.ammoReserve -= ammoToReload;

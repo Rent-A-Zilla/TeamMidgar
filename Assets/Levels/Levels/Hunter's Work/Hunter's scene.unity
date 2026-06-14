@@ -6868,6 +6868,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1069702473}
   m_SourcePrefab: {fileID: 100100000, guid: 61ca683beb58c0a45b4e7b4f2260e29a, type: 3}
+--- !u!114 &1376648533 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4537480932921851261, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
+  m_PrefabInstance: {fileID: 1715291143}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e4a3945d872bb4b9759f35e924ac3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::weaponIKPoints
 --- !u!1001 &1381867908
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8340,6 +8351,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
+      propertyPath: noWeaponPose
+      value: 
+      objectReference: {fileID: 1376648533}
     - target: {fileID: 3728436907231830477, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
       propertyPath: m_Name
       value: Player

@@ -60,9 +60,19 @@ public class WeaponProceduralMovement : MonoBehaviour
 
     float groundedTimer;
     bool stableGrounded;
-
     Vector3 airborneOffset;
 
+    [Header("-----Reload-----")]
+    [SerializeField] Vector3 reloadPosition = new Vector3(0f, -0.25f, -0.15f);
+    [SerializeField] Vector3 reloadRotation = new Vector3(25f, -15f, 10f);
+    [SerializeField] float reloadSpeed = 8f;
+    [SerializeField] float reloadDuration = 1f;
+
+    bool isReloading;
+    float reloadTimer;
+
+    Vector3 reloadOffset;
+    Vector3 currentReloadRotation;
     void Start()
     {
         startPos = transform.localPosition;
@@ -76,11 +86,11 @@ public class WeaponProceduralMovement : MonoBehaviour
         HandleADS();
         HandleBob();
         HandleSprint();
-        
         HandleAirborne();
+        HandleReload();
 
-        transform.localPosition = startPos + adsOffset + swayOffset + currentRecoilPos + bobOffset + sprintOffset + airborneOffset;
-        transform.localRotation = startRot * Quaternion.Euler(currentADSRotation + currentRecoilRot + currentSprintRotation);
+        transform.localPosition = startPos + adsOffset + swayOffset + currentRecoilPos + bobOffset + sprintOffset + airborneOffset + reloadOffset;
+        transform.localRotation = startRot * Quaternion.Euler(currentADSRotation + currentRecoilRot + currentSprintRotation + currentReloadRotation);
     }
 
     void HandleSway()
@@ -124,7 +134,7 @@ public class WeaponProceduralMovement : MonoBehaviour
 
     void HandleADS()
     {
-        isAiming = Input.GetMouseButton(1);
+        isAiming = Input.GetMouseButton(1) && !isReloading;
 
         Vector3 targetOffset = Vector3.zero;
 
@@ -171,7 +181,7 @@ public class WeaponProceduralMovement : MonoBehaviour
     }
     void HandleSprint()
     {
-        bool sprinting = Input.GetButton("Sprint") && !isAiming;
+        bool sprinting = Input.GetButton("Sprint") && !isAiming && !isReloading;
 
         Vector3 targetSprintPos = sprinting ? sprintPosition : Vector3.zero;
         Vector3 targetSprintRot = sprinting ? sprintRotation : Vector3.zero;
@@ -200,4 +210,35 @@ public class WeaponProceduralMovement : MonoBehaviour
             airborneSmooth * Time.deltaTime
         );
     }
+    public void StartReload()
+    {
+        if (isReloading)
+            return;
+
+        isReloading = true;
+        reloadTimer = reloadDuration;
+    }
+    void HandleReload()
+    {
+        if (isReloading)
+        {
+            reloadTimer -= Time.deltaTime;
+
+            reloadOffset = Vector3.Lerp(reloadOffset, reloadPosition, reloadSpeed * Time.deltaTime);
+
+            currentReloadRotation = Vector3.Lerp(currentReloadRotation, reloadRotation, reloadSpeed * Time.deltaTime);
+
+            if (reloadTimer <= 0)
+            {
+                isReloading = false;
+            }
+        }
+        else
+        {
+            reloadOffset = Vector3.Lerp(reloadOffset, Vector3.zero, reloadSpeed * Time.deltaTime);
+
+            currentReloadRotation = Vector3.Lerp(currentReloadRotation, Vector3.zero, reloadSpeed * Time.deltaTime);
+        }
+    }
+
 }
