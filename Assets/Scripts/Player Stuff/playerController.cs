@@ -441,18 +441,20 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         if (existingGun >= 0)
         {
             gun.ammoReserve = gun.ammoReserveMax;
-            gunListPos = existingGun;
+            return;
         }
-        else
-        {
+        
             gun.ammoCur = gun.ammoMax;
             gun.ammoReserve = gun.ammoReserveMax;
 
             gunList.Add(gun);
-            gunListPos = gunList.Count - 1;
+
+        if (gunList.Count == 1)
+        {
+            gunListPos = 0;
+            changeGun();
         }
 
-        changeGun();
     }
 
     void changeGun()
