@@ -1770,6 +1770,9 @@ MonoBehaviour:
   leftHandTarget: {fileID: 762288614551054552}
   weaponHolderFPS: {fileID: 3050837562036461145}
   noWeaponPose: {fileID: 4537480932921851261}
+  dodgeSpeed: 18
+  dodgeDuration: 0.25
+  dodgeCooldown: 1
   playerCamera: {fileID: 7587496027814624311}
   crouchMod: 2
   crouchCameraOffset: 0.5

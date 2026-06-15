@@ -586,18 +586,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: dodgeSpeed
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: dodgeCooldown
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: dodgeDuration
-      value: 0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 3728436907231830477, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
       propertyPath: m_Name
       value: Player
