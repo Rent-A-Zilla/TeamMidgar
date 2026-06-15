@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class gameManager : MonoBehaviour
 {
@@ -41,7 +42,7 @@ public class gameManager : MonoBehaviour
     public GameObject speedUpTimerUI;
     public TMP_Text grenadeText;
 
-    [Header("Player Check Point Componnents")]
+    [Header("Player Check Point Components")]
     public GameObject checkpointPopup;
     public GameObject playerStartPos;
 
@@ -62,6 +63,10 @@ public class gameManager : MonoBehaviour
     int gameGoalCount;
     int currency;
     float timeScaleOrig;
+    int enemiesInCombat = 0;
+    public bool inCombat;
+    public bool nearby;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -313,5 +318,26 @@ public class gameManager : MonoBehaviour
     public void updateGrenadeUI(string grenadeName, int grenadeCount)
     {
         grenadeText.text = grenadeName + " x" + grenadeCount;
+    }
+
+    public void EnemyEnteredCombat()
+    {
+        enemiesInCombat++;
+        if (enemiesInCombat == 1)
+        {
+            //inCombat = true;
+            //musicManager.instance.playBattleMusic();
+        }
+    }
+
+    public void EnemyExitedCombat()
+    {
+        enemiesInCombat = Mathf.Max(0, enemiesInCombat - 1);
+        if(enemiesInCombat == 0)
+        {
+            //inCombat = false;
+
+            //musicManager.instance.playBackgroundMusic();
+        }
     }
 }

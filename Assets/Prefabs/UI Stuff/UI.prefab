@@ -1166,7 +1166,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b9f3d4cb3feb7e14082ecde50c0300e1, type: 3}
   - {fileID: 8300000, guid: 595e56859e2ba584e9c8df8da5d09006, type: 3}
   - {fileID: 8300000, guid: 5b248bd83fef40a43b424806106dcf0b, type: 3}
-  - {fileID: 8300000, guid: fb828c5068439414393bd253114f857a, type: 3}
   backgroundVol: 0.5
   nearbySource: {fileID: 8780554353860421867}
   nearbyTracks:
@@ -1174,10 +1173,7 @@ MonoBehaviour:
   nearbyVol: 0.5
   battleSource: {fileID: 8517617094678275134}
   battleTracks:
-  - {fileID: 8300000, guid: 541289cd94975984fb9f16650221f55f, type: 3}
   - {fileID: 8300000, guid: 49c74f79b4d1e4444be460785220dae9, type: 3}
-  - {fileID: 8300000, guid: 054876f57bc7fab40ac0bbad24534db7, type: 3}
-  - {fileID: 8300000, guid: cbc18dbdc9fcbe84b91874a69da99be8, type: 3}
   battleVol: 0.5
 --- !u!82 &1587509273870774411
 AudioSource:
@@ -3396,6 +3392,8 @@ MonoBehaviour:
   player: {fileID: 0}
   playerScript: {fileID: 0}
   isFirstPerson: 0
+  inCombat: 0
+  nearby: 0
 --- !u!1 &2491882599514924621
 GameObject:
   m_ObjectHideFlags: 0

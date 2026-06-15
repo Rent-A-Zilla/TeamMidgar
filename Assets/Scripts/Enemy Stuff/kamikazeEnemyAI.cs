@@ -215,6 +215,7 @@ public class kamikazeEnemyAI : MonoBehaviour, IDamage, IGrenade
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV)
             {
+                gameManager.instance.EnemyEnteredCombat();
                 lastKnownPlayerPos = gameManager.instance.player.transform.position;
 
                 if (agent.enabled && agent.isOnNavMesh)
@@ -228,6 +229,7 @@ public class kamikazeEnemyAI : MonoBehaviour, IDamage, IGrenade
                 return true;
             }
         }
+        gameManager.instance.EnemyExitedCombat();
         agent.stoppingDistance = 0;
         return false;
     }
