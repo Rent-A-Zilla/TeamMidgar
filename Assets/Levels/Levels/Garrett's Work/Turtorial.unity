@@ -2686,7 +2686,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: WASD - Movement       Shift - Sprint               Space - Jump               
+  m_text: WASD - Movement       Shift - Sprint    Q-Dodge           Space - Jump               
     Left-Click - Shoot          Scroll - Switch Weapons    R - Reload    E - Interact                        
     G - Throw Grenade            T - Switch Grenades          F- Parry   C-Crouch
   m_isRightToLeft: 0
