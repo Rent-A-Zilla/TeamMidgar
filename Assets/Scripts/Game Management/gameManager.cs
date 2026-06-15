@@ -74,31 +74,33 @@ public class gameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        player = GameObject.FindWithTag("Player");
-        if (player == null)
-        {
-            Debug.LogError("Player not found!");
-            return;
-        }
         instance = this;
         timeScaleOrig = Time.timeScale;
+
         player = GameObject.FindWithTag("Player");
-        playerScript = player.GetComponent<playerController>();
 
-        firstPersonCam = player.transform.Find("FirstPersonView").gameObject;
-        thirdPersonCam = player.transform.Find("ThirdPersonView").gameObject;
-        weaponHolderTPS = player.transform.Find("Gun Holder TPS").gameObject;
+        if (player != null)
+        {
+            playerScript = player.GetComponent<playerController>();
 
-        isFirstPerson = true;
+            firstPersonCam = player.transform.Find("FirstPersonView").gameObject;
+            thirdPersonCam = player.transform.Find("ThirdPersonView").gameObject;
+            weaponHolderTPS = player.transform.Find("Gun Holder TPS").gameObject;
 
-        firstPersonCam.SetActive(true);
-        thirdPersonCam.SetActive(false);
-        weaponHolderTPS.SetActive(false);
+            isFirstPerson = true;
+
+            firstPersonCam.SetActive(true);
+            thirdPersonCam.SetActive(false);
+            weaponHolderTPS.SetActive(false);
+        }
 
         playerStartPos = GameObject.FindWithTag("Player Start Pos");
 
-        lavaTimerUI.SetActive(false);
-        musicManager.instance.playBackgroundMusic();
+        if (lavaTimerUI != null)
+            lavaTimerUI.SetActive(false);
+
+        if (musicManager.instance != null)
+            musicManager.instance.playBackgroundMusic();
     }
 
     // Update is called once per frame
@@ -132,13 +134,16 @@ public class gameManager : MonoBehaviour
 
     public void stateUnpause()
     {
-        
         isPaused = false;
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        menuActive.SetActive(false);
-        menuActive = null;
+
+        if (menuActive != null)
+        {
+            menuActive.SetActive(false);
+            menuActive = null;
+        }
     }
 
     public void updateGameGoal(int amount)
