@@ -15,6 +15,8 @@ public class swarmEnemyAI : MonoBehaviour, IDamage, IGrenade
     [Range(1, 1000)][SerializeField] int HP;
     [Range(1, 50)][SerializeField] int faceTargetSpeed =10;
     [Range(5, 180)][SerializeField] int FOV;
+    [SerializeField] int collisionDamage = 5;
+    [SerializeField] float attackRange = 1.5f;
 
     [Header("----- Roam Stats -----")]
     [Range(5, 500)][SerializeField] int roamDist;
@@ -50,6 +52,9 @@ public class swarmEnemyAI : MonoBehaviour, IDamage, IGrenade
     bool wasChasing;
     bool isSearching;
     bool isDead = false;
+    bool searchLocked;
+    float searchLockTimer; 
+    Coroutine searchRoutine;
 
     Vector3 playerDir;
     Vector3 startingPos;
@@ -78,21 +83,36 @@ public class swarmEnemyAI : MonoBehaviour, IDamage, IGrenade
     // Update is called once per frame
     void Update()
     {
+        if (searchLocked)
+        {
+            searchLockTimer -= Time.deltaTime;
+            if (searchLockTimer <= 0)
+            {
+                searchLocked = false;
+            }
+        }
         if (HP > 0)
         {
+            attackPlayer();
             bool canSee = canSeePlayer();
             if (playerInTrigger && canSee)
             {
                 wasChasing = true;
-
-                StopCoroutine("searchForPlayer");
+                if(searchRoutine != null)
+                {
+                    StopCoroutine("searchForPlayer");
+                    searchRoutine = null;
+                }
                 isSearching = false;
             }
             else if (playerInTrigger && !canSee)
             {
-                if(wasChasing && !isSearching)
+                if(wasChasing && !isSearching && !searchLocked)
                 {
-                    StartCoroutine(searchForPlayer());
+                    if (searchRoutine == null)
+                    {
+                        searchRoutine = StartCoroutine(searchForPlayer());
+                    }
                 }
                 else if (!isSearching)
                 {
@@ -137,6 +157,7 @@ public class swarmEnemyAI : MonoBehaviour, IDamage, IGrenade
         roamDist = originalRoamDist;
         roamPauseTimer = originalRoamTimer;
         isSearching = false;
+        searchRoutine = null;
 
     }
     void checkRoam()
@@ -208,6 +229,7 @@ public class swarmEnemyAI : MonoBehaviour, IDamage, IGrenade
         if (other.CompareTag("Player"))
         {
             playerInTrigger = true;
+
         }
     }
 
@@ -219,13 +241,43 @@ public class swarmEnemyAI : MonoBehaviour, IDamage, IGrenade
             agent.stoppingDistance = 0;
         }
     }
+    void attackPlayer()
+    {
+        if (isDead || !playerInTrigger) return;
+
+        Vector3 enemyPos = transform.position;
+        Vector3 playerPos = gameManager.instance.player.transform.position;
+
+        enemyPos.y = 0;
+        playerPos.y = 0;
+        float distanceToPlayer = Vector3.Distance(enemyPos, playerPos);
+        if (distanceToPlayer <= attackRange)
+        {
+            IDamage playerDamage = gameManager.instance.player.GetComponent<IDamage>();
+            if (playerDamage != null)
+            {
+                playerDamage.takeDamage(collisionDamage);
+                takeDamage(1);
+            }
+        }
+    }
 
     public void takeDamage(int amount)
     {
+        searchLocked = true;
+        searchLockTimer = 1.0f;
         if (isDead)
         {
             return;
         }
+
+        if(searchRoutine != null)
+        {
+            StopCoroutine(searchRoutine);
+            searchRoutine = null;
+        }
+        isSearching = false;
+        wasChasing = true;
 
         if (!audPlayer.isPlaying && Time.time >= lastHurtSoundTime + hurtSoundCooldown)
         {

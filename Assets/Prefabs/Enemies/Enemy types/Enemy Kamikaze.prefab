@@ -286,7 +286,7 @@ MonoBehaviour:
   duration: 1
   explosiveRadius: 3
   explodeTriggerDist: 5
-  explodeDelay: 2
+  explodeDelay: 1
   chargeSpeed: 4
   objectsToDrop:
   - {fileID: 5982828494251734979, guid: ac389fef086b6a541a3d93a20de71ec1, type: 3}
