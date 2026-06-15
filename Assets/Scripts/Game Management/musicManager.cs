@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class musicManager : MonoBehaviour
@@ -33,6 +34,7 @@ public class musicManager : MonoBehaviour
     private int lastNearbyTrack = -1;
     private int lastBattleTrack = -1;
     public static musicManager instance;
+    Coroutine fadeRoutine;
 
     private void Awake()
     {
@@ -48,6 +50,9 @@ public class musicManager : MonoBehaviour
     {
         if (tracks.Length == 0) return;
 
+        //stopAllMusic();
+
+
         int newTrack;
         do
         {
@@ -57,9 +62,13 @@ public class musicManager : MonoBehaviour
 
         lastTrack = newTrack;
 
-        source.volume = vol;
+        source.Stop();
         source.clip = tracks[newTrack];
+        source.volume = 0f;
         source.Play();
+
+        if(fadeRoutine != null) { StopCoroutine(fadeRoutine); }
+        fadeRoutine = StartCoroutine(FadeIn(source, vol));
     }
     public void playMenuMusic()
     {
@@ -71,15 +80,17 @@ public class musicManager : MonoBehaviour
     public void playBackgroundMusic()
     {
         if (currentState == MusicState.Background) return;
-        PlayRandomTrack(backgroundSource, backgroundTracks, ref lastBackgroundTrack, backgroundVol);
         currentState = MusicState.Background;
+        PlayRandomTrack(backgroundSource, backgroundTracks, ref lastBackgroundTrack, backgroundVol);
+
     }
 
     public void playBattleMusic()
     {
         if (currentState == MusicState.Battle) return;
-        PlayRandomTrack(battleSource, battleTracks, ref lastBattleTrack, battleVol);
         currentState = MusicState.Battle;
+        PlayRandomTrack(battleSource, battleTracks, ref lastBattleTrack, battleVol);
+
     }
 
     public void playNearbyMusic()
@@ -87,5 +98,29 @@ public class musicManager : MonoBehaviour
         if (currentState == MusicState.NearbyEnemy) return;
         PlayRandomTrack(nearbySource, nearbyTracks, ref lastNearbyTrack, nearbyVol);
         currentState = MusicState.NearbyEnemy;
+    }
+
+    void stopAllMusic()
+    {
+        mainMenuSource.Stop();
+        backgroundSource.Stop();
+        nearbySource.Stop();
+        battleSource.Stop();
+
+        mainMenuSource.volume = mainMenuVol;
+        backgroundSource.volume = backgroundVol;
+        nearbySource.volume = nearbyVol;
+        battleSource.volume = battleVol;
+    }
+
+    IEnumerator FadeIn(AudioSource source, float targetVol)
+    {
+        source.volume = 0f;
+        while(source.volume < targetVol)
+        {
+            source.volume += Time.deltaTime * targetVol;
+            yield return null;
+        }
+        source.volume = targetVol;
     }
 }

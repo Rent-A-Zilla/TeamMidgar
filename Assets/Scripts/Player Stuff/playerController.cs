@@ -26,6 +26,11 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     GameObject currentGunFPS;
     weaponIKPoints currentIKPoints;
 
+    [Header("-----Dodge-----")]
+    [SerializeField] float dodgeSpeed;
+    [SerializeField] float dodgeDuration;
+    [SerializeField] float dodgeCooldown;
+
     [SerializeField] Transform playerCamera;
     [SerializeField] int crouchMod;
     [SerializeField] float crouchCameraOffset;
@@ -60,6 +65,9 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     bool isParrying;
     bool parryIFrames;
+
+    bool isDodging;
+    bool canDodge = true;
 
     float currentStamina;
     float speedBoostAmount;
@@ -139,6 +147,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
             movement();
             sprint();
             crouch();
+            dodge();
             crouchVisual();
             standUpLerp();
             handleSprintUI();
@@ -205,6 +214,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         selectGun();
         selectGrenade();
         reload();
+        
     }
 
     IEnumerator playStep()
@@ -862,5 +872,43 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         }
     }
 
+    void dodge()
+    {
+        if(Input.GetButtonDown("Dodge") && canDodge && !isDodging)
+        {
+            float x = Input.GetAxisRaw("Horizontal");
+            float z = Input.GetAxisRaw("Vertical");
+            Vector3 dodgeDir = new Vector3(x, 0f, z).normalized;
+
+            if (dodgeDir == Vector3.zero)
+            {
+                dodgeDir = transform.forward;
+            }
+            else
+            {
+                dodgeDir = transform.TransformDirection(dodgeDir);
+            }
+
+            StartCoroutine(PlayerDodge(dodgeDir));
+        }
+    }
+
+    private IEnumerator PlayerDodge(Vector3 direction)
+    {
+        isDodging = true;
+        canDodge = false;
+
+        float timer = 0f;
+        while (timer < dodgeDuration)
+        {
+            controller.Move(direction * dodgeSpeed * Time.deltaTime);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        
+        isDodging = false;
+        yield return new WaitForSeconds(dodgeCooldown);
+        canDodge = true;
+    }
 
 }
