@@ -3368,6 +3368,7 @@ MonoBehaviour:
   firstPersonCam: {fileID: 0}
   thirdPersonCam: {fileID: 0}
   weaponHolderTPS: {fileID: 0}
+  cameraScript: {fileID: 0}
   shop: {fileID: 3737340642001400589}
   playerHPBar: {fileID: 7373156406939513841}
   playerSprintBar: {fileID: 7118537476915764107}

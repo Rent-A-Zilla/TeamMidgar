@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 using Unity.VisualScripting;
 
 public class gameManager : MonoBehaviour
@@ -21,6 +22,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject firstPersonCam;
     [SerializeField] GameObject thirdPersonCam;
     [SerializeField] GameObject weaponHolderTPS;
+    [SerializeField] MonoBehaviour cameraScript;
 
 
     [Header("----- Shop -----")]
@@ -66,36 +68,46 @@ public class gameManager : MonoBehaviour
     int enemiesInCombat = 0;
     public bool inCombat;
     public bool nearby;
+    bool isDying;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+
         player = GameObject.FindWithTag("Player");
         if (player == null)
         {
-            Debug.LogError("Player not found");
+            Debug.LogError("Player Not Found");
             return;
         }
+
         instance = this;
         timeScaleOrig = Time.timeScale;
-        player = GameObject.FindWithTag("Player");
-        playerScript = player.GetComponent<playerController>();
 
-        firstPersonCam = player.transform.Find("FirstPersonView").gameObject;
-        thirdPersonCam = player.transform.Find("ThirdPersonView").gameObject;
-        weaponHolderTPS = player.transform.Find("Gun Holder TPS").gameObject;
 
-        isFirstPerson = true;
+        if (player != null)
+        {
+            playerScript = player.GetComponent<playerController>();
+            player = GameObject.FindWithTag("Player");
+            firstPersonCam = player.transform.Find("FirstPersonView").gameObject;
+            thirdPersonCam = player.transform.Find("ThirdPersonView").gameObject;
+            weaponHolderTPS = player.transform.Find("Gun Holder TPS").gameObject;
 
-        firstPersonCam.SetActive(true);
-        thirdPersonCam.SetActive(false);
-        weaponHolderTPS.SetActive(false);
+            isFirstPerson = true;
+
+            firstPersonCam.SetActive(true);
+            thirdPersonCam.SetActive(false);
+            weaponHolderTPS.SetActive(false);
+        }
 
         playerStartPos = GameObject.FindWithTag("Player Start Pos");
 
-        lavaTimerUI.SetActive(false);
-        musicManager.instance.playBackgroundMusic();
+        if (lavaTimerUI != null)
+            lavaTimerUI.SetActive(false);
+
+        if (musicManager.instance != null)
+            musicManager.instance.playBackgroundMusic();
     }
 
     // Update is called once per frame
@@ -129,13 +141,16 @@ public class gameManager : MonoBehaviour
 
     public void stateUnpause()
     {
-        
         isPaused = false;
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        menuActive.SetActive(false);
-        menuActive = null;
+
+        if (menuActive != null)
+        {
+            menuActive.SetActive(false);
+            menuActive = null;
+        }
     }
 
     public void updateGameGoal(int amount)
@@ -146,9 +161,50 @@ public class gameManager : MonoBehaviour
 
     public void youLose()
     {
+        if (isDying)
+            return;
+
+        isDying = true;
+
+        StartCoroutine(deathSequence());
+    }
+
+    IEnumerator deathSequence()
+    {
+        if (playerScript != null)
+            playerScript.enabled = false;
+
+        if (cameraScript != null)
+            cameraScript.enabled = false;
+
         lavaOverlayUI.SetActive(false);
 
+        if (playerScript != null)
+            playerScript.enabled = false;
+
+        float timer = 0f;
+        float deathFallTime = 2f;
+
+        Quaternion startRot = firstPersonCam.transform.rotation;
+        Quaternion endRot = startRot * Quaternion.Euler(0, 0, 90);
+
+        while (timer < deathFallTime)
+        {
+            timer += Time.deltaTime;
+
+            float t = timer / deathFallTime;
+
+            firstPersonCam.transform.rotation = Quaternion.Slerp(startRot, endRot, t);
+
+            yield return null;
+        }
+
+        firstPersonCam.transform.rotation = endRot;
+
+        yield return new WaitForSeconds(1f);
+
         statePause();
+
         menuActive = menuLose;
         menuActive.SetActive(true);
     }
