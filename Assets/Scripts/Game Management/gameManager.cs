@@ -74,7 +74,7 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         if (player == null)
         {
-            Debug.LogError("Player not found!");
+            Debug.LogError("Player not found");
             return;
         }
         instance = this;
