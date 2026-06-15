@@ -192,7 +192,7 @@ MonoBehaviour:
   gunRotateSpeed: 1
   objectsToDrop:
   - {fileID: 8645371758993913359, guid: 8afb9cc080ca3d1419ca10197770ce93, type: 3}
-  amountToDrop: 1
+  amountToDrop: 3
   dropRate: 0
   dropDist: 1
   cashPerHit: 5
