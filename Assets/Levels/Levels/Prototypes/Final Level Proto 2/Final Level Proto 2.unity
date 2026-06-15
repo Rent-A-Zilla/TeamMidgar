@@ -12106,6 +12106,10 @@ PrefabInstance:
       propertyPath: throwForce
       value: -2
       objectReference: {fileID: 0}
+    - target: {fileID: 8850185800045630907, guid: bb484573164db5c459ac02c3c5e42386, type: 3}
+      propertyPath: 'lootPrefabs.Array.data[8]'
+      value: 
+      objectReference: {fileID: 2017663692349419876, guid: 2e144af2395a8d740975600c64833a64, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

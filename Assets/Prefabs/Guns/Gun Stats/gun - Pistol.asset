@@ -17,7 +17,7 @@ MonoBehaviour:
   shootDamage: 10
   shootDist: 160
   shootRate: 0.1
-  ammoCur: 4
+  ammoCur: 0
   ammoMax: 16
   ammoReserve: 80
   ammoReserveMax: 80
@@ -27,3 +27,5 @@ MonoBehaviour:
   shootSound:
   - {fileID: 8300000, guid: 40ccb77d5eedf2549a7e5e21d92cf5ff, type: 3}
   shootSoundVol: 0.5
+  muzzleFlash: {fileID: 4046163878033562411, guid: 816b3654102f2a0439993f494d8dfa33, type: 3}
+  tracerBullet: {fileID: 1804883565772602607, guid: 7da0efc35f14d5848af1636bc7bd2b0e, type: 3}
