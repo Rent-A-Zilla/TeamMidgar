@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 using Unity.VisualScripting;
 
 public class gameManager : MonoBehaviour
@@ -21,6 +22,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject firstPersonCam;
     [SerializeField] GameObject thirdPersonCam;
     [SerializeField] GameObject weaponHolderTPS;
+    [SerializeField] MonoBehaviour cameraScript;
 
 
     [Header("----- Shop -----")]
@@ -66,6 +68,7 @@ public class gameManager : MonoBehaviour
     int enemiesInCombat = 0;
     public bool inCombat;
     public bool nearby;
+    bool isDying;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -146,9 +149,50 @@ public class gameManager : MonoBehaviour
 
     public void youLose()
     {
+        if (isDying)
+            return;
+
+        isDying = true;
+
+        StartCoroutine(deathSequence());
+    }
+
+    IEnumerator deathSequence()
+    {
+        if (playerScript != null)
+            playerScript.enabled = false;
+
+        if (cameraScript != null)
+            cameraScript.enabled = false;
+
         lavaOverlayUI.SetActive(false);
 
+        if (playerScript != null)
+            playerScript.enabled = false;
+
+        float timer = 0f;
+        float deathFallTime = 2f;
+
+        Quaternion startRot = firstPersonCam.transform.rotation;
+        Quaternion endRot = startRot * Quaternion.Euler(0, 0, 90);
+
+        while (timer < deathFallTime)
+        {
+            timer += Time.deltaTime;
+
+            float t = timer / deathFallTime;
+
+            firstPersonCam.transform.rotation = Quaternion.Slerp(startRot, endRot, t);
+
+            yield return null;
+        }
+
+        firstPersonCam.transform.rotation = endRot;
+
+        yield return new WaitForSeconds(1f);
+
         statePause();
+
         menuActive = menuLose;
         menuActive.SetActive(true);
     }
