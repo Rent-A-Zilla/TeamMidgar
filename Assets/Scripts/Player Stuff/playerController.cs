@@ -506,6 +506,9 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     void changeGun()
     {
+        if (noWeaponPose != null)
+            noWeaponPose.gameObject.SetActive(false);
+
         Vector3 spawnPos = Vector3.zero;
 
         if (weaponHolderFPS.childCount > 0)
