@@ -74,15 +74,22 @@ public class gameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+
+        player = GameObject.FindWithTag("Player");
+        if (player == null)
+        {
+            Debug.LogError("Player Not Found");
+            return;
+        }
+
         instance = this;
         timeScaleOrig = Time.timeScale;
 
-        player = GameObject.FindWithTag("Player");
 
         if (player != null)
         {
             playerScript = player.GetComponent<playerController>();
-
+            player = GameObject.FindWithTag("Player");
             firstPersonCam = player.transform.Find("FirstPersonView").gameObject;
             thirdPersonCam = player.transform.Find("ThirdPersonView").gameObject;
             weaponHolderTPS = player.transform.Find("Gun Holder TPS").gameObject;
