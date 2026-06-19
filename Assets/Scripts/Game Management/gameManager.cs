@@ -15,7 +15,9 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuOptions;
     [SerializeField] GameObject lavaOverlayUI;
+    [SerializeField] GameObject menuHighScores;
     [SerializeField] GameObject menuShop;
+    [SerializeField] GameObject menuAchievements;
 
 
     [Header("----- Cams -----")]
@@ -67,6 +69,10 @@ public class gameManager : MonoBehaviour
     [SerializeField] int killScoreAmount;
     [SerializeField] int timeBonusMultiplier;
 
+    [Header("----- Leaderboard -----")]
+    [SerializeField] string leaderboardKey = "FinalLevel";
+    
+
     float levelTimer;
     int score;
     bool levelEnded;
@@ -91,6 +97,7 @@ public class gameManager : MonoBehaviour
             return;
         }
         instance = this;
+
 
         levelTimer = levelTimeLimit;
 
@@ -220,13 +227,7 @@ public class gameManager : MonoBehaviour
 
         checkAchievements();
 
-        int highScore = PlayerPrefs.GetInt("HighScore", 0);
-
-        if (score > highScore)
-        {
-            PlayerPrefs.SetInt("HighScore", score);
-            PlayerPrefs.Save();
-        }
+        saveScoreToLeaderboard(score);
 
         updateScoreUI();
         youWin();
@@ -252,7 +253,8 @@ public class gameManager : MonoBehaviour
             scoreText.text = score.ToString();
 
         if (highScoreText != null)
-            highScoreText.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
+            highScoreText.text = PlayerPrefs.GetInt(leaderboardKey + "_HighScore_0", getDefaultScore(0)).ToString();
+
     }
 
     void checkAchievements()
@@ -477,5 +479,74 @@ public class gameManager : MonoBehaviour
 
             //musicManager.instance.playBackgroundMusic();
         }
+    }
+    public void openHighScoresMenu()
+    {
+        menuPause.SetActive(false);
+        menuHighScores.SetActive(true);
+    }
+
+    public void closeHighScoresMenu()
+    {
+        menuHighScores.SetActive(false);
+        menuPause.SetActive(true);
+    }
+    
+    public void openAchievementsMenu()
+    {
+        menuPause.SetActive(false);
+        menuAchievements.SetActive(true);
+    }
+
+    public void closeAchievementsMenu()
+    {
+        menuAchievements.SetActive(false);
+        menuPause.SetActive(true);
+    }
+    void saveScoreToLeaderboard(int newScore)
+    {
+        int[] scores = new int[5];
+
+        for (int i = 0; i < scores.Length; i++)
+        {
+            scores[i] = PlayerPrefs.GetInt(leaderboardKey + "_HighScore_" + i, getDefaultScore(i));
+        }
+
+        for (int i = 0; i < scores.Length; i++)
+        {
+            if (newScore > scores[i])
+            {
+                for (int j = scores.Length - 1; j > i; j--)
+                {
+                    scores[j] = scores[j - 1];
+                }
+
+                scores[i] = newScore;
+                break;
+            }
+        }
+
+        for (int i = 0; i < scores.Length; i++)
+        {
+            PlayerPrefs.SetInt(leaderboardKey + "_HighScore_" + i, scores[i]);
+        }
+
+        PlayerPrefs.Save();
+    }
+
+
+    int getDefaultScore(int index)
+    {
+        int[] defaultScores =
+        {
+
+        2500,
+        2000,
+        1500,
+        1000,
+        500
+    };
+
+        return defaultScores[index];
     }
 }

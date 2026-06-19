@@ -22,16 +22,14 @@ public class buttonFunctions : MonoBehaviour
 
     public void play()
     {
-       
+        Time.timeScale = 1;
         SceneManager.LoadScene("Final Level Proto 2");
-        gameManager.instance.stateUnpause();
     }
 
-    public void tutorial()
+    public void turtorial()
     {
-       
-        SceneManager.LoadScene("Tutorial");
-        gameManager.instance.stateUnpause();
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Turtorial");
     }
 
     public void quiteToMenu()
@@ -104,4 +102,23 @@ public class buttonFunctions : MonoBehaviour
             gameManager.instance.shop.updateShopUI();
         }
     }
+    public void openHighScores()
+    {
+        gameManager.instance.openHighScoresMenu();
+    }
+
+    public void closeHighScores()
+    {
+        gameManager.instance.closeHighScoresMenu();
+    }
+    public void openAchievements()
+    {
+        gameManager.instance.openAchievementsMenu();
+    }
+
+    public void closeAchievements()
+    {
+        gameManager.instance.closeAchievementsMenu();
+    }
+
 }
