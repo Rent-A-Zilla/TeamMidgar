@@ -89,6 +89,13 @@ public class gameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+
+        player = GameObject.FindWithTag("Player");
+        if (player == null)
+        {
+            Debug.LogError("Player Not Found");
+            return;
+        }
         instance = this;
 
 
@@ -99,12 +106,6 @@ public class gameManager : MonoBehaviour
 
         updateScoreUI();
 
-        player = GameObject.FindWithTag("Player");
-        if (player == null)
-        {
-            Debug.LogError("Player Not Found");
-            return;
-        }
 
         timeScaleOrig = Time.timeScale;
 
@@ -129,10 +130,13 @@ public class gameManager : MonoBehaviour
         if (lavaTimerUI != null)
             lavaTimerUI.SetActive(false);
 
+
+    }
+    private void Start()
+    {
         if (musicManager.instance != null)
             musicManager.instance.playBackgroundMusic();
     }
-
     // Update is called once per frame
     void Update()
     {
