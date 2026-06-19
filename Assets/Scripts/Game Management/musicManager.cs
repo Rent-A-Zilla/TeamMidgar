@@ -50,7 +50,7 @@ public class musicManager : MonoBehaviour
     {
         if (tracks.Length == 0) return;
 
-        //stopAllMusic();
+        stopAllMusic();
 
 
         int newTrack;
