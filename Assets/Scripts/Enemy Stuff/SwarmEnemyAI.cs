@@ -281,7 +281,7 @@ public class swarmEnemyAI : MonoBehaviour, IDamage, IGrenade
 
         if (!audPlayer.isPlaying && Time.time >= lastHurtSoundTime + hurtSoundCooldown)
         {
-            audPlayer.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
+            //audPlayer.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
             lastHurtSoundTime = Time.time;
         }
 
