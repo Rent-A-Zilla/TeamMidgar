@@ -1856,7 +1856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3298671488882803808, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_text
-      value: Tutorial
+      value: Turtorial
       objectReference: {fileID: 0}
     - target: {fileID: 4926236800704053136, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_IsActive

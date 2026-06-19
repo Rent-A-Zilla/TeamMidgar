@@ -29,7 +29,7 @@ public class buttonFunctions : MonoBehaviour
     public void turtorial()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("Turtorial");
+        SceneManager.LoadScene("Tutorial");
     }
 
     public void quiteToMenu()
