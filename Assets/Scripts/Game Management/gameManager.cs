@@ -58,6 +58,8 @@ public class gameManager : MonoBehaviour
     public GameObject player;
     public playerController playerScript;
     public bool isFirstPerson;
+   public GameObject namePanel;
+   public TMP_InputField playerNameInput;
 
     [Header("----- Win Condition / Score -----")]
     public TMP_Text levelTimerText;
@@ -89,15 +91,7 @@ public class gameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-
-        player = GameObject.FindWithTag("Player");
-        if (player == null)
-        {
-            Debug.LogError("Player Not Found");
-            return;
-        }
         instance = this;
-
 
         levelTimer = levelTimeLimit;
 
@@ -106,14 +100,14 @@ public class gameManager : MonoBehaviour
 
         updateScoreUI();
 
-
         timeScaleOrig = Time.timeScale;
 
+        player = GameObject.FindWithTag("Player");
 
         if (player != null)
         {
             playerScript = player.GetComponent<playerController>();
-            player = GameObject.FindWithTag("Player");
+
             firstPersonCam = player.transform.Find("FirstPersonView").gameObject;
             thirdPersonCam = player.transform.Find("ThirdPersonView").gameObject;
             weaponHolderTPS = player.transform.Find("Gun Holder TPS").gameObject;
@@ -129,13 +123,26 @@ public class gameManager : MonoBehaviour
 
         if (lavaTimerUI != null)
             lavaTimerUI.SetActive(false);
-
-
     }
     private void Start()
     {
         if (musicManager.instance != null)
             musicManager.instance.playBackgroundMusic();
+
+        // Only do name menu logic in scenes that actually have the name panel
+        if (namePanel != null && menuPause != null)
+        {
+            if (!PlayerPrefs.HasKey("PlayerName"))
+            {
+                namePanel.SetActive(true);
+                menuPause.SetActive(false);
+            }
+            else
+            {
+                namePanel.SetActive(false);
+                menuPause.SetActive(true);
+            }
+        }
     }
     // Update is called once per frame
     void Update()
@@ -506,11 +513,20 @@ public class gameManager : MonoBehaviour
     void saveScoreToLeaderboard(int newScore)
     {
         int[] scores = new int[5];
+        string[] names = new string[5];
 
         for (int i = 0; i < scores.Length; i++)
         {
-            scores[i] = PlayerPrefs.GetInt(leaderboardKey + "_HighScore_" + i, getDefaultScore(i));
+            scores[i] = PlayerPrefs.GetInt(
+                leaderboardKey + "_HighScore_" + i,
+                getDefaultScore(i));
+
+            names[i] = PlayerPrefs.GetString(
+                leaderboardKey + "_HighScoreName_" + i,
+                getDefaultName(i));
         }
+
+        string playerName = PlayerPrefs.GetString("PlayerName", "Player");
 
         for (int i = 0; i < scores.Length; i++)
         {
@@ -519,9 +535,11 @@ public class gameManager : MonoBehaviour
                 for (int j = scores.Length - 1; j > i; j--)
                 {
                     scores[j] = scores[j - 1];
+                    names[j] = names[j - 1];
                 }
 
                 scores[i] = newScore;
+                names[i] = playerName;
                 break;
             }
         }
@@ -529,9 +547,24 @@ public class gameManager : MonoBehaviour
         for (int i = 0; i < scores.Length; i++)
         {
             PlayerPrefs.SetInt(leaderboardKey + "_HighScore_" + i, scores[i]);
+            PlayerPrefs.SetString(leaderboardKey + "_HighScoreName_" + i, names[i]);
         }
 
         PlayerPrefs.Save();
+    }
+
+    string getDefaultName(int index)
+    {
+        string[] defaultNames =
+        {
+        "Razor",
+        "Ghost",
+        "Nova",
+        "Viper",
+        "Ace"
+    };
+
+        return defaultNames[index];
     }
 
 
@@ -548,5 +581,15 @@ public class gameManager : MonoBehaviour
     };
 
         return defaultScores[index];
+    }
+    public void showMainMenuAfterName()
+    {
+        if (namePanel != null)
+            namePanel.SetActive(false);
+
+        if (menuPause != null)
+            menuPause.SetActive(true);
+
+        menuActive = menuPause;
     }
 }

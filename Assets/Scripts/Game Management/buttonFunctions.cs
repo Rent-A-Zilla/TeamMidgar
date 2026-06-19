@@ -120,5 +120,17 @@ public class buttonFunctions : MonoBehaviour
     {
         gameManager.instance.closeAchievementsMenu();
     }
+    public void confirmPlayerName()
+    {
+        string playerName = gameManager.instance.playerNameInput.text.Trim();
+
+        if (string.IsNullOrEmpty(playerName))
+            playerName = "Player";
+
+        PlayerPrefs.SetString("PlayerName", playerName);
+        PlayerPrefs.Save();
+
+        gameManager.instance.showMainMenuAfterName();
+    }
 
 }
