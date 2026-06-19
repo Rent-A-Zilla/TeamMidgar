@@ -521,6 +521,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1884216131232496696, guid: da755f5b82cfaad45ace3297736bbe2f, type: 3}
   m_PrefabInstance: {fileID: 1137358163}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &104835504 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 906737386051144335, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+  m_PrefabInstance: {fileID: 2102275706}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &118697591 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7184969209626546728, guid: b90ecb51603d4504d90b4ff68dcfd797, type: 3}
@@ -11749,6 +11754,10 @@ PrefabInstance:
       propertyPath: cameraScript
       value: 
       objectReference: {fileID: 1910140748}
+    - target: {fileID: 5770671261135331556, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: checkpointPopup
+      value: 
+      objectReference: {fileID: 104835504}
     - target: {fileID: 8143139085766427377, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_Name
       value: UI

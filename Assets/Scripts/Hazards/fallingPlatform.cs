@@ -57,11 +57,7 @@ public class fallingPlatform : MonoBehaviour
         {
             float timeLeft = fallDelay - timer;
 
-            if (gameManager.instance != null)
-            {
-                gameManager.instance.showFallingPlatformTimer();
-                gameManager.instance.updateFallingPlatformTimer(timeLeft);
-            }
+       
 
             float shakeX = Mathf.Sin(Time.time * shakeSpeed) * shakeAmount;
             float shakeZ = Mathf.Cos(Time.time * shakeSpeed) * shakeAmount;
@@ -72,10 +68,7 @@ public class fallingPlatform : MonoBehaviour
             yield return null;
         }
 
-        if (gameManager.instance != null)
-        {
-            gameManager.instance.hideFallingPlatformTimer();
-        }
+   
 
         transform.position = startPosition;
 
