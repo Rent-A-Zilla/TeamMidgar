@@ -3370,7 +3370,7 @@ MonoBehaviour:
   speedUpTimer: {fileID: 1773367660821073792}
   speedUpTimerUI: {fileID: 1144567488294463725}
   grenadeText: {fileID: 2096575619727250342}
-  checkpointPopup: {fileID: 0}
+  checkpointPopup: {fileID: 906737386051144335}
   playerStartPos: {fileID: 0}
   ammoText: {fileID: 430390366630731803}
   isPaused: 0

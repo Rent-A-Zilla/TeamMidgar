@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Levels/Levels/Prototypes/Final Level Proto 2/Final Level Proto 2.unity
     guid: fa97e57866585ab4299b6e0b9b8b2ad1
   - enabled: 1
-    path: Assets/Levels/Levels/Garrett's Work/Turtorial.unity
+    path: Assets/Levels/Levels/Garrett's Work/Tutorial.unity
     guid: 8844e7e1b0ea6384295dfebf3bdef056
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

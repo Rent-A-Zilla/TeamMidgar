@@ -24,15 +24,13 @@ public class buttonFunctions : MonoBehaviour
     {
        
         SceneManager.LoadScene("Final Level Proto 2");
-        //if (musicManager.instance != null)
-            //musicManager.instance.playBackgroundMusic();
         gameManager.instance.stateUnpause();
     }
 
-    public void turtorial()
+    public void tutorial()
     {
        
-        SceneManager.LoadScene("Turtorial");
+        SceneManager.LoadScene("Tutorial");
         gameManager.instance.stateUnpause();
     }
 
