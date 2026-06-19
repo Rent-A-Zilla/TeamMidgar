@@ -51,16 +51,25 @@ public class gameManager : MonoBehaviour
     [Header("----- Ammo UI -----")]
     public TMP_Text ammoText;
 
-    [Header("----- Falling Platform UI -----")]
-    public GameObject fallingPlatformTimerUI;
-    public TMP_Text fallingPlatformTimerText;
-
-
     [Header("----- Player -----")]
     public bool isPaused;
     public GameObject player;
     public playerController playerScript;
     public bool isFirstPerson;
+
+    [Header("----- Win Condition / Score -----")]
+    public TMP_Text levelTimerText;
+    public TMP_Text scoreText;
+    public TMP_Text highScoreText;
+    public TMP_Text achievementText;
+
+    [SerializeField] float levelTimeLimit;
+    [SerializeField] int killScoreAmount;
+    [SerializeField] int timeBonusMultiplier;
+
+    float levelTimer;
+    int score;
+    bool levelEnded;
 
     int gameGoalCount;
     int currency;
@@ -81,8 +90,16 @@ public class gameManager : MonoBehaviour
             Debug.LogError("Player Not Found");
             return;
         }
-
         instance = this;
+
+        levelTimer = levelTimeLimit;
+
+        if (achievementText != null)
+            achievementText.gameObject.SetActive(false);
+
+        updateScoreUI();
+
+
         timeScaleOrig = Time.timeScale;
 
 
@@ -106,10 +123,13 @@ public class gameManager : MonoBehaviour
         if (lavaTimerUI != null)
             lavaTimerUI.SetActive(false);
 
+
+    }
+    private void Start()
+    {
         if (musicManager.instance != null)
             musicManager.instance.playBackgroundMusic();
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -125,6 +145,20 @@ public class gameManager : MonoBehaviour
             {
                 stateUnpause();
             }
+        }
+
+        if (!levelEnded && !isPaused)
+        {
+            levelTimer -= Time.deltaTime;
+
+            if (levelTimer <= 0)
+            {
+                levelTimer = 0;
+                levelEnded = true;
+                youLose();
+            }
+
+            updateScoreUI();
         }
     }
 
@@ -156,7 +190,96 @@ public class gameManager : MonoBehaviour
     public void updateGameGoal(int amount)
     {
         gameGoalCount += amount;
-        gameGoalCountText.text = gameGoalCount.ToString("F0");
+
+        if (gameGoalCount < 0)
+            gameGoalCount = 0;
+
+        if (amount < 0)
+            addScore(killScoreAmount);
+
+        if (gameGoalCountText != null)
+            gameGoalCountText.text = gameGoalCount.ToString("F0");
+    }
+    public void playerReachedExit()
+    {
+        if (gameGoalCount <= 0)
+        {
+            completeLevel();
+        }
+    }
+
+    void completeLevel()
+    {
+        if (levelEnded)
+            return;
+
+        levelEnded = true;
+
+        int timeBonus = Mathf.RoundToInt(levelTimer * timeBonusMultiplier);
+        addScore(timeBonus);
+
+        checkAchievements();
+
+        int highScore = PlayerPrefs.GetInt("HighScore", 0);
+
+        if (score > highScore)
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+            PlayerPrefs.Save();
+        }
+
+        updateScoreUI();
+        youWin();
+    }
+
+    void addScore(int amount)
+    {
+        score += amount;
+        updateScoreUI();
+    }
+
+    void updateScoreUI()
+    {
+        if (levelTimerText != null)
+        {
+            int minutes = Mathf.FloorToInt(levelTimer / 60);
+            int seconds = Mathf.FloorToInt(levelTimer % 60);
+
+            levelTimerText.text = minutes + ":" + seconds.ToString("00");
+        }
+
+        if (scoreText != null)
+            scoreText.text = score.ToString();
+
+        if (highScoreText != null)
+            highScoreText.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
+    }
+
+    void checkAchievements()
+    {
+        if (levelTimer >= levelTimeLimit * 0.5f)
+            unlockAchievement("Speed Runner");
+
+        if (gameGoalCount <= 0)
+            unlockAchievement("No Survivors");
+
+        if (score >= 1000)
+            unlockAchievement("High Roller");
+    }
+
+    void unlockAchievement(string achievementName)
+    {
+        if (PlayerPrefs.GetInt("Achievement_" + achievementName, 0) == 1)
+            return;
+
+        PlayerPrefs.SetInt("Achievement_" + achievementName, 1);
+        PlayerPrefs.Save();
+
+        if (achievementText != null)
+        {
+            achievementText.gameObject.SetActive(true);
+            achievementText.text = achievementName;
+        }
     }
 
     public void youLose()
@@ -176,8 +299,6 @@ public class gameManager : MonoBehaviour
 
         if (cameraScript != null)
             cameraScript.enabled = false;
-
-        lavaOverlayUI.SetActive(false);
 
         if (playerScript != null)
             playerScript.enabled = false;
@@ -317,45 +438,6 @@ public class gameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    public void updateFallingPlatformTimer(float time)
-    {
-        if (fallingPlatformTimerText != null)
-        {
-            fallingPlatformTimerText.text = time.ToString("F1");
-        }
-    }
-
-    public void showFallingPlatformTimer()
-    {
-        if (fallingPlatformTimerUI != null)
-        {
-            fallingPlatformTimerUI.SetActive(true);
-
-            CanvasGroup canvasGroup = fallingPlatformTimerUI.GetComponent<CanvasGroup>();
-
-            if (canvasGroup != null)
-            {
-                canvasGroup.alpha = 1f;
-            }
-        }
-    }
-
-    public void hideFallingPlatformTimer()
-    {
-        if (fallingPlatformTimerUI != null)
-        {
-            CanvasGroup canvasGroup = fallingPlatformTimerUI.GetComponent<CanvasGroup>();
-
-            if (canvasGroup != null)
-            {
-                canvasGroup.alpha = 0f;
-            }
-            else
-            {
-                fallingPlatformTimerUI.SetActive(false);
-            }
-        }
-    }
 
     public void updateAmmoUI(int currentAmmo, int maxAmmo)
     {

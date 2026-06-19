@@ -24,6 +24,8 @@ public class buttonFunctions : MonoBehaviour
     {
        
         SceneManager.LoadScene("Final Level Proto 2");
+        //if (musicManager.instance != null)
+            //musicManager.instance.playBackgroundMusic();
         gameManager.instance.stateUnpause();
     }
 
