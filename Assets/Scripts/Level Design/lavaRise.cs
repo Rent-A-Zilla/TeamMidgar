@@ -108,6 +108,8 @@ public class lavaRise : MonoBehaviour
 
         if (dmg != null)
         {
+            gameManager.instance.SetDeathCause(gameManager.DeathCause.Lava);
+
             dmg.takeDamage(999);
         }
     }

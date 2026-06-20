@@ -81,9 +81,14 @@ public class gameManager : MonoBehaviour
     [SerializeField] achievementData noSurvivorsAchievement;
     [SerializeField] achievementData highRollerAchievement;
     [SerializeField] achievementData parryMasterAchievement;
-    
 
     [SerializeField] int parryMasterRequirement = 10;
+
+    [Header("----- Lose Screen -----")]
+    [SerializeField] TMP_Text deathCauseText;
+    [SerializeField] TMP_Text deathEnemiesText;
+    [SerializeField] TMP_Text deathTimeText;
+    [SerializeField] TMP_Text deathScoreText;
 
     int enemiesKilled;
     int parryCount;
@@ -100,6 +105,16 @@ public class gameManager : MonoBehaviour
     public bool inCombat;
     public bool nearby;
     bool isDying;
+
+    public enum DeathCause
+    {
+        Unknown,
+        Lava,
+        Enemy,
+        Timer
+    }
+
+    DeathCause currentDeathCause = DeathCause.Unknown;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -181,6 +196,9 @@ public class gameManager : MonoBehaviour
             {
                 levelTimer = 0;
                 levelEnded = true;
+
+                SetDeathCause(DeathCause.Timer);
+
                 youLose();
             }
 
@@ -315,6 +333,7 @@ public class gameManager : MonoBehaviour
     public void resetDeathState()
     {
         isDying = false;
+        currentDeathCause = DeathCause.Unknown;
     }
 
     IEnumerator deathSequence()
@@ -347,6 +366,8 @@ public class gameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         statePause();
+
+        updateLoseScreenUI();
 
         menuActive = menuLose;
         menuActive.SetActive(true);
@@ -586,5 +607,44 @@ public class gameManager : MonoBehaviour
 
         if (parryCount >= parryMasterRequirement)
             achievementManager.instance.unlockAchievement(parryMasterAchievement);
+    }
+    public void SetDeathCause(DeathCause cause)
+    {
+        currentDeathCause = cause;
+    }
+
+    public string GetDeathCauseText()
+    {
+        switch (currentDeathCause)
+        {
+            case DeathCause.Lava:
+                return "Killed by Lava";
+
+            case DeathCause.Timer:
+                return "Time Ran Out";
+
+            case DeathCause.Enemy:
+                return "Killed by Enemy";
+
+            default:
+                return "Unknown";
+        }
+    }
+    public bool HasDeathCause()
+    {
+        return currentDeathCause != DeathCause.Unknown;
+    }
+ 
+    void updateLoseScreenUI()
+    {
+        deathCauseText.text = GetDeathCauseText();
+        deathEnemiesText.text = enemiesKilled.ToString();
+
+        int timeSurvived = Mathf.RoundToInt(levelTimeLimit - levelTimer);
+        int minutes = timeSurvived / 60;
+        int seconds = timeSurvived % 60;
+
+        deathTimeText.text = minutes + ":" + seconds.ToString("00");
+        deathScoreText.text = score.ToString();
     }
 }

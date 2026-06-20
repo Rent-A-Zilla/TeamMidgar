@@ -457,6 +457,12 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         if (HP <= 0)
         {
             HP = 0;
+
+            if (!gameManager.instance.HasDeathCause())
+            {
+                gameManager.instance.SetDeathCause(gameManager.DeathCause.Enemy);
+            }
+
             gameManager.instance.youLose();
         }
     }

@@ -2789,10 +2789,10 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Breakout Successful
 
-        
 
-        All enemies defeated and the
-        escape point reached.'
+
+        All enemies defeated and the escape
+        point reached.'
       objectReference: {fileID: 0}
     - target: {fileID: 3741455765194249650, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_fontAsset
@@ -2985,6 +2985,10 @@ PrefabInstance:
     - target: {fileID: 8768871747656790172, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8876425483081982378, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8891199320808129745, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_IsActive
