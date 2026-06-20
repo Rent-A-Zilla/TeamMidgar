@@ -2,8 +2,9 @@ using System.Collections;
 using UnityEngine;
 
 public class damage : MonoBehaviour
-{   
-    enum damageType { bullet, stationary, DOT}
+{
+    enum damageType { bullet, stationary, DOT }
+
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
 
@@ -12,13 +13,13 @@ public class damage : MonoBehaviour
     [SerializeField] int bulletSpeed;
     [SerializeField] int bulletDestroyTime;
     [SerializeField] ParticleSystem hitEffect;
+    [SerializeField] bool doesKnockback;
 
     bool isDamaging;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if(type == damageType.bullet)
+        if (type == damageType.bullet)
         {
             rb.linearVelocity = transform.forward * bulletSpeed;
             Destroy(gameObject, bulletDestroyTime);
@@ -48,18 +49,36 @@ public class damage : MonoBehaviour
         }
 
         IDamage dmg = other.GetComponent<IDamage>();
-        
-        if(dmg != null && type != damageType.DOT)
+
+        if (dmg != null && type != damageType.DOT)
         {
             dmg.takeDamage(damageAmount);
+
+            if (doesKnockback)
+            {
+                playerController player = other.GetComponent<playerController>();
+
+                if (player != null && !player.getParryIFrames())
+                {
+                    if (type == damageType.bullet)
+                    {
+                        player.startKnockbackFromDirection(transform.forward);
+                    }
+                    else
+                    {
+                        player.startKnockback(transform.position);
+                    }
+                }
+            }
         }
 
-        if(type == damageType.bullet)
+        if (type == damageType.bullet)
         {
             if (hitEffect != null)
             {
                 Instantiate(hitEffect, transform.position, Quaternion.identity);
             }
+
             Destroy(gameObject);
         }
     }
@@ -70,20 +89,31 @@ public class damage : MonoBehaviour
             return;
 
         IDamage dmg = other.GetComponent<IDamage>();
+
         if (dmg != null && type == damageType.DOT && !isDamaging)
         {
-          
             StartCoroutine(damageOther(dmg));
         }
-
     }
 
-    IEnumerator damageOther (IDamage d)
+    IEnumerator damageOther(IDamage d)
     {
         isDamaging = true;
+
         d.takeDamage(damageAmount);
+
+        if (doesKnockback)
+        {
+            playerController player = d as playerController;
+
+            if (player != null && !player.getParryIFrames())
+            {
+                player.startKnockback(transform.position);
+            }
+        }
+
         yield return new WaitForSeconds(damageRate);
+
         isDamaging = false;
     }
-
 }

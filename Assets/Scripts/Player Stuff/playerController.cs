@@ -43,6 +43,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     [SerializeField] float staminaDrainRate;
     [SerializeField] float staminaRegenRate;
     [SerializeField] float staminaRegenDelay;
+    [SerializeField] float knockbackForce = 6f;
+    [SerializeField] float knockbackDrag = 8f;
 
     [SerializeField] List<grenadeStats> grenadeList = new List<grenadeStats>();
     [SerializeField] List<int> grenadeCounts = new List<int>();
@@ -89,6 +91,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     Vector3 playerVel;
     Vector3 playerCenterOrig;
     Vector3 cameraStartPos;
+    Vector3 knockbackVelocity;
 
     bool isplayingStep;
 
@@ -201,10 +204,15 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
             currentSpeed *= sprintMod;
         }
 
-        controller.Move(moveDir.normalized * currentSpeed * Time.deltaTime);
-
         jump();
-        controller.Move(playerVel * Time.deltaTime);
+
+        Vector3 finalMove = moveDir.normalized * currentSpeed;
+        finalMove += knockbackVelocity;
+        finalMove += playerVel;
+
+        controller.Move(finalMove * Time.deltaTime);
+
+        knockbackVelocity = Vector3.Lerp(knockbackVelocity, Vector3.zero, knockbackDrag * Time.deltaTime);
 
         playerVel.x = Mathf.Lerp(playerVel.x, 0, Time.deltaTime * 5f);
         playerVel.z = Mathf.Lerp(playerVel.z, 0, Time.deltaTime * 5f);
@@ -910,5 +918,19 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         yield return new WaitForSeconds(dodgeCooldown);
         canDodge = true;
     }
+    public void startKnockback(Vector3 sourcePosition)
+    {
+        Vector3 dir = transform.position - sourcePosition;
+        dir.y = 0f;
+        dir.Normalize();
 
+        knockbackVelocity = dir * knockbackForce;
+    }
+    public void startKnockbackFromDirection(Vector3 hitDirection)
+    {
+        hitDirection.y = 0f;
+        hitDirection.Normalize();
+
+        knockbackVelocity = hitDirection * knockbackForce;
+    }
 }
