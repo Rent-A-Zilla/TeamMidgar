@@ -65,7 +65,7 @@ public class gameManager : MonoBehaviour
     public TMP_Text levelTimerText;
     public TMP_Text scoreText;
     public TMP_Text highScoreText;
-    public TMP_Text achievementText;
+   
 
     [SerializeField] float levelTimeLimit;
     [SerializeField] int killScoreAmount;
@@ -73,7 +73,20 @@ public class gameManager : MonoBehaviour
 
     [Header("----- Leaderboard -----")]
     [SerializeField] string leaderboardKey = "FinalLevel";
+
+    [Header("----- Achievements -----")]
+    [SerializeField] achievementData firstBloodAchievement;
+    [SerializeField] achievementData speedRunnerAchievement;
+    [SerializeField] achievementData noSurvivorsAchievement;
+    [SerializeField] achievementData highRollerAchievement;
+    [SerializeField] achievementData parryMasterAchievement;
     
+
+    [SerializeField] int parryMasterRequirement = 10;
+
+    int enemiesKilled;
+    int parryCount;
+
 
     float levelTimer;
     int score;
@@ -94,9 +107,6 @@ public class gameManager : MonoBehaviour
         instance = this;
 
         levelTimer = levelTimeLimit;
-
-        if (achievementText != null)
-            achievementText.gameObject.SetActive(false);
 
         updateScoreUI();
 
@@ -209,7 +219,14 @@ public class gameManager : MonoBehaviour
             gameGoalCount = 0;
 
         if (amount < 0)
+        {
             addScore(killScoreAmount);
+
+            enemiesKilled++;
+
+            if (enemiesKilled == 1)
+                achievementManager.instance.unlockAchievement(firstBloodAchievement);
+        }
 
         if (gameGoalCountText != null)
             gameGoalCountText.text = gameGoalCount.ToString("F0");
@@ -267,28 +284,13 @@ public class gameManager : MonoBehaviour
     void checkAchievements()
     {
         if (levelTimer >= levelTimeLimit * 0.5f)
-            unlockAchievement("Speed Runner");
+            achievementManager.instance.unlockAchievement(speedRunnerAchievement);
 
         if (gameGoalCount <= 0)
-            unlockAchievement("No Survivors");
+            achievementManager.instance.unlockAchievement(noSurvivorsAchievement);
 
-        if (score >= 1000)
-            unlockAchievement("High Roller");
-    }
-
-    void unlockAchievement(string achievementName)
-    {
-        if (PlayerPrefs.GetInt("Achievement_" + achievementName, 0) == 1)
-            return;
-
-        PlayerPrefs.SetInt("Achievement_" + achievementName, 1);
-        PlayerPrefs.Save();
-
-        if (achievementText != null)
-        {
-            achievementText.gameObject.SetActive(true);
-            achievementText.text = achievementName;
-        }
+        if (score >= 3000)
+            achievementManager.instance.unlockAchievement(highRollerAchievement);
     }
 
     public void youLose()
@@ -308,9 +310,6 @@ public class gameManager : MonoBehaviour
 
         if (cameraScript != null)
             cameraScript.enabled = false;
-
-        if (playerScript != null)
-            playerScript.enabled = false;
 
         float timer = 0f;
         float deathFallTime = 2f;
@@ -505,11 +504,6 @@ public class gameManager : MonoBehaviour
         menuAchievements.SetActive(true);
     }
 
-    public void closeAchievementsMenu()
-    {
-        menuAchievements.SetActive(false);
-        menuPause.SetActive(true);
-    }
     void saveScoreToLeaderboard(int newScore)
     {
         int[] scores = new int[5];
@@ -591,5 +585,12 @@ public class gameManager : MonoBehaviour
             menuPause.SetActive(true);
 
         menuActive = menuPause;
+    }
+    public void addParryCount()
+    {
+        parryCount++;
+
+        if (parryCount >= parryMasterRequirement)
+            achievementManager.instance.unlockAchievement(parryMasterAchievement);
     }
 }

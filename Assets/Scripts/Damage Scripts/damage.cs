@@ -36,6 +36,8 @@ public class damage : MonoBehaviour
 
             if (player != null && player.getParryIFrames())
             {
+                gameManager.instance.addParryCount();
+
                 Vector3 reflectDir = Camera.main.transform.forward;
 
                 rb.linearVelocity = reflectDir * bulletSpeed;

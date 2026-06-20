@@ -116,10 +116,6 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.openAchievementsMenu();
     }
 
-    public void closeAchievements()
-    {
-        gameManager.instance.closeAchievementsMenu();
-    }
     public void confirmPlayerName()
     {
         string playerName = gameManager.instance.playerNameInput.text.Trim();

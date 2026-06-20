@@ -3516,14 +3516,22 @@ MonoBehaviour:
   player: {fileID: 0}
   playerScript: {fileID: 0}
   isFirstPerson: 0
+  namePanel: {fileID: 0}
+  playerNameInput: {fileID: 0}
   levelTimerText: {fileID: 4618066679037663085}
   scoreText: {fileID: 1785160964439385109}
   highScoreText: {fileID: 0}
-  achievementText: {fileID: 0}
   levelTimeLimit: 200
   killScoreAmount: 25
   timeBonusMultiplier: 3
   leaderboardKey: FinalLevel
+  firstBloodAchievement: {fileID: 11400000, guid: 01e80f4944db23f4f8339b148a9a4775, type: 2}
+  speedRunnerAchievement: {fileID: 11400000, guid: ab1554cb8312b5d4e95f1ad1998d1647, type: 2}
+  noSurvivorsAchievement: {fileID: 11400000, guid: 3bf75466cb35d1443a8843b6bed4f7bc, type: 2}
+  highRollerAchievement: {fileID: 11400000, guid: cd4e9efbead177d4891578d9a1c15c8a, type: 2}
+  parryMasterAchievement: {fileID: 11400000, guid: 3068b23f427bf4843bf0bc0168cab6f2, type: 2}
+  achievementText: {fileID: 0}
+  parryMasterRequirement: 10
   inCombat: 0
   nearby: 0
 --- !u!1 &2491882599514924621
