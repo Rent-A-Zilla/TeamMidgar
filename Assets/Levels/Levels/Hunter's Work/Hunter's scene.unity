@@ -7168,17 +7168,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1069702473}
   m_SourcePrefab: {fileID: 100100000, guid: 61ca683beb58c0a45b4e7b4f2260e29a, type: 3}
---- !u!114 &1376648533 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4537480932921851261, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-  m_PrefabInstance: {fileID: 1715291143}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1e4a3945d872bb4b9759f35e924ac3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::weaponIKPoints
 --- !u!1001 &1381867908
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8555,6 +8544,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6234157972082731407, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
   m_PrefabInstance: {fileID: 1715291143}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1671787814 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2157273890997995028, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
+  m_PrefabInstance: {fileID: 1715291143}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1676930343 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6096919808580468442, guid: 629e04ce29ba77b44b389a0660c46d70, type: 3}
@@ -8714,9 +8708,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
-      propertyPath: noWeaponPose
+      propertyPath: leftHandTarget
       value: 
-      objectReference: {fileID: 1376648533}
+      objectReference: {fileID: 1671787814}
+    - target: {fileID: 2947614296203855692, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
+      propertyPath: rightHandTarget
+      value: 
+      objectReference: {fileID: 2055556109}
     - target: {fileID: 3728436907231830477, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
       propertyPath: m_Name
       value: Player
@@ -10890,6 +10888,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 629e04ce29ba77b44b389a0660c46d70, type: 3}
+--- !u!4 &2055556109 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3912843066038524014, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
+  m_PrefabInstance: {fileID: 1715291143}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2057876557 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6096919808580468442, guid: 629e04ce29ba77b44b389a0660c46d70, type: 3}
