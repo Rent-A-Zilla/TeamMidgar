@@ -2753,9 +2753,25 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1543900106049342693, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 1543900106049342693, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 1543900106049342693, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
     - target: {fileID: 1675442213620158990, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1685952742142317651, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 487
       objectReference: {fileID: 0}
     - target: {fileID: 2319933496566185178, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_IsActive
@@ -2768,6 +2784,43 @@ PrefabInstance:
     - target: {fileID: 3298671488882803808, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_text
       value: Tutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 3313949174593382830, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: m_text
+      value: 'Breakout Successful
+
+        
+
+        All enemies defeated and the
+        escape point reached.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741455765194249650, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 3741455765194249650, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 3741455765194249650, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601298875075625604, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601298875075625604, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601298875075625604, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601298875075625604, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -173
       objectReference: {fileID: 0}
     - target: {fileID: 4926236800704053136, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_IsActive
@@ -2805,13 +2858,17 @@ PrefabInstance:
       propertyPath: menuAchievements
       value: 
       objectReference: {fileID: 897028949}
+    - target: {fileID: 6019682983461152297, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: m_Name
+      value: Objective
+      objectReference: {fileID: 0}
     - target: {fileID: 6265539896502134960, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6551090112745760864, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7515748877675105715, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_SizeDelta.y

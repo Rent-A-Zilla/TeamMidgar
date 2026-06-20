@@ -54,6 +54,8 @@ MonoBehaviour:
   bulletSpeed: 0
   bulletDestroyTime: 0
   hitEffect: {fileID: 5204688178410551838, guid: 4c39a90be0a13d941b431cdff089ce26, type: 3}
+  doesKnockback: 0
+  knockbackForce: 20
 --- !u!135 &773048849757008790
 SphereCollider:
   m_ObjectHideFlags: 0

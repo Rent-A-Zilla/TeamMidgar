@@ -113,6 +113,7 @@ MonoBehaviour:
   bulletDestroyTime: 0
   hitEffect: {fileID: 0}
   doesKnockback: 1
+  knockbackForce: 20
 --- !u!65 &7805915181133196136
 BoxCollider:
   m_ObjectHideFlags: 0

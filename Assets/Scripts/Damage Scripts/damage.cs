@@ -14,6 +14,7 @@ public class damage : MonoBehaviour
     [SerializeField] int bulletDestroyTime;
     [SerializeField] ParticleSystem hitEffect;
     [SerializeField] bool doesKnockback;
+    [SerializeField] float knockbackForce = 6f;
 
     bool isDamaging;
 
@@ -62,11 +63,11 @@ public class damage : MonoBehaviour
                 {
                     if (type == damageType.bullet)
                     {
-                        player.startKnockbackFromDirection(transform.forward);
+                        player.startKnockbackFromDirection(transform.forward, knockbackForce);
                     }
                     else
                     {
-                        player.startKnockback(transform.position);
+                        player.startKnockback(transform.position, knockbackForce);
                     }
                 }
             }
@@ -108,7 +109,7 @@ public class damage : MonoBehaviour
 
             if (player != null && !player.getParryIFrames())
             {
-                player.startKnockback(transform.position);
+                player.startKnockback(transform.position, knockbackForce);
             }
         }
 

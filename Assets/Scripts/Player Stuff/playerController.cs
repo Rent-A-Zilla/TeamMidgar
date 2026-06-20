@@ -43,7 +43,6 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
     [SerializeField] float staminaDrainRate;
     [SerializeField] float staminaRegenRate;
     [SerializeField] float staminaRegenDelay;
-    [SerializeField] float knockbackForce = 6f;
     [SerializeField] float knockbackDrag = 8f;
 
     [SerializeField] List<grenadeStats> grenadeList = new List<grenadeStats>();
@@ -918,19 +917,19 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         yield return new WaitForSeconds(dodgeCooldown);
         canDodge = true;
     }
-    public void startKnockback(Vector3 sourcePosition)
+    public void startKnockback(Vector3 sourcePosition, float force)
     {
         Vector3 dir = transform.position - sourcePosition;
         dir.y = 0f;
         dir.Normalize();
 
-        knockbackVelocity = dir * knockbackForce;
+        knockbackVelocity = dir * force;
     }
-    public void startKnockbackFromDirection(Vector3 hitDirection)
+    public void startKnockbackFromDirection(Vector3 hitDirection, float force)
     {
         hitDirection.y = 0f;
         hitDirection.Normalize();
 
-        knockbackVelocity = hitDirection * knockbackForce;
+        knockbackVelocity = hitDirection * force;
     }
 }
