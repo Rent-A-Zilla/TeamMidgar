@@ -2809,6 +2809,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6551090112745760864, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7515748877675105715, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_SizeDelta.y
       value: 1098.72
@@ -3321,10 +3325,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1188683055}
         m_TargetAssemblyTypeName: highScoreMenu, Assembly-CSharp
         m_MethodName: showScores
-        m_Mode: 5
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 11400000, guid: 2a474f5c0a816804a8a71e09f35e1bef, type: 2}
+          m_ObjectArgumentAssemblyTypeName: leaderboardData, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Tutorial
@@ -3454,10 +3458,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1188683055}
         m_TargetAssemblyTypeName: highScoreMenu, Assembly-CSharp
         m_MethodName: showScores
-        m_Mode: 5
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 11400000, guid: fd1a4344ef1375448963d407817a75c1, type: 2}
+          m_ObjectArgumentAssemblyTypeName: leaderboardData, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: FinalLevel

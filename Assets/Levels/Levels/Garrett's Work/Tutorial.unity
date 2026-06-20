@@ -196,6 +196,10 @@ PrefabInstance:
       propertyPath: killScoreAmount
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 5770671261135331556, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: leaderboardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 2a474f5c0a816804a8a71e09f35e1bef, type: 2}
     - target: {fileID: 8143139085766427377, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_Name
       value: UI

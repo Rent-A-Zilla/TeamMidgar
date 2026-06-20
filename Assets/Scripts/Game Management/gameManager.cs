@@ -64,15 +64,16 @@ public class gameManager : MonoBehaviour
     [Header("----- Win Condition / Score -----")]
     public TMP_Text levelTimerText;
     public TMP_Text scoreText;
-    public TMP_Text highScoreText;
-   
+    public TMP_Text winMessageText;
+    public TMP_Text winScoreText;
+
 
     [SerializeField] float levelTimeLimit;
     [SerializeField] int killScoreAmount;
     [SerializeField] int timeBonusMultiplier;
 
     [Header("----- Leaderboard -----")]
-    [SerializeField] string leaderboardKey = "FinalLevel";
+    [SerializeField] leaderboardData leaderboardData;
 
     [Header("----- Achievements -----")]
     [SerializeField] achievementData firstBloodAchievement;
@@ -139,6 +140,7 @@ public class gameManager : MonoBehaviour
         if (musicManager.instance != null)
             musicManager.instance.playBackgroundMusic();
 
+        
         // Only do name menu logic in scenes that actually have the name panel
         if (namePanel != null && menuPause != null)
         {
@@ -246,12 +248,24 @@ public class gameManager : MonoBehaviour
 
         levelEnded = true;
 
+        int previousHighScore = PlayerPrefs.GetInt(
+            leaderboardData.leaderboardKey + "_HighScore_0",
+            getDefaultScore(0));
+
         int timeBonus = Mathf.RoundToInt(levelTimer * timeBonusMultiplier);
         addScore(timeBonus);
 
         checkAchievements();
 
         saveScoreToLeaderboard(score);
+
+        if (winScoreText != null)
+            winScoreText.text = "Score: " + score;
+
+        if (score >= previousHighScore)
+            winMessageText.text = "NEW HIGH SCORE!";
+        else
+            winMessageText.text = "High Score: " + previousHighScore;
 
         updateScoreUI();
         youWin();
@@ -275,10 +289,6 @@ public class gameManager : MonoBehaviour
 
         if (scoreText != null)
             scoreText.text = score.ToString();
-
-        if (highScoreText != null)
-            highScoreText.text = PlayerPrefs.GetInt(leaderboardKey + "_HighScore_0", getDefaultScore(0)).ToString();
-
     }
 
     void checkAchievements()
@@ -512,11 +522,11 @@ public class gameManager : MonoBehaviour
         for (int i = 0; i < scores.Length; i++)
         {
             scores[i] = PlayerPrefs.GetInt(
-                leaderboardKey + "_HighScore_" + i,
+                leaderboardData.leaderboardKey + "_HighScore_" + i,
                 getDefaultScore(i));
 
             names[i] = PlayerPrefs.GetString(
-                leaderboardKey + "_HighScoreName_" + i,
+                leaderboardData.leaderboardKey + "_HighScoreName_" + i,
                 getDefaultName(i));
         }
 
@@ -540,8 +550,8 @@ public class gameManager : MonoBehaviour
 
         for (int i = 0; i < scores.Length; i++)
         {
-            PlayerPrefs.SetInt(leaderboardKey + "_HighScore_" + i, scores[i]);
-            PlayerPrefs.SetString(leaderboardKey + "_HighScoreName_" + i, names[i]);
+            PlayerPrefs.SetInt(leaderboardData.leaderboardKey + "_HighScore_" + i, scores[i]);
+            PlayerPrefs.SetString(leaderboardData.leaderboardKey + "_HighScoreName_" + i, names[i]);
         }
 
         PlayerPrefs.Save();
@@ -549,32 +559,12 @@ public class gameManager : MonoBehaviour
 
     string getDefaultName(int index)
     {
-        string[] defaultNames =
-        {
-        "Razor",
-        "Ghost",
-        "Nova",
-        "Viper",
-        "Ace"
-    };
-
-        return defaultNames[index];
+        return leaderboardData.defaultNames[index];
     }
-
 
     int getDefaultScore(int index)
     {
-        int[] defaultScores =
-        {
-
-        2500,
-        2000,
-        1500,
-        1000,
-        500
-    };
-
-        return defaultScores[index];
+        return leaderboardData.defaultScores[index];
     }
     public void showMainMenuAfterName()
     {
