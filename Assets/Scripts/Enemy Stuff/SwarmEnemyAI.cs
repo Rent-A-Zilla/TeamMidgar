@@ -83,7 +83,8 @@ public class swarmEnemyAI : MonoBehaviour, IDamage, IGrenade
     // Update is called once per frame
     void Update()
     {
-        if(isDead) return;
+        if(isDead)
+            return;
         if (searchLocked)
         {
             searchLockTimer -= Time.deltaTime;

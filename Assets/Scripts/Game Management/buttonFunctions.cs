@@ -22,18 +22,14 @@ public class buttonFunctions : MonoBehaviour
 
     public void play()
     {
-       
+        Time.timeScale = 1;
         SceneManager.LoadScene("Final Level Proto 2");
-        //if (musicManager.instance != null)
-            //musicManager.instance.playBackgroundMusic();
-        gameManager.instance.stateUnpause();
     }
 
     public void turtorial()
     {
-       
-        SceneManager.LoadScene("Turtorial");
-        gameManager.instance.stateUnpause();
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Tutorial");
     }
 
     public void quiteToMenu()
@@ -106,4 +102,31 @@ public class buttonFunctions : MonoBehaviour
             gameManager.instance.shop.updateShopUI();
         }
     }
+    public void openHighScores()
+    {
+        gameManager.instance.openHighScoresMenu();
+    }
+
+    public void closeHighScores()
+    {
+        gameManager.instance.closeHighScoresMenu();
+    }
+    public void openAchievements()
+    {
+        gameManager.instance.openAchievementsMenu();
+    }
+
+    public void confirmPlayerName()
+    {
+        string playerName = gameManager.instance.playerNameInput.text.Trim();
+
+        if (string.IsNullOrEmpty(playerName))
+            playerName = "Player";
+
+        PlayerPrefs.SetString("PlayerName", playerName);
+        PlayerPrefs.Save();
+
+        gameManager.instance.showMainMenuAfterName();
+    }
+
 }
