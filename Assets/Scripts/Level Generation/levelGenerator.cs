@@ -16,7 +16,7 @@ public class levelGenerator
         this.levelLength = levelLength;
     }
 
-    public List<Node> CalculateRooms(int maxIterations, int widthMin, int lengthMin)
+    public List<Node> CalculateLevel(int maxIterations, int widthMin, int lengthMin, float roomBottomCornerModifer, float roomTopCornerModifier, int roomOffset, int corridorWidth)
     {
         BinarySpacePartitioner bsp = new BinarySpacePartitioner(levelWidth, levelLength);
         allSpaceNodes = bsp.PrepareNodeCollection(maxIterations, widthMin, lengthMin);
@@ -25,7 +25,13 @@ public class levelGenerator
         List<Node> roomSpaces = StructureHelper.TraverseGraphToExtractLowestLeafes(bsp.RootNode);
 
         RoomGenerator roomGenerator = new RoomGenerator(maxIterations, lengthMin, widthMin);
-        List<RoomNode> roomList = roomGenerator.GenrateRoomsInGivenSpaces(roomSpaces);
+        List<RoomNode> roomList = roomGenerator.GenrateRoomsInGivenSpaces(roomSpaces, roomBottomCornerModifer, roomTopCornerModifier, roomOffset);
+
+        CorridorsGenerator corridorGenerator = new CorridorsGenerator();
+
+        var corridorList = corridorGenerator.CreateCorridor(allNodesCollection, corridorWidth);
+
+
         return new List<Node>(roomList);
     }
 }
