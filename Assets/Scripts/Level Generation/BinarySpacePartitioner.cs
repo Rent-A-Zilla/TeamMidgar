@@ -16,6 +16,7 @@ public class BinarySpacePartitioner
 
     public List<RoomNode> PrepareNodeCollection(int maxIterations, int widthMin, int lengthMin)
     {
+
         Queue<RoomNode> graph = new Queue<RoomNode>();
         List<RoomNode> listToReturn = new List<RoomNode>();
         graph.Enqueue(this.rootNode);
@@ -23,10 +24,11 @@ public class BinarySpacePartitioner
         int interations = 0;
         while(interations < maxIterations && graph.Count > 0)
         {
-            maxIterations++;
+            interations++;
             RoomNode currentNode = graph.Dequeue();
             if(currentNode.Width >= widthMin*2 || currentNode.Length >= lengthMin*2)
             {
+                Debug.Log($"Width={currentNode.Width} Length={currentNode.Length}");
                 SplitTheSpace(currentNode,listToReturn,lengthMin,widthMin, graph);
             }
         }
@@ -35,6 +37,8 @@ public class BinarySpacePartitioner
 
     private void SplitTheSpace(RoomNode currentNode, List<RoomNode> listToReturn, int lengthMin, int widthMin, Queue<RoomNode> graph)
     {
+        Debug.Log("Splitting Rooms"); 
+
         Line line = GetLineDividingSpace(currentNode.BottemLeftAreaCorner, currentNode.TopRightAreaCorner, widthMin, lengthMin);
 
         RoomNode node1, node2;

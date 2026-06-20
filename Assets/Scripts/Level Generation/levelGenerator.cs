@@ -20,6 +20,8 @@ public class levelGenerator
     {
         BinarySpacePartitioner bsp = new BinarySpacePartitioner(levelWidth, levelLength);
         allSpaceNodes = bsp.PrepareNodeCollection(maxIterations, widthMin, lengthMin);
+        Debug.Log("Total BSP Nodes: " + allSpaceNodes.Count);
+        Debug.Log("Root Children: " + bsp.RootNode.ChildrenNodeList.Count);
         List<Node> roomSpaces = StructureHelper.TraverseGraphToExtractLowestLeafes(bsp.RootNode);
 
         RoomGenerator roomGenerator = new RoomGenerator(maxIterations, lengthMin, widthMin);
