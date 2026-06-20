@@ -21,10 +21,10 @@ public class gameManager : MonoBehaviour
 
 
     [Header("----- Cams -----")]
-    [SerializeField] GameObject firstPersonCam;
+    public GameObject firstPersonCam;
     [SerializeField] GameObject thirdPersonCam;
     [SerializeField] GameObject weaponHolderTPS;
-    [SerializeField] MonoBehaviour cameraScript;
+    public MonoBehaviour cameraScript;
 
 
     [Header("----- Shop -----")]
@@ -311,6 +311,10 @@ public class gameManager : MonoBehaviour
         isDying = true;
 
         StartCoroutine(deathSequence());
+    }
+    public void resetDeathState()
+    {
+        isDying = false;
     }
 
     IEnumerator deathSequence()

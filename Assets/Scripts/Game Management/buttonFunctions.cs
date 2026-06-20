@@ -16,7 +16,20 @@ public class buttonFunctions : MonoBehaviour
 
     public void respawnPlayer()
     {
+        gameManager.instance.resetDeathState();
+
+        gameManager.instance.playerScript.enabled = true;
+
+        if (gameManager.instance.cameraScript != null)
+            gameManager.instance.cameraScript.enabled = true;
+
+        gameManager.instance.firstPersonCam.transform.localRotation = Quaternion.identity;
+
+        gameManager.instance.player.transform.rotation =
+            gameManager.instance.playerStartPos.transform.rotation;
+
         gameManager.instance.playerScript.changPlayerPosition();
+
         gameManager.instance.stateUnpause();
     }
 
