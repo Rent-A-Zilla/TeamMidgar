@@ -8,7 +8,13 @@ public class LevelCreator : MonoBehaviour
     public int lengthMin;
     public int maxIterations;
     public int corridorwidth;
-    public Material material; 
+    public Material material;
+    [Range(0.0f, 0.3f)]
+    public float roomBottomCornerModifer;
+    [Range(0.7f, 1.0f)]
+    public float roomTopCornerModifier;
+    [Range(0, 2)]
+    public int roomOffset;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,8 +30,8 @@ public class LevelCreator : MonoBehaviour
 
     public void createLevel()
     {
-        levelGenerator generator = new levelGenerator(levelWidth, levelLength); 
-        var listOfRooms = generator.CalculateRooms(maxIterations, widthMin, lengthMin);
+        levelGenerator generator = new levelGenerator(levelWidth, levelLength);
+        var listOfRooms = generator.CalculateLevel(maxIterations, widthMin, lengthMin, roomBottomCornerModifer, roomTopCornerModifier, roomOffset, corridorwidth);
         for (int i = 0; i < listOfRooms.Count; i++)
         {
             createMesh(listOfRooms[i].BottemLeftAreaCorner, listOfRooms[i].TopRightAreaCorner);
