@@ -434,6 +434,9 @@ MonoBehaviour:
   maxIterations: 10
   corridorwidth: 5
   material: {fileID: -1391134871863005975, guid: aa3fdb0b1155ab74388b6989c24580e7, type: 3}
+  roomBottomCornerModifer: 0.1
+  roomTopCornerModifier: 0.9
+  roomOffset: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
