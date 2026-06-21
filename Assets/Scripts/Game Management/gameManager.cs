@@ -45,6 +45,8 @@ public class gameManager : MonoBehaviour
     public Image speedUpTimer;
     public GameObject speedUpTimerUI;
     public TMP_Text grenadeText;
+    public GameObject hitMarker;
+    public float hitMarkerTime = 0.08f;
 
     [Header("Player Check Point Components")]
     public GameObject checkpointPopup;
@@ -89,6 +91,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] TMP_Text deathEnemiesText;
     [SerializeField] TMP_Text deathTimeText;
     [SerializeField] TMP_Text deathScoreText;
+
 
     int enemiesKilled;
     int parryCount;
@@ -646,5 +649,19 @@ public class gameManager : MonoBehaviour
 
         deathTimeText.text = minutes + ":" + seconds.ToString("00");
         deathScoreText.text = score.ToString();
+    }
+    public void ShowHitMarker()
+    {
+        StopCoroutine("hitMarkerFlash");
+        StartCoroutine("hitMarkerFlash");
+    }
+
+    IEnumerator hitMarkerFlash()
+    {
+        hitMarker.SetActive(true);
+
+        yield return new WaitForSeconds(hitMarkerTime);
+
+        hitMarker.SetActive(false);
     }
 }

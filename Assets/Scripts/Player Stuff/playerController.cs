@@ -384,6 +384,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
                 if (dmg != null)
                 {
                     dmg.takeDamage(gun.shootDamage);
+                    gameManager.instance.ShowHitMarker();
                 }
             }
         }
