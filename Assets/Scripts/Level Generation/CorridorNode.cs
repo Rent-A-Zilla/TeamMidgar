@@ -138,11 +138,36 @@ internal class CorridorNode : Node
             topStructure = possibleNeighborsInTopStructue[0];
         }
         int x = GetValidXForNeighborUpDown(bottomStructure.TopLeftAreaCorner, bottomStructure.TopRightAreaCorner, topStructure.BottemLeftAreaCorner, topStructure.BottomRightAreaCorner);
+
+        while(x == -1 && sortedBottomStructure.Count > 1)
+        {
+            sortedBottomStructure = sortedBottomStructure.Where(child => child.TopLeftAreaCorner.x != topStructure.TopLeftAreaCorner.x).ToList();
+            bottomStructure = sortedBottomStructure[0];
+            x = GetValidXForNeighborUpDown(bottomStructure.TopLeftAreaCorner, bottomStructure.TopRightAreaCorner, topStructure.BottemLeftAreaCorner, topStructure.BottomRightAreaCorner);
+        }
+        BottemLeftAreaCorner = new Vector2Int(x, bottomStructure.TopLeftAreaCorner.y);
+        TopRightAreaCorner = new Vector2Int(x + this.corridorWidth, topStructure.BottemLeftAreaCorner.y);
     }
 
-    private int GetValidXForNeighborUpDown(Vector2Int topLeftAreaCorner, Vector2Int topRightAreaCorner, Vector2Int bottemLeftAreaCorner, Vector2Int bottomRightAreaCorner)
+    private int GetValidXForNeighborUpDown(Vector2Int bottomNodeLeft, Vector2Int bottomNodeRight, Vector2Int topNodeLeft, Vector2Int topNodeRight)
     {
-        throw new NotImplementedException();
+        if(topNodeLeft.x < bottomNodeLeft.x && bottomNodeRight.x < topNodeRight.x)
+        {
+            return StructureHelper.CalculateMiddlePoint(bottomNodeLeft + new Vector2Int(modifierDistanceFromWall, 0), bottomNodeRight - new Vector2Int(this.corridorWidth + modifierDistanceFromWall, 0)).x;
+        }
+        if(topNodeLeft.x >= bottomNodeLeft.x && bottomNodeRight.x >= topNodeRight.x)
+        {
+            return StructureHelper.CalculateMiddlePoint(topNodeLeft + new Vector2Int(modifierDistanceFromWall, 0), topNodeRight - new Vector2Int(this.corridorWidth + modifierDistanceFromWall, 0)).x;
+        }
+        if(bottomNodeLeft.x >= (topNodeLeft.x) && bottomNodeLeft.x <= topNodeRight.x)
+        {
+            return StructureHelper.CalculateMiddlePoint(bottomNodeLeft + new Vector2Int(modifierDistanceFromWall, 0), topNodeRight - new Vector2Int(this.corridorWidth + modifierDistanceFromWall, 0)).x;
+        }
+        if(bottomNodeRight.x <= topNodeRight.x && bottomNodeRight.x >= topNodeLeft.x)
+        {
+            return StructureHelper.CalculateMiddlePoint(topNodeLeft + new Vector2Int(modifierDistanceFromWall, 0), bottomNodeRight - new Vector2Int(this.corridorWidth + modifierDistanceFromWall, 0)).x;
+        }
+        return -1;
     }
 
     private RelativePosition CheckPositionStucture2AgainstStructure1()
