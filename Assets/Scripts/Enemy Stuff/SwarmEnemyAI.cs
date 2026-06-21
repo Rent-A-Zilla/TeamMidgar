@@ -111,7 +111,7 @@ public class swarmEnemyAI : MonoBehaviour, IDamage, IGrenade
             {
                 if(wasChasing && !isSearching && !searchLocked)
                 {
-                    if (searchRoutine == null && !isDead)
+                    if (searchRoutine == null)
                     {
                         searchRoutine = StartCoroutine(searchForPlayer());
                     }
@@ -135,11 +135,12 @@ public class swarmEnemyAI : MonoBehaviour, IDamage, IGrenade
 
     IEnumerator searchForPlayer()
     {
+
         isSearching = true;
         wasChasing = false;
 
 
-        audPlayer.PlayOneShot(audSearch[Random.Range(0, audSearch.Length)], audSearchVol);
+        //audPlayer.PlayOneShot(audSearch[Random.Range(0, audSearch.Length)], audSearchVol);
 
         int originalRoamDist = roamDist;
         int originalRoamTimer = roamPauseTimer;
