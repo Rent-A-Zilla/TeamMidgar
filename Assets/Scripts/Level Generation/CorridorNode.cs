@@ -65,7 +65,7 @@ internal class CorridorNode : Node
             leftStructure = sortedLeftStructure[index];
         }
 
-        var possibleNeighboursInRIghtStructureList = rightStructureChildren.Where(child => GetValidYForNeighborLeftRight(leftStructure.TopRightAreaCorner, leftStructure.BottomRightAreaCorner, child.TopLeftAreaCorner, child.BottemLeftAreaCorner) != -1).ToList();
+        var possibleNeighboursInRIghtStructureList = rightStructureChildren.Where(child => GetValidYForNeighborLeftRight(leftStructure.TopRightAreaCorner, leftStructure.BottomRightAreaCorner, child.TopLeftAreaCorner, child.BottemLeftAreaCorner) != -1).OrderBy(child =>child.BottomRightAreaCorner.x).ToList();
         if(possibleNeighboursInRIghtStructureList.Count <= 0)
         {
             rightStructure = structure2;
