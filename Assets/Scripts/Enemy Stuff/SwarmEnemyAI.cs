@@ -111,7 +111,7 @@ public class swarmEnemyAI : MonoBehaviour, IDamage, IGrenade
             {
                 if(wasChasing && !isSearching && !searchLocked)
                 {
-                    if (searchRoutine == null)
+                    if (searchRoutine == null && !isDead)
                     {
                         searchRoutine = StartCoroutine(searchForPlayer());
                     }
