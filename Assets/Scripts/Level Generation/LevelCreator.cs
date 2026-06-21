@@ -7,12 +7,15 @@ using Unity.AI.Navigation;
 using UnityEngine.AI;
 using System.Linq;
 using Random = UnityEngine.Random;
+using UnityEngine.UIElements;
+using Unity.VisualScripting;
 
 public class LevelCreator : MonoBehaviour
 {
     [SerializeField] Transform player;
     [SerializeField] GameObject[] enemySpawner;
     [SerializeField] GameObject[] weapons;
+    [SerializeField] GameObject flag; 
 
     [SerializeField] int enemyCount = 5;
     [SerializeField] int weaponCount = 5;
@@ -23,7 +26,7 @@ public class LevelCreator : MonoBehaviour
     public int widthMin;
     public int lengthMin;
     public int maxIterations;
-    public int corridorwidth;
+    public int corridorwidth = 3;
     public Material material;
     [Range(0.0f, 0.3f)]
     public float roomBottomCornerModifer;
@@ -189,6 +192,8 @@ public class LevelCreator : MonoBehaviour
         SpawnEnemies(rooms);
 
         SpawnWeapons(rooms);
+
+        SpawnFlag(rooms);
     }
 
     private void MovePlayerToSpawn(List<RoomNode> rooms)
@@ -261,5 +266,21 @@ public class LevelCreator : MonoBehaviour
 
             Instantiate(weapon, pos, Quaternion.identity);
         }
+    }
+
+    private void SpawnFlag(List<RoomNode> rooms)
+    {
+        if(flag == null || rooms.Count < 2)
+        {
+            return;
+        }
+
+        RoomNode playerRoom = rooms.OrderByDescending(r => r.Width * r.Length).First();
+
+        RoomNode furthestRoom = rooms.Where(r => r != playerRoom).OrderByDescending(r => Vector2.Distance(playerRoom.BottemLeftAreaCorner, r.BottemLeftAreaCorner)).First();
+
+        Vector3 flagPos = GetRoomCenter(furthestRoom); 
+
+        Instantiate(flag, flagPos, Quaternion.identity);
     }
 }
