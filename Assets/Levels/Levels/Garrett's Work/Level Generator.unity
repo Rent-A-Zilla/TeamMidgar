@@ -332,8 +332,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484777104}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.014278611, y: 0.9550483, z: -0.29230136, w: -0.047314767}
-  m_LocalPosition: {x: 57.02794, y: 60.91375, z: 143.78688}
+  m_LocalRotation: {x: -0.002852807, y: 0.94103837, z: -0.33818164, w: -0.0084766755}
+  m_LocalPosition: {x: 98.592896, y: 222.05215, z: 340.04156}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -427,11 +427,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c79361f952030044b86c58657ffd3158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelCreator
-  levelWidth: 100
-  levelLength: 100
+  levelWidth: 200
+  levelLength: 200
   widthMin: 25
   lengthMin: 25
-  maxIterations: 10
+  maxIterations: 30
   corridorwidth: 5
   material: {fileID: -1391134871863005975, guid: aa3fdb0b1155ab74388b6989c24580e7, type: 3}
   roomBottomCornerModifer: 0.1
