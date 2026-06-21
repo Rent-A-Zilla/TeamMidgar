@@ -119,6 +119,70 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &188529208
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 188529210}
+  - component: {fileID: 188529209}
+  m_Layer: 0
+  m_Name: NavMesh Surface
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &188529209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188529208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
+--- !u!4 &188529210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188529208}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 78.20942, y: 0.6408, z: 44.60404}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &866804514
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -216,6 +280,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+--- !u!4 &952655673 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7504374039852997019, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
+  m_PrefabInstance: {fileID: 1809843203}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1129498999
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,11 +578,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c79361f952030044b86c58657ffd3158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelCreator
-  levelWidth: 200
-  levelLength: 200
+  player: {fileID: 952655673}
+  enemySpawner:
+  - {fileID: 5731182868989180267, guid: d5f5c6b9841361148a32da03aa9c22dc, type: 3}
+  - {fileID: 5731182868989180267, guid: 03d3b7cc50074614bb2d07b5f9a16fab, type: 3}
+  - {fileID: 5731182868989180267, guid: e5a0c8fd6a739e340b9d3ffb0fc98c64, type: 3}
+  weapons:
+  - {fileID: 3826148948324743065, guid: 5852b915843c3a843b2571eae4fb883d, type: 3}
+  - {fileID: 4752001546767124718, guid: 3c64dddf2eb976b41880e79f7cbb8395, type: 3}
+  - {fileID: 2017663692349419876, guid: 2e144af2395a8d740975600c64833a64, type: 3}
+  enemyCount: 10
+  weaponCount: 5
+  NavMeshSurface: {fileID: 188529209}
+  levelWidth: 150
+  levelLength: 150
   widthMin: 25
   lengthMin: 25
-  maxIterations: 30
+  maxIterations: 10
   corridorwidth: 5
   material: {fileID: -1391134871863005975, guid: aa3fdb0b1155ab74388b6989c24580e7, type: 3}
   roomBottomCornerModifer: 0.1
@@ -530,3 +611,4 @@ SceneRoots:
   - {fileID: 1809843203}
   - {fileID: 866804514}
   - {fileID: 1970130004}
+  - {fileID: 188529210}
