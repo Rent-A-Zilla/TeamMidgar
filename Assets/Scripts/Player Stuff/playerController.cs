@@ -18,6 +18,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     [SerializeField] List<gunStats> gunList = new List<gunStats>();
 
+    [SerializeField] gunStats startingGun;
+
     [Header("-----Weapon IK-----")]
     [SerializeField] Transform rightHandTarget;
     [SerializeField] Transform leftHandTarget;
@@ -72,12 +74,14 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     float currentStamina;
     float speedBoostAmount;
+    float lastShotTime;
 
     int gunListPos;
     int grenadeListPos;
     int jumpMaxOrig;
     int jumpCount;
     int HPOrig;
+    int sprayIndex;
 
     float shootTimer;
 
@@ -96,6 +100,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     Coroutine staminaRegenCoroutine;
     Coroutine speedUpCoroutine;
+
+    cameraController camControl;
 
     public int getHP()
     {
@@ -123,7 +129,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
     void Start()
     {
-        
+        camControl = Camera.main.GetComponent<cameraController>();
         controller = GetComponent<CharacterController>();
         HPOrig = HP;
         currentStamina = maxStamina;
@@ -140,6 +146,11 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         gameManager.instance.speedUpTimerUI.SetActive(false);
 
         parryArms.SetActive(false);
+
+        if (startingGun != null)
+        {
+            getGunStats(startingGun);
+        }
     }
 
     void Update()
@@ -330,6 +341,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         gunStats gun = gunList[gunListPos];
 
         gun.ammoCur--;
+
+        ApplySprayPattern(gun);
 
         if (currentGunFPS != null)
         {
@@ -938,5 +951,24 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
         hitDirection.Normalize();
 
         knockbackVelocity = hitDirection * force;
+    }
+    void ApplySprayPattern(gunStats gun)
+    {
+        if (Time.time - lastShotTime > gun.sprayResetTime)
+        {
+            sprayIndex = 0;
+        }
+
+        if (gun.sprayPattern == null || gun.sprayPattern.Length == 0)
+        {
+            return;
+        }
+
+        Vector2 spray = gun.sprayPattern[Mathf.Min(sprayIndex, gun.sprayPattern.Length - 1)];
+
+        camControl.AddSpray(spray * gun.sprayStrength);
+
+        sprayIndex++;
+        lastShotTime = Time.time;
     }
 }

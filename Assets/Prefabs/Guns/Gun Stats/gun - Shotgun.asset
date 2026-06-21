@@ -17,11 +17,11 @@ MonoBehaviour:
   shootDamage: 3
   shootDist: 25
   shootRate: 0.79
-  ammoCur: 7
+  ammoCur: 10
   ammoMax: 10
   ammoReserve: 100
   ammoReserveMax: 100
-  pellets: 10
+  pellets: 15
   spreadAmount: 0.08
   hiteffect: {fileID: 5204688178410551838, guid: c33735bcd614dcc409fe8286a314139c, type: 3}
   shootSound:
@@ -29,3 +29,7 @@ MonoBehaviour:
   shootSoundVol: 0.5
   muzzleFlash: {fileID: 4046163878033562411, guid: 816b3654102f2a0439993f494d8dfa33, type: 3}
   tracerBullet: {fileID: 0}
+  sprayPattern:
+  - {x: 2, y: 2}
+  sprayResetTime: 0.5
+  sprayStrength: 3
