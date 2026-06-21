@@ -39,6 +39,7 @@ public class LevelCreator : MonoBehaviour
 
     public void createLevel()
     {
+        DestroyAllChildren();
         levelGenerator generator = new levelGenerator(levelWidth, levelLength);
         var listOfRooms = generator.CalculateLevel(maxIterations, widthMin, lengthMin, roomBottomCornerModifer, roomTopCornerModifier, roomOffset, corridorwidth);
 
@@ -115,6 +116,7 @@ public class LevelCreator : MonoBehaviour
         levelFloor.transform.localScale = Vector3.one;
         levelFloor.GetComponent<MeshFilter>().mesh = mesh;
         levelFloor.GetComponent<MeshRenderer>().material = material;
+        levelFloor.transform.parent = transform;
 
         for(int row = (int)bottomLeftV.x; row < (int)bottomRightV.x; row++)
         {
@@ -149,6 +151,17 @@ public class LevelCreator : MonoBehaviour
         else
         {
             wallList.Add(point);
+        }
+    }
+
+    private void DestroyAllChildren()
+    {
+        while(transform.childCount != 0)
+        {
+            foreach(Transform item in transform)
+            {
+                DestroyImmediate(item.gameObject);
+            }
         }
     }
 }
