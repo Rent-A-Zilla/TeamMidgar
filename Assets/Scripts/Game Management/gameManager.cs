@@ -47,6 +47,9 @@ public class gameManager : MonoBehaviour
     public TMP_Text grenadeText;
     public GameObject hitMarker;
     public float hitMarkerTime = 0.08f;
+    public TMP_Text scorePopupText;
+    public float scorePopupTime = 0.6f;
+    public float scorePopupMoveUp = 40f;
 
     [Header("Player Check Point Components")]
     public GameObject checkpointPopup;
@@ -109,6 +112,8 @@ public class gameManager : MonoBehaviour
     public bool nearby;
     bool isDying;
 
+    Vector2 scorePopupStartPos;
+
     public enum DeathCause
     {
         Unknown,
@@ -124,6 +129,8 @@ public class gameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+
+        scorePopupStartPos = scorePopupText.rectTransform.anchoredPosition;
 
         levelTimer = levelTimeLimit;
 
@@ -663,5 +670,48 @@ public class gameManager : MonoBehaviour
         yield return new WaitForSeconds(hitMarkerTime);
 
         hitMarker.SetActive(false);
+    }
+    public void ShowScorePopup(int amount)
+    {
+        StopCoroutine("scorePopup");
+        StartCoroutine(scorePopup(amount));
+    }
+
+    IEnumerator scorePopup(int amount)
+    {
+        scorePopupText.text = "+" + amount;
+        scorePopupText.gameObject.SetActive(true);
+
+        RectTransform rect = scorePopupText.rectTransform;
+
+        rect.anchoredPosition = scorePopupStartPos;
+        rect.localScale = Vector3.one * 1.2f;
+
+        Color c = scorePopupText.color;
+        c.a = 1f;
+        scorePopupText.color = c;
+
+        float timer = 0f;
+
+        while (timer < scorePopupTime)
+        {
+            timer += Time.deltaTime;
+
+            float t = timer / scorePopupTime;
+
+            rect.anchoredPosition =
+                scorePopupStartPos + Vector2.up * scorePopupMoveUp * t;
+
+            rect.localScale =
+                Vector3.Lerp(Vector3.one * 1.2f, Vector3.one, t);
+
+            c = scorePopupText.color;
+            c.a = Mathf.Lerp(1f, 0f, t);
+            scorePopupText.color = c;
+
+            yield return null;
+        }
+
+        scorePopupText.gameObject.SetActive(false);
     }
 }

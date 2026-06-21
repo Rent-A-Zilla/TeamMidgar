@@ -262,6 +262,9 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
         if (HP <= 0 && !isDead)
         {
             isDead = true;
+
+            gameManager.instance.ShowScorePopup(100);
+
             gameManager.instance.addCurrency(cashOnDeath);
             gameManager.instance.updateGameGoal(-1);
 
