@@ -28,10 +28,8 @@ public class levelGenerator
         List<RoomNode> roomList = roomGenerator.GenrateRoomsInGivenSpaces(roomSpaces, roomBottomCornerModifer, roomTopCornerModifier, roomOffset);
 
         CorridorsGenerator corridorGenerator = new CorridorsGenerator();
-
-        var corridorList = corridorGenerator.CreateCorridor(allNodesCollection, corridorWidth);
-
-
+        var corridorList = corridorGenerator.CreateCorridor(roomList, corridorWidth);
+        
         return new List<Node>(roomList);
     }
 }

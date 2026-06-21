@@ -30,8 +30,8 @@ public class LevelCreator : MonoBehaviour
 
     public void createLevel()
     {
-        levelGenerator generator = new levelGenerator(levelWidth, levelLength); 
-        var listOfRooms = generator.CalculateRooms(maxIterations, widthMin, lengthMin, roomBottomCornerModifer, roomTopCornerModifier, roomOffset, corridorwidth);
+        levelGenerator generator = new levelGenerator(levelWidth, levelLength);
+        var listOfRooms = generator.CalculateLevel(maxIterations, widthMin, lengthMin, roomBottomCornerModifer, roomTopCornerModifier, roomOffset, corridorwidth);
         for (int i = 0; i < listOfRooms.Count; i++)
         {
             createMesh(listOfRooms[i].BottemLeftAreaCorner, listOfRooms[i].TopRightAreaCorner);
