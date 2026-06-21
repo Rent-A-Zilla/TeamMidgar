@@ -3,15 +3,30 @@ using System.Collections.Generic;
 using System.Collections; 
 using UnityEngine;
 using System;
+using Unity.AI.Navigation;
+using UnityEngine.AI;
+using System.Linq;
+using Random = UnityEngine.Random;
+using UnityEngine.UIElements;
+using Unity.VisualScripting;
 
 public class LevelCreator : MonoBehaviour
 {
+    [SerializeField] Transform player;
+    [SerializeField] GameObject[] enemySpawner;
+    [SerializeField] GameObject[] weapons;
+    [SerializeField] GameObject flag; 
+
+    [SerializeField] int enemyCount = 5;
+    [SerializeField] int weaponCount = 5;
+
+    [SerializeField] NavMeshSurface NavMeshSurface;
     public int levelWidth;
     public int levelLength;
     public int widthMin;
     public int lengthMin;
     public int maxIterations;
-    public int corridorwidth;
+    public int corridorwidth = 3;
     public Material material;
     [Range(0.0f, 0.3f)]
     public float roomBottomCornerModifer;
@@ -28,13 +43,13 @@ public class LevelCreator : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        createLevel();  
+        createLevel();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void createLevel()
@@ -44,7 +59,7 @@ public class LevelCreator : MonoBehaviour
         var listOfRooms = generator.CalculateLevel(maxIterations, widthMin, lengthMin, roomBottomCornerModifer, roomTopCornerModifier, roomOffset, corridorwidth);
 
         GameObject wallParent = new GameObject("Wall Parent");
-        wallParent.transform.parent = transform; 
+        wallParent.transform.parent = transform;
         possibleDoorVerticalPosition = new List<Vector3Int>();
         possibleDoorHorizontalposition = new List<Vector3Int>();
         possibleWallHorizontalPosition = new List<Vector3Int>();
@@ -52,19 +67,20 @@ public class LevelCreator : MonoBehaviour
         for (int i = 0; i < listOfRooms.Count; i++)
         {
             createMesh(listOfRooms[i].BottemLeftAreaCorner, listOfRooms[i].TopRightAreaCorner);
-          
+
         }
         CreateWalls(wallParent);
 
+        StartCoroutine(SpawnAfterGeneration(generator.GeneratedRooms));
     }
 
     private void CreateWalls(GameObject wallParent)
     {
-        foreach(var wallPosition in possibleWallHorizontalPosition)
+        foreach (var wallPosition in possibleWallHorizontalPosition)
         {
             CreateWall(wallParent, wallPosition, wallHorizontal);
         }
-        foreach(var wallPosition in possibleWallVerticalPosition)
+        foreach (var wallPosition in possibleWallVerticalPosition)
         {
             CreateWall(wallParent, wallPosition, wallVertical);
         }
@@ -91,7 +107,7 @@ public class LevelCreator : MonoBehaviour
         };
 
         Vector2[] uvs = new Vector2[vertices.Length];
-        for(int i = 0; i < uvs.Length; i++)
+        for (int i = 0; i < uvs.Length; i++)
         {
             uvs[i] = new Vector2(vertices[i].x, vertices[i].z);
         }
@@ -110,7 +126,7 @@ public class LevelCreator : MonoBehaviour
         mesh.uv = uvs;
         mesh.triangles = triangles;
 
-        GameObject levelFloor = new GameObject("Mesh" + bottomLeftCorner, typeof(MeshFilter), typeof(MeshRenderer));   
+        GameObject levelFloor = new GameObject("Mesh" + bottomLeftCorner, typeof(MeshFilter), typeof(MeshRenderer));
 
         levelFloor.transform.position = Vector3.zero;
         levelFloor.transform.localScale = Vector3.one;
@@ -118,17 +134,17 @@ public class LevelCreator : MonoBehaviour
         levelFloor.GetComponent<MeshRenderer>().material = material;
         levelFloor.transform.parent = transform;
 
-        for(int row = (int)bottomLeftV.x; row < (int)bottomRightV.x; row++)
+        for (int row = (int)bottomLeftV.x; row < (int)bottomRightV.x; row++)
         {
             var wallPosition = new Vector3(row, 0, bottomLeftV.z);
             AddWallPostion(wallPosition, possibleWallHorizontalPosition, possibleDoorHorizontalposition);
         }
-        for(int row = (int)topLeftV.x; row < (int)topRightCorner.x; row++)
+        for (int row = (int)topLeftV.x; row < (int)topRightCorner.x; row++)
         {
             var wallPosition = new Vector3(row, 0, topRightV.z);
             AddWallPostion(wallPosition, possibleWallHorizontalPosition, possibleDoorHorizontalposition);
         }
-        for(int col = (int)bottomLeftV.z; col < (int)topLeftV.z; col++)
+        for (int col = (int)bottomLeftV.z; col < (int)topLeftV.z; col++)
         {
             var wallPosition = new Vector3(bottomLeftV.x, 0, col);
             AddWallPostion(wallPosition, possibleWallVerticalPosition, possibleDoorVerticalPosition);
@@ -143,7 +159,7 @@ public class LevelCreator : MonoBehaviour
     private void AddWallPostion(Vector3 wallPosition, List<Vector3Int> wallList, List<Vector3Int> doorList)
     {
         Vector3Int point = Vector3Int.CeilToInt(wallPosition);
-        if(wallList.Contains(point))
+        if (wallList.Contains(point))
         {
             doorList.Add(point);
             wallList.Remove(point);
@@ -156,12 +172,115 @@ public class LevelCreator : MonoBehaviour
 
     private void DestroyAllChildren()
     {
-        while(transform.childCount != 0)
+        while (transform.childCount != 0)
         {
-            foreach(Transform item in transform)
+            foreach (Transform item in transform)
             {
                 DestroyImmediate(item.gameObject);
             }
         }
+    }
+
+    private IEnumerator SpawnAfterGeneration(List<RoomNode> rooms)
+    {
+        NavMeshSurface.BuildNavMesh();
+
+        yield return null;
+
+        MovePlayerToSpawn(rooms);
+
+        SpawnEnemies(rooms);
+
+        SpawnWeapons(rooms);
+
+        SpawnFlag(rooms);
+    }
+
+    private void MovePlayerToSpawn(List<RoomNode> rooms)
+    {
+        if (player == null || rooms.Count == 0)
+        {
+            return;
+        }
+
+        RoomNode startRoom = rooms.OrderByDescending(r => r.Width * r.Length).First();
+
+        player.position = GetRoomCenter(startRoom);
+    }
+
+    private Vector3 GetRoomCenter(RoomNode room)
+    {
+        float x = (room.BottemLeftAreaCorner.x + room.TopRightAreaCorner.x) / 2f;
+
+        float z = (room.BottemLeftAreaCorner.y + room.TopRightAreaCorner.y) / 2f;
+
+        return new Vector3(z, 1f, z);
+    }
+
+    private Vector3 GetRandomPointInRoom(RoomNode room)
+    {
+        float x = Random.Range(room.BottemLeftAreaCorner.x + 1, room.TopRightAreaCorner.x - 1);
+        float z = Random.Range(room.BottemLeftAreaCorner.y + 1, room.TopRightAreaCorner.y - 1);
+
+        return new Vector3(x, 1f, z);
+    }
+
+    private void SpawnEnemies(List<RoomNode> rooms)
+    {
+        if (enemySpawner == null || enemySpawner.Length == 0)
+            return;
+
+        RoomNode playerRoom = rooms.OrderByDescending( r => r.Width * r.Length).First();
+
+        List<RoomNode> enemyRooms = rooms.Where(r => r != playerRoom).ToList();
+
+        for (int i = 0; i < enemyCount; i++)
+        {
+            RoomNode room = enemyRooms[Random.Range( 0,enemyRooms.Count)];
+
+            Vector3 pos = GetRandomPointInRoom(room);
+
+            NavMeshHit hit;
+
+            if (NavMesh.SamplePosition( pos, out hit,2f, NavMesh.AllAreas))
+            {
+                GameObject spawner = enemySpawner[Random.Range(0, enemySpawner.Length)];
+
+                Instantiate(spawner,hit.position, Quaternion.identity);
+            }
+        }
+    }
+
+    private void SpawnWeapons(List<RoomNode> rooms)
+    {
+        if (weapons == null || weapons.Length == 0)
+            return;
+
+        for (int i = 0; i < weaponCount; i++)
+        {
+            RoomNode room = rooms[Random.Range(0, rooms.Count)];
+
+            Vector3 pos = GetRandomPointInRoom(room);
+
+            GameObject weapon = weapons[Random.Range(0, weapons.Length)];
+
+            Instantiate(weapon, pos, Quaternion.identity);
+        }
+    }
+
+    private void SpawnFlag(List<RoomNode> rooms)
+    {
+        if(flag == null || rooms.Count < 2)
+        {
+            return;
+        }
+
+        RoomNode playerRoom = rooms.OrderByDescending(r => r.Width * r.Length).First();
+
+        RoomNode furthestRoom = rooms.Where(r => r != playerRoom).OrderByDescending(r => Vector2.Distance(playerRoom.BottemLeftAreaCorner, r.BottemLeftAreaCorner)).First();
+
+        Vector3 flagPos = GetRoomCenter(furthestRoom); 
+
+        Instantiate(flag, flagPos, Quaternion.identity);
     }
 }
