@@ -5,6 +5,12 @@ public class grenadeProjectile : MonoBehaviour
 {
     grenadeStats stats;
     bool hasExploded;
+    AudioSource aud;
+
+    void Awake()
+    {
+        aud = GetComponent<AudioSource>();
+    }
 
     public void setStats(grenadeStats grenadeStats)
     {
@@ -15,7 +21,6 @@ public class grenadeProjectile : MonoBehaviour
     IEnumerator explodeTimer()
     {
         yield return new WaitForSeconds(stats.fuseTime);
-
         explode();
     }
 
@@ -31,17 +36,11 @@ public class grenadeProjectile : MonoBehaviour
 
     void checkCollisionExplosion(GameObject obj)
     {
-        if (stats == null)
-        {
-            return;
-        }
-        // Prevent grenade from exploding immediately on player
-        if (obj.CompareTag("Player"))
-        {
-            return;
-        }
-        // Anti-gravity and knockback grenades explode on impact
-        if (stats.type == grenadeStats.grenadeType.AntiGravity ||stats.type == grenadeStats.grenadeType.Knockback)
+        if (stats == null) return;
+        if (obj.CompareTag("Player")) return;
+
+        if (stats.type == grenadeStats.grenadeType.AntiGravity ||
+            stats.type == grenadeStats.grenadeType.Knockback)
         {
             explode();
         }
@@ -49,16 +48,16 @@ public class grenadeProjectile : MonoBehaviour
 
     void explode()
     {
-        if (hasExploded)
-        {
-            return;
-        }
+        if (hasExploded) return;
 
         hasExploded = true;
 
-        if (stats.explosionSound.Length > 0)
+        AudioClip clip = null;
+
+        if (stats.explosionSound.Length > 0 && aud != null)
         {
-            AudioSource.PlayClipAtPoint(stats.explosionSound[Random.Range(0, stats.explosionSound.Length)], transform.position, stats.explosionSoundVol );
+            clip = stats.explosionSound[Random.Range(0, stats.explosionSound.Length)];
+            aud.PlayOneShot(clip, stats.explosionSoundVol);
         }
 
         if (stats.explosionEffect != null)
@@ -66,7 +65,6 @@ public class grenadeProjectile : MonoBehaviour
             Instantiate(stats.explosionEffect, transform.position, Quaternion.identity);
         }
 
-        // Find all colliders inside explosion radius
         Collider[] hits = Physics.OverlapSphere(transform.position, stats.radius);
 
         foreach (Collider hit in hits)
@@ -79,6 +77,18 @@ public class grenadeProjectile : MonoBehaviour
             }
         }
 
-        Destroy(gameObject);
+        MeshRenderer mesh = GetComponent<MeshRenderer>();
+        if (mesh != null)
+            mesh.enabled = false;
+
+        Collider col = GetComponent<Collider>();
+        if (col != null)
+            col.enabled = false;
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+            rb.isKinematic = true;
+
+        Destroy(gameObject, clip != null ? clip.length : 2f);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class levelGenerator
@@ -28,8 +29,8 @@ public class levelGenerator
         List<RoomNode> roomList = roomGenerator.GenrateRoomsInGivenSpaces(roomSpaces, roomBottomCornerModifer, roomTopCornerModifier, roomOffset);
 
         CorridorsGenerator corridorGenerator = new CorridorsGenerator();
-        var corridorList = corridorGenerator.CreateCorridor(roomList, corridorWidth);
+        var corridorList = corridorGenerator.CreateCorridor(allSpaceNodes, corridorWidth);
         
-        return new List<Node>(roomList);
+        return new List<Node>(roomList).Concat(corridorList).ToList();
     }
 }
