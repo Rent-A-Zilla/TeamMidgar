@@ -264,10 +264,7 @@ public class gameManager : MonoBehaviour
     }
     public void playerReachedExit()
     {
-        if (gameGoalCount <= 0)
-        {
-            completeLevel();
-        }
+        completeLevel();
     }
 
     void completeLevel()

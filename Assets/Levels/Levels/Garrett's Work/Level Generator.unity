@@ -191,6 +191,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5770671261135331556, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
+      propertyPath: leaderboardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7af59d1010a80564fb15530ce21aa62c, type: 2}
     - target: {fileID: 8143139085766427377, guid: e251e5b00f505504c825ad5d38ed4474, type: 3}
       propertyPath: m_Name
       value: UI
@@ -587,6 +591,7 @@ MonoBehaviour:
   - {fileID: 3826148948324743065, guid: 5852b915843c3a843b2571eae4fb883d, type: 3}
   - {fileID: 4752001546767124718, guid: 3c64dddf2eb976b41880e79f7cbb8395, type: 3}
   - {fileID: 2017663692349419876, guid: 2e144af2395a8d740975600c64833a64, type: 3}
+  flag: {fileID: 0}
   enemyCount: 10
   weaponCount: 5
   NavMeshSurface: {fileID: 188529209}
