@@ -55,8 +55,13 @@ public class buttonFunctions : MonoBehaviour
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
+
+#elif UNITY_WEBGL
+    SceneManager.LoadScene("Main Menu");
+
 #else
-            Application.Quit();
+    Application.Quit();
+
 #endif
     }
 
