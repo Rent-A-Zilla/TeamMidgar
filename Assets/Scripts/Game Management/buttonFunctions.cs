@@ -141,5 +141,14 @@ public class buttonFunctions : MonoBehaviour
 
         gameManager.instance.showMainMenuAfterName();
     }
+    public void openCredits()
+    {
+        gameManager.instance.openCreditsMenu();
+    }
+
+    public void closeCredits()
+    {
+        gameManager.instance.closeCreditsMenu();
+    }
 
 }

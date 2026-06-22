@@ -18,6 +18,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuHighScores;
     [SerializeField] GameObject menuShop;
     [SerializeField] GameObject menuAchievements;
+    [SerializeField] GameObject menuCredits;
 
 
     [Header("----- Cams -----")]
@@ -184,7 +185,7 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel") || Input.GetKeyDown(KeyCode.P))
         {
             if (menuActive == null)
             {
@@ -713,5 +714,16 @@ public class gameManager : MonoBehaviour
         }
 
         scorePopupText.gameObject.SetActive(false);
+    }
+    public void openCreditsMenu()
+    {
+        menuPause.SetActive(false);
+        menuCredits.SetActive(true);
+    }
+
+    public void closeCreditsMenu()
+    {
+        menuCredits.SetActive(false);
+        menuPause.SetActive(true);
     }
 }
