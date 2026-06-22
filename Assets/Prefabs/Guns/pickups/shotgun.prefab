@@ -255,6 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 752067b5805786f49b0641ef03c04ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::weaponPickup
+  id: fa02af2f-b058-4463-ab7f-c77f13f71444
   gun: {fileID: 11400000, guid: c2a63d7ade1c4e04eba58ff43a1482c9, type: 2}
 --- !u!114 &5831998307990717101
 MonoBehaviour:
