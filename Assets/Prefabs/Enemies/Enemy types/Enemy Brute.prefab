@@ -413,6 +413,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6020598556369195590}
+  - component: {fileID: 416235519582613486}
+  - component: {fileID: 3719712924777809355}
   m_Layer: 0
   m_Name: Spear
   m_TagString: Untagged
@@ -435,6 +437,40 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6021946808422175854}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &416235519582613486
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6018319358698171276}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3719712924777809355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6018319358698171276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85fee683dbb72e4091727c38dc2db5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::meleeDamage
+  damage: 10
 --- !u!1 &6018424109904990678
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +480,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6022173834410709032}
-  - component: {fileID: 5967274016237244418}
   m_Layer: 0
   m_Name: FootmanPBR
   m_TagString: Untagged
@@ -469,28 +504,6 @@ Transform:
   - {fileID: 6021946808422175854}
   m_Father: {fileID: 5760851440073369188}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &5967274016237244418
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6018424109904990678}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: d06688f72e50aaa48b0dea3435bfe092, type: 3}
-  m_Controller: {fileID: 9100000, guid: 8aba7a975cc08dd4fb1345966135537b, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6018640390502731824
 GameObject:
   m_ObjectHideFlags: 0
@@ -1112,6 +1125,7 @@ GameObject:
   - component: {fileID: 4015618203654170260}
   - component: {fileID: 7357256356562255162}
   - component: {fileID: 7170912593935203168}
+  - component: {fileID: 8105441121187240366}
   m_Layer: 7
   m_Name: Enemy Brute
   m_TagString: Untagged
@@ -1159,9 +1173,9 @@ MonoBehaviour:
   FOV: 45
   roamDist: 5
   roamPauseTimer: 0
+  weaponCollider: {fileID: 416235519582613486}
   attackRate: 1
   attackRange: 2
-  damage: 0
   objectsToDrop:
   - {fileID: 4752001546767124718, guid: 3c64dddf2eb976b41880e79f7cbb8395, type: 3}
   - {fileID: 6915555189158123127, guid: 15b3f9ba84d3a1a4091b485a8470104a, type: 3}
@@ -1206,7 +1220,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1dd10317bfe8a4b62889f90c47f27914, type: 3}
   - {fileID: 8300000, guid: ef2a40d7b368a4f6d85736e88dee9d85, type: 3}
   audSearchVol: 1
-  anim: {fileID: 5967274016237244418}
+  anim: {fileID: 8105441121187240366}
 --- !u!33 &4893787020943002242
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1330,6 +1344,28 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 7
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &8105441121187240366
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8645371758993913359}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: d06688f72e50aaa48b0dea3435bfe092, type: 3}
+  m_Controller: {fileID: 9100000, guid: 8aba7a975cc08dd4fb1345966135537b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1542871331317347291
 PrefabInstance:
   m_ObjectHideFlags: 0

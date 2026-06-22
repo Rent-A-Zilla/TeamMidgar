@@ -21,10 +21,9 @@ public class meleeEnemyAI : MonoBehaviour, IDamage, IGrenade
     [Range(0, 10)][SerializeField] int roamPauseTimer =0;
 
     [Header("----- Weapons -----")]
+    [SerializeField] Collider weaponCollider;
     [SerializeField] float attackRate;
     [SerializeField] float attackRange = 2f;
-    [SerializeField] int damage;
-
 
     [Header("----- Loot -----")]
     [SerializeField] GameObject[] objectsToDrop;
@@ -58,6 +57,7 @@ public class meleeEnemyAI : MonoBehaviour, IDamage, IGrenade
     bool playerInTrigger;
     bool wasChasing;
     bool isSearching;
+    bool inAttackRange;
     bool isDead = false;
 
     Vector3 playerDir;
@@ -82,6 +82,7 @@ public class meleeEnemyAI : MonoBehaviour, IDamage, IGrenade
 
         stoppingDistOrig = agent.stoppingDistance;
         startingPos = transform.position;
+        weaponCollider.enabled = false;
     }
 
     // Update is called once per frame
@@ -212,11 +213,7 @@ public class meleeEnemyAI : MonoBehaviour, IDamage, IGrenade
                 if(distanceToPlayer <= attackRange)
                 {
                     attackTimer += Time.deltaTime;
-                    if(attackTimer >= attackRate)
-                    {
-                        attackTimer = 0;
-                        anim.SetTrigger("Attack");
-                    }
+                    inAttackRange = distanceToPlayer <= attackRange;
                 }
 
                 agent.stoppingDistance = stoppingDistOrig;
@@ -460,8 +457,18 @@ public class meleeEnemyAI : MonoBehaviour, IDamage, IGrenade
     {
         anim.SetBool("Dead", true);
         agent.enabled = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         Destroy(gameObject);
+    }
+
+    public void EnableHitbox()
+    {
+        weaponCollider.enabled = false;
+    }
+
+    public void DisableHitbox()
+    {
+        weaponCollider.enabled = true;
     }
 }
