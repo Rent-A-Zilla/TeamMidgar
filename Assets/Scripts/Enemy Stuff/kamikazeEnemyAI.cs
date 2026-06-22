@@ -53,6 +53,9 @@ public class kamikazeEnemyAI : MonoBehaviour, IDamage, IGrenade
     [SerializeField] AudioClip[] audTik;
     [SerializeField] float audTikVol;
 
+    [Header("----- Animator -----")]
+    [SerializeField] Animator anim;
+
     Color colorOrig;
 
     int HPOrig;
@@ -111,6 +114,10 @@ public class kamikazeEnemyAI : MonoBehaviour, IDamage, IGrenade
 
         if (HP > 0)
         {
+            if (agent.enabled && agent.isOnNavMesh)
+            {
+                anim.SetFloat("Speed", agent.velocity.magnitude);
+            }
             bool canSee = canSeePlayer();
             if (playerInTrigger && canSee)
             {
@@ -263,6 +270,8 @@ public class kamikazeEnemyAI : MonoBehaviour, IDamage, IGrenade
             audPlayer.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
             lastHurtSoundTime = Time.time;
         }
+
+        anim.SetTrigger("Hit");
 
         HP -= amount;
 
