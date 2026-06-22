@@ -33,10 +33,25 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.stateUnpause();
     }
 
+    public void save()
+    {
+        DataPersistenceManager.instance.SaveGame(); 
+    }
+
+    public void loadGame()
+    {
+        DataPersistenceManager.shouldLoadGame = true;
+
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Level Generator");
+    }
+
     public void play()
     {
+        DataPersistenceManager.shouldLoadGame = false;
+
         Time.timeScale = 1;
-        SceneManager.LoadScene("Final Level Proto 2");
+        SceneManager.LoadScene("Level Generator");
     }
 
     public void turtorial()
