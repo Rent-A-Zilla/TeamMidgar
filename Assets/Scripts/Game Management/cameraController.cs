@@ -16,6 +16,8 @@ public class cameraController : MonoBehaviour
     [SerializeField] Transform player;
 
     float camRotx;
+    float pendingSprayX;
+    float pendingSprayY;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -32,6 +34,7 @@ public class cameraController : MonoBehaviour
             float mouseY = Input.GetAxisRaw("Mouse Y") * sens;
 
             camRotx -= mouseY;
+            camRotx -= pendingSprayX;
 
             if (gameManager.instance.isFirstPerson)
             {
@@ -44,7 +47,15 @@ public class cameraController : MonoBehaviour
 
             transform.localRotation = Quaternion.Euler(camRotx, 0, 0);
 
-            player.transform.Rotate(Vector3.up * mouseX);
+            player.transform.Rotate(Vector3.up * (mouseX + pendingSprayY));
+
+            pendingSprayX = 0;
+            pendingSprayY = 0;
         }
+    }
+    public void AddSpray(Vector2 spray)
+    {
+        pendingSprayX += spray.y;
+        pendingSprayY += spray.x;
     }
 }

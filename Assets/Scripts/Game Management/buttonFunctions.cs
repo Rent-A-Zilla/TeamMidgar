@@ -88,7 +88,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void buyHealthUpgrade()
     {
-        if (gameManager.instance.spendCurrency(100))
+        if (gameManager.instance.spendCurrency(1000))
         {
             gameManager.instance.playerScript.upgradeMaxHealth(25);
 
@@ -98,7 +98,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void buyStaminaUpgrade()
     {
-        if (gameManager.instance.spendCurrency(100))
+        if (gameManager.instance.spendCurrency(1000))
         {
             gameManager.instance.playerScript.upgradeMaxStamina(25);
 
@@ -108,7 +108,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void buyJumpUpgrade()
     {
-        if (gameManager.instance.spendCurrency(150))
+        if (gameManager.instance.spendCurrency(25000))
         {
             gameManager.instance.playerScript.upgradeJumpMax(1);
 
@@ -140,6 +140,15 @@ public class buttonFunctions : MonoBehaviour
         PlayerPrefs.Save();
 
         gameManager.instance.showMainMenuAfterName();
+    }
+    public void openCredits()
+    {
+        gameManager.instance.openCreditsMenu();
+    }
+
+    public void closeCredits()
+    {
+        gameManager.instance.closeCreditsMenu();
     }
 
 }

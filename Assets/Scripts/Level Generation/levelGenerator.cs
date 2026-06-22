@@ -6,6 +6,12 @@ using UnityEngine;
 
 public class levelGenerator
 {
+
+    public List<RoomNode> GeneratedRooms
+    {
+        get;
+        private set;
+    }
     
     List<RoomNode> allSpaceNodes = new List<RoomNode>(); 
     private int levelWidth;
@@ -26,11 +32,11 @@ public class levelGenerator
         List<Node> roomSpaces = StructureHelper.TraverseGraphToExtractLowestLeafes(bsp.RootNode);
 
         RoomGenerator roomGenerator = new RoomGenerator(maxIterations, lengthMin, widthMin);
-        List<RoomNode> roomList = roomGenerator.GenrateRoomsInGivenSpaces(roomSpaces, roomBottomCornerModifer, roomTopCornerModifier, roomOffset);
+        GeneratedRooms = roomGenerator.GenrateRoomsInGivenSpaces(roomSpaces, roomBottomCornerModifer, roomTopCornerModifier, roomOffset);
 
         CorridorsGenerator corridorGenerator = new CorridorsGenerator();
         var corridorList = corridorGenerator.CreateCorridor(allSpaceNodes, corridorWidth);
         
-        return new List<Node>(roomList).Concat(corridorList).ToList();
+        return new List<Node>(GeneratedRooms).Concat(corridorList).ToList();
     }
 }

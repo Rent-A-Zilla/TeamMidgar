@@ -35,4 +35,9 @@ public class gunStats : ScriptableObject
     public GameObject muzzleFlash;
     public GameObject tracerBullet;
 
+    [Header("----- Spray Pattern -----")]
+    public Vector2[] sprayPattern;
+    public float sprayResetTime = 0.4f;
+    public float sprayStrength = 1f;
+
 }
