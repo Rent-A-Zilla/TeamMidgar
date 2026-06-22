@@ -584,22 +584,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelCreator
   player: {fileID: 952655673}
   enemySpawner:
-  - {fileID: 5731182868989180267, guid: d5f5c6b9841361148a32da03aa9c22dc, type: 3}
+  - {fileID: 183548282906766664, guid: dafc67a2e39739f4589b4ad29894a37d, type: 3}
   - {fileID: 5731182868989180267, guid: 03d3b7cc50074614bb2d07b5f9a16fab, type: 3}
-  - {fileID: 5731182868989180267, guid: e5a0c8fd6a739e340b9d3ffb0fc98c64, type: 3}
+  - {fileID: 515071271167791968, guid: 595c4c795946f204a9c05c8091e042c8, type: 3}
+  - {fileID: 515071271167791968, guid: eaf215b93ac0bec468d9b8693289213d, type: 3}
+  - {fileID: 5731182868989180267, guid: 5dfe9f2fe03cffa46a458898f39caf42, type: 3}
+  - {fileID: 5531950164797963454, guid: a65324cf4c3360446a7f53c483d3a4c1, type: 3}
+  - {fileID: 7548797892054076379, guid: 5753eb23b0484e041ad99b1fbc826fc4, type: 3}
   weapons:
   - {fileID: 3826148948324743065, guid: 5852b915843c3a843b2571eae4fb883d, type: 3}
   - {fileID: 4752001546767124718, guid: 3c64dddf2eb976b41880e79f7cbb8395, type: 3}
   - {fileID: 2017663692349419876, guid: 2e144af2395a8d740975600c64833a64, type: 3}
-  flag: {fileID: 0}
+  - {fileID: 5982828494251734979, guid: d6d6ad8da71d4504d89a4eac8157d1fa, type: 3}
+  - {fileID: 5982828494251734979, guid: ac389fef086b6a541a3d93a20de71ec1, type: 3}
+  - {fileID: 5982828494251734979, guid: 6f46501c08fe79f4e81f0617201f446f, type: 3}
+  - {fileID: 6049171010721695068, guid: bb484573164db5c459ac02c3c5e42386, type: 3}
+  flag: {fileID: 4635835665014748699, guid: aa54c306bdc75864e8305475a69abaf4, type: 3}
   enemyCount: 10
   weaponCount: 5
   NavMeshSurface: {fileID: 188529209}
-  levelWidth: 150
-  levelLength: 150
+  levelWidth: 200
+  levelLength: 200
   widthMin: 25
   lengthMin: 25
-  maxIterations: 10
+  maxIterations: 15
   corridorwidth: 5
   material: {fileID: -1391134871863005975, guid: aa3fdb0b1155ab74388b6989c24580e7, type: 3}
   roomBottomCornerModifer: 0.1
