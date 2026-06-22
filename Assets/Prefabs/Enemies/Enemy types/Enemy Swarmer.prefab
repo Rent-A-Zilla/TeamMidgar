@@ -1363,6 +1363,7 @@ MonoBehaviour:
   audSearch:
   - {fileID: 8300000, guid: 1dc904b120aea44b58e588234674f5d7, type: 3}
   audSearchVol: 0
+  anim: {fileID: 5309707946466512618}
 --- !u!33 &4893787020943002242
 MeshFilter:
   m_ObjectHideFlags: 0

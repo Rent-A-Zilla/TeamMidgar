@@ -42,6 +42,9 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
     [SerializeField] AudioClip[] audSearch;
     [SerializeField] float audSearchVol;
 
+    [Header("----- Animator -----")]
+    [SerializeField] Animator anim;
+
     Color colorOrig;
 
     int HPOrig;
@@ -87,6 +90,10 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
     {
         if (HP > 0)
         {
+            if (agent.enabled && agent.isOnNavMesh)
+            {
+                anim.SetFloat("Speed", agent.velocity.magnitude);
+            }
             bool canSee = canSeePlayer();
             if (playerInTrigger && canSee)
             {
@@ -246,6 +253,7 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
             audPlayer.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
             lastHurtSoundTime = Time.time;
         }
+        anim.SetTrigger("Hit");
 
         HP -= amount;
 
@@ -289,7 +297,7 @@ public class enemyAI : MonoBehaviour, IDamage, IGrenade
     void rotateGun()
     {
         Vector3 shootDir = gameManager.instance.player.transform.position - shootPos.position;
-        shootDir.y = 0;
+        //shootDir.y = 0;
 
         Quaternion rot = Quaternion.LookRotation(shootDir);
         gunPivot.rotation = Quaternion.Lerp(gunPivot.rotation, rot, Time.deltaTime * gunRotateSpeed);

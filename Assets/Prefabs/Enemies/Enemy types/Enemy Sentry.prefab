@@ -416,6 +416,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9f0c3a7071f3c4d40872df5ec8282ecb, type: 3}
   - {fileID: 8300000, guid: fac2174a7dda34e878f23fc345a440b4, type: 3}
   audSearchVol: 1
+  anim: {fileID: 6653387055054685408}
 --- !u!195 &7108440799113527292
 NavMeshAgent:
   m_ObjectHideFlags: 0
