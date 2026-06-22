@@ -454,6 +454,63 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1466820644939824413, guid: 6d17ee65918217d4b9ca858b385d2711, type: 3}
   m_PrefabInstance: {fileID: 1461128689}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &567832156
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5760851440073369188, guid: 8f7b6283c2bb3664499c05e0a0d72bc5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 38.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760851440073369188, guid: 8f7b6283c2bb3664499c05e0a0d72bc5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760851440073369188, guid: 8f7b6283c2bb3664499c05e0a0d72bc5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -45.280617
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760851440073369188, guid: 8f7b6283c2bb3664499c05e0a0d72bc5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760851440073369188, guid: 8f7b6283c2bb3664499c05e0a0d72bc5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760851440073369188, guid: 8f7b6283c2bb3664499c05e0a0d72bc5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760851440073369188, guid: 8f7b6283c2bb3664499c05e0a0d72bc5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760851440073369188, guid: 8f7b6283c2bb3664499c05e0a0d72bc5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760851440073369188, guid: 8f7b6283c2bb3664499c05e0a0d72bc5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760851440073369188, guid: 8f7b6283c2bb3664499c05e0a0d72bc5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8645371758993913359, guid: 8f7b6283c2bb3664499c05e0a0d72bc5, type: 3}
+      propertyPath: m_Name
+      value: Enemy Brute (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8f7b6283c2bb3664499c05e0a0d72bc5, type: 3}
 --- !u!1001 &635658273
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1887,3 +1944,4 @@ SceneRoots:
   - {fileID: 1618434429}
   - {fileID: 1075821822}
   - {fileID: 481799425}
+  - {fileID: 567832156}

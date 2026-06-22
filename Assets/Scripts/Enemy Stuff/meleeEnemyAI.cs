@@ -57,6 +57,7 @@ public class meleeEnemyAI : MonoBehaviour, IDamage, IGrenade
     bool playerInTrigger;
     bool wasChasing;
     bool isSearching;
+    bool isAttacking;
     bool inAttackRange;
     bool isDead = false;
 
@@ -88,11 +89,16 @@ public class meleeEnemyAI : MonoBehaviour, IDamage, IGrenade
     // Update is called once per frame
     void Update()
     {
+        float distanceToPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
+        inAttackRange = distanceToPlayer <= attackRange;
         if (HP > 0)
         {
             if(agent.enabled && agent.isOnNavMesh)
             {
-                anim.SetFloat("Speed", agent.velocity.magnitude);
+                if (!isAttacking)
+                {
+                    anim.SetFloat("Speed", agent.velocity.magnitude);
+                }
             }
 
             bool canSee = canSeePlayer();
@@ -118,6 +124,7 @@ public class meleeEnemyAI : MonoBehaviour, IDamage, IGrenade
             {
                 checkRoam();
             }
+            HandleAttack();
         }
         if (healthBarCanvas != null && healthBarCanvas.activeSelf)
         {
@@ -212,7 +219,6 @@ public class meleeEnemyAI : MonoBehaviour, IDamage, IGrenade
                 float distanceToPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
                 if(distanceToPlayer <= attackRange)
                 {
-                    attackTimer += Time.deltaTime;
                     inAttackRange = distanceToPlayer <= attackRange;
                 }
 
@@ -470,5 +476,35 @@ public class meleeEnemyAI : MonoBehaviour, IDamage, IGrenade
     public void DisableHitbox()
     {
         weaponCollider.enabled = true;
+    }
+
+    void HandleAttack()
+    {
+        if (isDead) return;
+        float distanceToPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
+        bool canAttack = distanceToPlayer <= attackRange;
+        if(canAttack)
+        {
+            attackTimer += Time.deltaTime;
+
+            if(attackTimer >= attackRate)
+            {
+                attackTimer = 0;
+                anim.SetTrigger("Attack");
+            }
+            else
+            {
+                attackTimer = 0f;
+            }
+        }
+    }
+
+    public void OnAttackStart()
+    {
+        isAttacking = true;
+    }
+    public void OnAttackEnd()
+    {
+        isAttacking = false;
     }
 }
