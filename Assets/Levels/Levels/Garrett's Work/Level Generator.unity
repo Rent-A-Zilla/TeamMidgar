@@ -587,14 +587,15 @@ MonoBehaviour:
   - {fileID: 3826148948324743065, guid: 5852b915843c3a843b2571eae4fb883d, type: 3}
   - {fileID: 4752001546767124718, guid: 3c64dddf2eb976b41880e79f7cbb8395, type: 3}
   - {fileID: 2017663692349419876, guid: 2e144af2395a8d740975600c64833a64, type: 3}
+  flag: {fileID: 4635835665014748699, guid: aa54c306bdc75864e8305475a69abaf4, type: 3}
   enemyCount: 10
   weaponCount: 5
   NavMeshSurface: {fileID: 188529209}
-  levelWidth: 150
-  levelLength: 150
+  levelWidth: 200
+  levelLength: 200
   widthMin: 25
   lengthMin: 25
-  maxIterations: 10
+  maxIterations: 15
   corridorwidth: 5
   material: {fileID: -1391134871863005975, guid: aa3fdb0b1155ab74388b6989c24580e7, type: 3}
   roomBottomCornerModifer: 0.1

@@ -54,7 +54,7 @@ public class LevelCreator : MonoBehaviour
 
     public void createLevel()
     {
-        DestroyAllChildren();
+        
         levelGenerator generator = new levelGenerator(levelWidth, levelLength);
         var listOfRooms = generator.CalculateLevel(maxIterations, widthMin, lengthMin, roomBottomCornerModifer, roomTopCornerModifier, roomOffset, corridorwidth);
 

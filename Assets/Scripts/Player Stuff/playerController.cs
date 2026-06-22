@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 
-public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
+public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade, IDataPersistence
 {
     [SerializeField] CharacterController controller;
     [SerializeField] LayerMask ignoreLayer;
+    [SerializeField] List<gunStats> allGuns;
 
     [SerializeField] int HP;
 
@@ -970,5 +971,24 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade
 
         sprayIndex++;
         lastShotTime = Time.time;
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.transform.position = data.playerPosition;
+        foreach (string weaponName in data.collectedWeaponNames)
+        {
+            gunStats gun = Resources.Load<gunStats>("Guns/" + weaponName);
+
+            if (gun != null)
+            {
+                getGunStats(gun);
+            }
+        }
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.playerPosition = this.transform.position;
     }
 }
