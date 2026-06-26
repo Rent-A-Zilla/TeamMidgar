@@ -214,7 +214,7 @@ public class LevelCreator : MonoBehaviour
 
         float z = (room.BottemLeftAreaCorner.y + room.TopRightAreaCorner.y) / 2f;
 
-        return new Vector3(z, 1f, z);
+        return new Vector3(x, 1f, z);
     }
 
     private Vector3 GetRandomPointInRoom(RoomNode room)
@@ -251,14 +251,18 @@ public class LevelCreator : MonoBehaviour
         }
     }
 
+    
+
     private void SpawnWeapons(List<RoomNode> rooms)
     {
         if (weapons == null || weapons.Length == 0)
             return;
 
+        List<RoomNode> validRooms = rooms.Where(r => r.Width >= 6 && r.Length >= 6).ToList();
+
         for (int i = 0; i < weaponCount; i++)
         {
-            RoomNode room = rooms[Random.Range(0, rooms.Count)];
+            RoomNode room = validRooms[Random.Range(0, rooms.Count)];
 
             Vector3 pos = GetRandomPointInRoom(room);
 

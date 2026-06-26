@@ -664,11 +664,11 @@ MonoBehaviour:
   enemyCount: 10
   weaponCount: 5
   NavMeshSurface: {fileID: 188529209}
-  levelWidth: 200
-  levelLength: 200
+  levelWidth: 100
+  levelLength: 100
   widthMin: 25
   lengthMin: 25
-  maxIterations: 15
+  maxIterations: 20
   corridorwidth: 5
   material: {fileID: -1391134871863005975, guid: aa3fdb0b1155ab74388b6989c24580e7, type: 3}
   roomBottomCornerModifer: 0.1
