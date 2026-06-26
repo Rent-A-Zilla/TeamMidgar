@@ -219,8 +219,13 @@ public class LevelCreator : MonoBehaviour
 
     private Vector3 GetRandomPointInRoom(RoomNode room)
     {
-        float x = Random.Range(room.BottemLeftAreaCorner.x + 1, room.TopRightAreaCorner.x - 1);
-        float z = Random.Range(room.BottemLeftAreaCorner.y + 1, room.TopRightAreaCorner.y - 1);
+        const float margin = 2f;
+
+        float x = Random.Range(room.BottemLeftAreaCorner.x + margin,
+                               room.TopRightAreaCorner.x - margin);
+
+        float z = Random.Range(room.BottemLeftAreaCorner.y + margin,
+                               room.TopRightAreaCorner.y - margin);
 
         return new Vector3(x, 1f, z);
     }
@@ -230,28 +235,24 @@ public class LevelCreator : MonoBehaviour
         if (enemySpawner == null || enemySpawner.Length == 0)
             return;
 
-        RoomNode playerRoom = rooms.OrderByDescending( r => r.Width * r.Length).First();
+        RoomNode playerRoom = rooms.OrderByDescending(r => r.Width * r.Length).First();
 
         List<RoomNode> enemyRooms = rooms.Where(r => r != playerRoom).ToList();
 
-        for (int i = 0; i < enemyCount; i++)
+        foreach (RoomNode room in enemyRooms)
         {
-            RoomNode room = enemyRooms[Random.Range( 0,enemyRooms.Count)];
+            Vector3 spawnPos = GetRoomCenter(room);
 
-            Vector3 pos = GetRandomPointInRoom(room);
-
-            NavMeshHit hit;
-
-            if (NavMesh.SamplePosition( pos, out hit,2f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(spawnPos, out NavMeshHit hit, 2f, NavMesh.AllAreas))
             {
                 GameObject spawner = enemySpawner[Random.Range(0, enemySpawner.Length)];
 
-                Instantiate(spawner,hit.position, Quaternion.identity);
+                Instantiate(spawner, hit.position, Quaternion.identity);
             }
         }
     }
 
-    
+
 
     private void SpawnWeapons(List<RoomNode> rooms)
     {
@@ -270,6 +271,7 @@ public class LevelCreator : MonoBehaviour
 
             Instantiate(weapon, pos, Quaternion.identity);
         }
+        
     }
 
     private void SpawnFlag(List<RoomNode> rooms)
@@ -286,5 +288,22 @@ public class LevelCreator : MonoBehaviour
         Vector3 flagPos = GetRoomCenter(furthestRoom); 
 
         Instantiate(flag, flagPos, Quaternion.identity);
+    }
+
+    private bool TryGetSpawnPoint(RoomNode room, out Vector3 spawnPos)
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            Vector3 randomPoint = GetRandomPointInRoom(room);
+
+            if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 1f, NavMesh.AllAreas))
+            {
+                    spawnPos = hit.position;
+                    return true;
+            }
+        }
+
+        spawnPos = Vector3.zero;
+        return false;
     }
 }
