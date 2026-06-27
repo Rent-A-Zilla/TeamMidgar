@@ -40,6 +40,10 @@ public class LevelCreator : MonoBehaviour
     List<Vector3Int> possibleWallHorizontalPosition;
     List<Vector3Int> possibleWallVerticalPosition;
 
+    private RoomNode lootRoom;
+    private RoomNode playerRoom;
+    private RoomNode exitRoom; 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -187,6 +191,12 @@ public class LevelCreator : MonoBehaviour
 
         yield return null;
 
+        playerRoom = rooms.OrderByDescending(room => room.Width * room.Length).First();
+        List<RoomNode> availableRooms = rooms.Where(room => room != playerRoom).ToList();
+        lootRoom = availableRooms[Random.Range(0, availableRooms.Count)]; 
+        availableRooms.Remove(lootRoom);
+        exitRoom = availableRooms.OrderByDescending(room =>Vector2.Distance(playerRoom.BottemLeftAreaCorner,room.BottemLeftAreaCorner)).First();
+
         MovePlayerToSpawn(rooms);
 
         SpawnEnemies(rooms);
@@ -203,7 +213,7 @@ public class LevelCreator : MonoBehaviour
             return;
         }
 
-        RoomNode startRoom = rooms.OrderByDescending(r => r.Width * r.Length).First();
+        RoomNode startRoom = rooms.OrderByDescending(room => room.Width * room.Length).First();
 
         player.position = GetRoomCenter(startRoom);
     }
@@ -235,9 +245,9 @@ public class LevelCreator : MonoBehaviour
         if (enemySpawner == null || enemySpawner.Length == 0)
             return;
 
-        RoomNode playerRoom = rooms.OrderByDescending(r => r.Width * r.Length).First();
+        RoomNode playerRoom = rooms.OrderByDescending(room => room.Width * room.Length).First();
 
-        List<RoomNode> enemyRooms = rooms.Where(r => r != playerRoom).ToList();
+        List<RoomNode> enemyRooms = rooms.Where(room => room != playerRoom && room != lootRoom).ToList();
 
         foreach (RoomNode room in enemyRooms)
         {
@@ -256,38 +266,26 @@ public class LevelCreator : MonoBehaviour
 
     private void SpawnWeapons(List<RoomNode> rooms)
     {
-        if (weapons == null || weapons.Length == 0)
+        if (weapons == null || weapons.Length == 0 || lootRoom == null)
             return;
-
-        List<RoomNode> validRooms = rooms.Where(r => r.Width >= 6 && r.Length >= 6).ToList();
 
         for (int i = 0; i < weaponCount; i++)
         {
-            RoomNode room = validRooms[Random.Range(0, rooms.Count)];
-
-            Vector3 pos = GetRandomPointInRoom(room);
+            Vector3 pos = GetRandomPointInRoom(lootRoom);
 
             GameObject weapon = weapons[Random.Range(0, weapons.Length)];
 
             Instantiate(weapon, pos, Quaternion.identity);
         }
-        
+
     }
 
     private void SpawnFlag(List<RoomNode> rooms)
     {
-        if(flag == null || rooms.Count < 2)
-        {
+        if (flag == null || exitRoom == null)
             return;
-        }
 
-        RoomNode playerRoom = rooms.OrderByDescending(r => r.Width * r.Length).First();
-
-        RoomNode furthestRoom = rooms.Where(r => r != playerRoom).OrderByDescending(r => Vector2.Distance(playerRoom.BottemLeftAreaCorner, r.BottemLeftAreaCorner)).First();
-
-        Vector3 flagPos = GetRoomCenter(furthestRoom); 
-
-        Instantiate(flag, flagPos, Quaternion.identity);
+        Instantiate(flag, GetRoomCenter(exitRoom), Quaternion.identity);
     }
 
     private bool TryGetSpawnPoint(RoomNode room, out Vector3 spawnPos)
