@@ -12,7 +12,9 @@ public class grenadeStats : ScriptableObject
 
     public grenadeType type;
 
-    public GameObject grenadePrefab;
+    [Header("Prefabs")]
+    public GameObject pickupPrefab;
+    public GameObject projectilePrefab;
 
     [Header("Throw Settings")]
     public float throwForce = 15f;

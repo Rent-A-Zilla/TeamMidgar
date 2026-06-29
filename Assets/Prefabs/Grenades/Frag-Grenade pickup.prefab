@@ -11,13 +11,15 @@ GameObject:
   - component: {fileID: 5939434179510183145}
   - component: {fileID: 2115642232023655073}
   - component: {fileID: 2674373959900664660}
+  - component: {fileID: 857689209590588605}
   - component: {fileID: 8521005924498401682}
   - component: {fileID: 1764700158068012669}
+  - component: {fileID: 5265728587565307155}
   - component: {fileID: 5424780822313103005}
   - component: {fileID: -7580441623645815744}
   - component: {fileID: -3543053140889988383}
   m_Layer: 10
-  m_Name: Frag-Grenade
+  m_Name: Frag-Grenade pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,6 +99,19 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &857689209590588605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5982828494251734979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf585fc4c0cc89d40b61c4ac4204de4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::grenadePickup
+  grenade: {fileID: 11400000, guid: ee6e3022de4521743a522e5c9f929fcc, type: 2}
 --- !u!114 &8521005924498401682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,6 +137,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::pickupSpin
   rotationSpeed: {x: 180, y: 180, z: 0}
+--- !u!135 &5265728587565307155
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5982828494251734979}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.025
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &5424780822313103005
 Rigidbody:
   m_ObjectHideFlags: 0

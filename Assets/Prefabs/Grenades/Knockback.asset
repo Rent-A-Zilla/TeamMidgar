@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Knockback
   m_EditorClassIdentifier: Assembly-CSharp::grenadeStats
   type: 2
-  grenadePrefab: {fileID: 5982828494251734979, guid: 6f46501c08fe79f4e81f0617201f446f, type: 3}
+  pickupPrefab: {fileID: 5982828494251734979, guid: 6f46501c08fe79f4e81f0617201f446f, type: 3}
+  projectilePrefab: {fileID: 5982828494251734979, guid: 6f46501c08fe79f4e81f0617201f446f, type: 3}
   throwForce: 50
   upwardForce: 3
   fuseTime: 1

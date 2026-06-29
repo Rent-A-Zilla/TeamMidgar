@@ -13,11 +13,12 @@ GameObject:
   - component: {fileID: 2674373959900664660}
   - component: {fileID: 8521005924498401682}
   - component: {fileID: 1764700158068012669}
+  - component: {fileID: 5265728587565307155}
   - component: {fileID: 5424780822313103005}
-  - component: {fileID: -7580441623645815744}
-  - component: {fileID: -3543053140889988383}
+  - component: {fileID: 7942778162056008770}
+  - component: {fileID: -2245667684028889719}
   m_Layer: 10
-  m_Name: Frag-Grenade
+  m_Name: Anti-G Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,9 +72,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8420c8889b48d0b4ea1fa343979d48a3, type: 2}
+  - {fileID: 2100000, guid: e9ba82f133ea7f74da454eaef673bc21, type: 2}
   - {fileID: 2100000, guid: 5cf8222088830a74882684aa475f8129, type: 2}
-  - {fileID: 2100000, guid: 762c2d12c36857b41bb432ff3a050598, type: 2}
+  - {fileID: 2100000, guid: 7c234ccbdb5efd245a996b014a2522f1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -122,6 +123,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::pickupSpin
   rotationSpeed: {x: 180, y: 180, z: 0}
+--- !u!135 &5265728587565307155
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5982828494251734979}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.025
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &5424780822313103005
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -149,7 +171,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!135 &-7580441623645815744
+--- !u!135 &7942778162056008770
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,7 +192,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.010012169
   m_Center: {x: -0.0000000013969839, y: 0.0000000013969841, z: 0.00037783437}
---- !u!82 &-3543053140889988383
+--- !u!82 &-2245667684028889719
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

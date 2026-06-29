@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Frag
   m_EditorClassIdentifier: Assembly-CSharp::grenadeStats
   type: 0
-  grenadePrefab: {fileID: 5982828494251734979, guid: ac389fef086b6a541a3d93a20de71ec1, type: 3}
+  pickupPrefab: {fileID: 5982828494251734979, guid: 8570335ba57642541b8147587c1d7768, type: 3}
+  projectilePrefab: {fileID: 5982828494251734979, guid: ac389fef086b6a541a3d93a20de71ec1, type: 3}
   throwForce: 15
   upwardForce: 3
   fuseTime: 2.5

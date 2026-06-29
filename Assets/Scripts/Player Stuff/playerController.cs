@@ -407,20 +407,20 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade, IData
     void throwGrenade()
     {
         if (grenadeList.Count <= 0)
-        {
             return;
-        }
 
         grenadeStats grenade = grenadeList[grenadeListPos];
 
         if (grenadeCounts[grenadeListPos] <= 0)
-        {
             return;
-        }
 
-        Vector3 spawnPos = transform.position + transform.forward * 1.5f + Vector3.up * 1.0f;
+        Vector3 spawnPos = transform.position + Camera.main.transform.forward * 1.5f + Vector3.up * 1.0f;
 
-        GameObject grenadeObj = Instantiate(grenade.grenadePrefab, spawnPos, Camera.main.transform.rotation);
+        GameObject grenadeObj = Instantiate(
+            grenade.projectilePrefab,
+            spawnPos,
+            Camera.main.transform.rotation
+        );
 
         Rigidbody rb = grenadeObj.GetComponent<Rigidbody>();
 
@@ -448,9 +448,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade, IData
             grenadeCounts.RemoveAt(grenadeListPos);
 
             if (grenadeListPos > 0)
-            {
                 grenadeListPos--;
-            }
         }
 
         updateGrenadeUI();

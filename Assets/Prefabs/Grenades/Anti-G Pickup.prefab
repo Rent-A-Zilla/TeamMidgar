@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 7942778162056008770}
   - component: {fileID: -2245667684028889719}
   m_Layer: 10
-  m_Name: Anti-G
+  m_Name: Anti-G Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
