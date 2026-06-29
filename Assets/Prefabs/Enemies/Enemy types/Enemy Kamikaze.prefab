@@ -981,6 +981,7 @@ MonoBehaviour:
   audTik:
   - {fileID: 8300000, guid: 989b81e99c636eb498518eab7f6ecb5e, type: 3}
   audTikVol: 1
+  anim: {fileID: 5350970241256329737}
 --- !u!33 &4893787020943002242
 MeshFilter:
   m_ObjectHideFlags: 0
