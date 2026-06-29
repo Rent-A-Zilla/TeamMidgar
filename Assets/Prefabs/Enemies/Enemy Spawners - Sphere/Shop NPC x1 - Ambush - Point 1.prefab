@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6512757952583934820}
   - component: {fileID: 2838654621057517257}
-  - component: {fileID: 6747911978389420130}
+  - component: {fileID: 5188790572356328532}
   m_Layer: 0
-  m_Name: Kamikaze x1 - Ambush - Point
+  m_Name: Shop NPC x1 - Ambush - Point 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 25
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6747911978389420130
+--- !u!114 &5188790572356328532
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,11 +63,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 515071271167791968}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e03f9fcf2670cce43a2196253366594d, type: 3}
+  m_Script: {fileID: 11500000, guid: a4f159b2edb16f2458521a4ff034661a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::spawner
+  m_EditorClassIdentifier: Assembly-CSharp::shopSpawner
   objectsToSpawn:
-  - {fileID: 8645371758993913359, guid: 0e78e0606405dae4b960160bdf65bb43, type: 3}
+  - {fileID: 7548797892054076379, guid: 5753eb23b0484e041ad99b1fbc826fc4, type: 3}
   amountToSpawn: 1
   spawnRate: 0
-  spawnDist: 1
+  spawnDist: 5
