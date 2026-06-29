@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2838654621057517257}
   - component: {fileID: 6747911978389420130}
   m_Layer: 0
-  m_Name: SwarmSpawner x1 - Ambush - Point 1
+  m_Name: Kamikaze x1 - Ambush - Point 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::spawner
   objectsToSpawn:
-  - {fileID: 1833544682855820077, guid: 211275cab0ba7d2428bf4e857c04874e, type: 3}
+  - {fileID: 8645371758993913359, guid: 0e78e0606405dae4b960160bdf65bb43, type: 3}
   amountToSpawn: 1
   spawnRate: 0
   spawnDist: 1
