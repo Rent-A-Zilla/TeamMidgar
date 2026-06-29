@@ -296,8 +296,9 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade, IData
     void sprint()
     {
         bool sprintButtonHeld = Input.GetButton("Sprint");
+        bool isMoving = moveDir.magnitude > 0.1f;
 
-        if (sprintButtonHeld && currentStamina > 0)
+        if (sprintButtonHeld && isMoving && currentStamina > 0 && !isReloading && !isParrying)
         {
             isSprinting = true;
 
