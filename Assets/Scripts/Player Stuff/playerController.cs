@@ -812,29 +812,47 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade, IData
     IEnumerator parry()
     {
         isParrying = true;
+        parryIFrames = false;
 
         if (currentGunFPS != null)
             currentGunFPS.SetActive(false);
 
-        if (weaponArms != null)
-            weaponArms.SetActive(false);
+        setWeaponArmsVisible(false);
 
-        parryArms.SetActive(true);
+        if (parryArms != null)
+            parryArms.SetActive(true);
 
-        parryAnimator.ResetTrigger("Parry");
-        parryAnimator.SetTrigger("Parry");
+        if (parryAnimator != null)
+        {
+            parryAnimator.ResetTrigger("Parry");
+            parryAnimator.SetTrigger("Parry");
+        }
 
         yield return new WaitForSeconds(parryAnimTime);
 
-        parryArms.SetActive(false);
+        parryIFrames = false;
 
-        if (weaponArms != null)
-            weaponArms.SetActive(true);
+        if (parryArms != null)
+            parryArms.SetActive(false);
+
+        setWeaponArmsVisible(true);
 
         if (currentGunFPS != null)
             currentGunFPS.SetActive(true);
 
         isParrying = false;
+    }
+    void setWeaponArmsVisible(bool visible)
+    {
+        if (weaponArms == null)
+            return;
+
+        SkinnedMeshRenderer[] renderers = weaponArms.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+        foreach (SkinnedMeshRenderer rend in renderers)
+        {
+            rend.enabled = visible;
+        }
     }
 
     void crouch()
