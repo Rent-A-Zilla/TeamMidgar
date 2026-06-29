@@ -3631,6 +3631,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f46501c08fe79f4e81f0617201f446f, type: 3}
+--- !u!1001 &2005252937
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -1584068920111451542, guid: b243df687bfe96444bde6465e0b4ea25, type: 3}
+      propertyPath: moveSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729482303085755573, guid: b243df687bfe96444bde6465e0b4ea25, type: 3}
+      propertyPath: m_Name
+      value: LaserStack Strafe
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508029788297262232, guid: b243df687bfe96444bde6465e0b4ea25, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508029788297262232, guid: b243df687bfe96444bde6465e0b4ea25, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.589056
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508029788297262232, guid: b243df687bfe96444bde6465e0b4ea25, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 165.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508029788297262232, guid: b243df687bfe96444bde6465e0b4ea25, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508029788297262232, guid: b243df687bfe96444bde6465e0b4ea25, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508029788297262232, guid: b243df687bfe96444bde6465e0b4ea25, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508029788297262232, guid: b243df687bfe96444bde6465e0b4ea25, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508029788297262232, guid: b243df687bfe96444bde6465e0b4ea25, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508029788297262232, guid: b243df687bfe96444bde6465e0b4ea25, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508029788297262232, guid: b243df687bfe96444bde6465e0b4ea25, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b243df687bfe96444bde6465e0b4ea25, type: 3}
 --- !u!4 &2017842909 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6458570661804768295, guid: 4ef794b68217c8046afcae05ccc5b09b, type: 3}
@@ -4056,63 +4117,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &2097834020
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3873507769442169755, guid: 4b30a08486d802843a337c4f108cc7f1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 9.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873507769442169755, guid: 4b30a08486d802843a337c4f108cc7f1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.38526672
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873507769442169755, guid: 4b30a08486d802843a337c4f108cc7f1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 175.78
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873507769442169755, guid: 4b30a08486d802843a337c4f108cc7f1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873507769442169755, guid: 4b30a08486d802843a337c4f108cc7f1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873507769442169755, guid: 4b30a08486d802843a337c4f108cc7f1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873507769442169755, guid: 4b30a08486d802843a337c4f108cc7f1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873507769442169755, guid: 4b30a08486d802843a337c4f108cc7f1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873507769442169755, guid: 4b30a08486d802843a337c4f108cc7f1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873507769442169755, guid: 4b30a08486d802843a337c4f108cc7f1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6039700939614414162, guid: 4b30a08486d802843a337c4f108cc7f1, type: 3}
-      propertyPath: m_Name
-      value: LaserStack
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4b30a08486d802843a337c4f108cc7f1, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4135,7 +4139,6 @@ SceneRoots:
   - {fileID: 933738437}
   - {fileID: 1786573940}
   - {fileID: 301959504}
-  - {fileID: 2097834020}
   - {fileID: 605547369}
   - {fileID: 566504245}
   - {fileID: 846051134}
@@ -4145,3 +4148,4 @@ SceneRoots:
   - {fileID: 1666384274}
   - {fileID: 27164376}
   - {fileID: 1106087342}
+  - {fileID: 2005252937}
