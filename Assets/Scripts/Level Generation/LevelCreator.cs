@@ -247,7 +247,7 @@ public class LevelCreator : MonoBehaviour
 
         RoomNode playerRoom = rooms.OrderByDescending(room => room.Width * room.Length).First();
 
-        List<RoomNode> enemyRooms = rooms.Where(room => room != playerRoom && room != lootRoom).ToList();
+        List<RoomNode> enemyRooms = rooms.Where(room => room != playerRoom && room != lootRoom && room != exitRoom).ToList();
 
         foreach (RoomNode room in enemyRooms)
         {
