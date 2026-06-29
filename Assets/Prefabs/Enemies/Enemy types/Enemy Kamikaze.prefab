@@ -940,7 +940,7 @@ MonoBehaviour:
   explodeDelay: 1
   chargeSpeed: 4
   objectsToDrop:
-  - {fileID: 5982828494251734979, guid: ac389fef086b6a541a3d93a20de71ec1, type: 3}
+  - {fileID: 5982828494251734979, guid: 8570335ba57642541b8147587c1d7768, type: 3}
   amountToDrop: 1
   dropRate: 0
   dropDist: 1
