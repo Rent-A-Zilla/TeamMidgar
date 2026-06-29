@@ -46,6 +46,7 @@ public class WeaponProceduralMovement : MonoBehaviour
     Vector3 bobOffset;
 
     [Header("-----Sprint-----")]
+    [SerializeField] playerController player;
     [SerializeField] Vector3 sprintPosition = new Vector3(0.15f, -0.15f, -0.1f);
     [SerializeField] Vector3 sprintRotation = new Vector3(10f, -20f, 8f);
     [SerializeField] float sprintSmooth = 8f;
@@ -181,7 +182,7 @@ public class WeaponProceduralMovement : MonoBehaviour
     }
     void HandleSprint()
     {
-        bool sprinting = Input.GetButton("Sprint") && !isAiming && !isReloading;
+        bool sprinting = player != null && player.getIsSprinting() && !isAiming && !isReloading;
 
         Vector3 targetSprintPos = sprinting ? sprintPosition : Vector3.zero;
         Vector3 targetSprintRot = sprinting ? sprintRotation : Vector3.zero;

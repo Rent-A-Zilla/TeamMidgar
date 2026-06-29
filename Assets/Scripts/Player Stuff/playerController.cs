@@ -127,6 +127,10 @@ public class playerController : MonoBehaviour, IDamage, IPickup, IGrenade, IData
     {
         return parryIFrames;
     }
+    public bool getIsSprinting()
+    {
+        return isSprinting;
+    }
 
     void Start()
     {

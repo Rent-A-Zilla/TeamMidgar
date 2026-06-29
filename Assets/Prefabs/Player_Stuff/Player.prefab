@@ -249,6 +249,7 @@ MonoBehaviour:
   controller: {fileID: 6725278688864565504}
   bobAmount: 0.03
   bobSpeed: 7
+  player: {fileID: 2947614296203855692}
   sprintPosition: {x: 0.15, y: -0.15, z: -0.1}
   sprintRotation: {x: 10, y: -20, z: 8}
   sprintSmooth: 8
@@ -761,6 +762,7 @@ MonoBehaviour:
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 8
+  allGuns: []
   HP: 25
   jumpSpeed: 12
   jumpMax: 1
